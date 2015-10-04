@@ -61,127 +61,193 @@
                 <li class="active"><a href="forms.html">Forms</a></li>
             </ul>
         </div>
-
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Forms : Registration Form</h1>
+            <h1 class="page-header">Forms</h1>
 
             <ul class="nav nav-tabs">
                 <li role="presentation"><a href="forms.html">Forms</a></li>
                 <li role="presentation" class="active"><a href="form-fields.html">Fields</a></li>
             </ul>
-            <form  class="form-horizontal" action="profile.html">
-                <div class="form-group">
-                    <label for="firstname" class="col-sm-2 control-label">First Name</label>
-                    <div class="col-sm-10 float-left">
-                        <input class="form-control" id="firstname" placeholder="First Name">
-                    </div>
-                    <div class="col-sm-10 float-left">
-                        <a href="#" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href="#" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-ok"></scan>
-                        </a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lastname" class="col-sm-2 control-label">Last Name</label>
-                    <div class="col-sm-10  float-left">
-                        <input class="form-control" id="lastname" placeholder="Last Name">
-                    </div>
-                    <div class="col-sm-10 float-left">
-                        <a href="#" class="btn btn-primary">
-                            <scan class="glyphicon glyphicon-plus"></scan>
-                        </a>
-                        <a href="#" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-ok"></scan>
-                        </a>
-                    </div>
-                </div>
-                    <div class="form-group">
-                        <label for="dobdate" class="col-sm-2 control-label">Date of Birth</label>
-                        <div class="col-sm-10  float-left">
-                            <input type="date" class="form-control" id="dobdate" placeholder="Date Of Birth">
-                        </div>
+            <table class="table">
+                <tr>
+                    <td>
+                        <label for="firstname" class="col-sm-2 control-label">First Name</label>
                         <div class="col-sm-10 float-left">
-                            <a href="#" class="btn btn-primary">
-                                <scan class="glyphicon glyphicon-plus"></scan>
-                            </a>
-                            <a href="#" class="btn btn-success">
-                                <scan class="glyphicon glyphicon-ok"></scan>
-                            </a>
+                            <input class="form-control" id="firstname" placeholder="John">
                         </div>
-                    </div>
-                <div class="form-group">
-                    <label for="gender" class="col-sm-2 control-label">Gender</label>
-                    <div class="col-sm-10  float-left">
-                        <select class="form-control" type="text" name="gender" id="gender">
-                            <option value="USER">Male</option>
-                            <option value="ADMIN">Female</option>
-                            <option value="STUDENT">I do not want to answer</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-10 float-left">
+                    </td>
+                    <td style="white-space: nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
                         <a href="#" class="btn btn-primary">
                             <scan class="glyphicon glyphicon-plus"></scan>
                         </a>
-                        <a href="#" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-ok"></scan>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-remove"></scan>
                         </a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Role</label>
-                    <div class="checkbox col-sm-10 checkbox-inline float-left">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Admin
-                            </label>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-th-list"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="lastname" class="col-sm-2 control-label">Last Name</label>
+                        <div class="col-sm-10  float-left">
+                            <input class="form-control" id="lastname" placeholder="Doe">
                         </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Student
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Faculty
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-10 float-left">
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
                         <a href="#" class="btn btn-primary">
                             <scan class="glyphicon glyphicon-plus"></scan>
                         </a>
-                        <a href="#" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-ok"></scan>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-remove"></scan>
                         </a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">License Agreement</label>
-                    <div class="checkbox checkbox-inline">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="choice"> Yes
-                            </label>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-th-list"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="dobdate1" class="col-sm-2 control-label">Date of Birth</label>
+                        <div class="col-sm-10  float-left">
+                            <input type="date" class="form-control" id="dobdate1" placeholder="05/06/1991">
                         </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="choice"> No
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-10 float-left">
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
                         <a href="#" class="btn btn-primary">
                             <scan class="glyphicon glyphicon-plus"></scan>
                         </a>
-                        <a href="#" class="btn btn-success">
-                            <scan class="glyphicon glyphicon-ok"></scan>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-remove"></scan>
                         </a>
-                    </div>
-                </div>
-                </form>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-th-list"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="gender" class="col-sm-2 control-label">Gender</label>
+                        <div class="col-sm-10  float-left">
+                            <select class="col-xs-1 form-control" type="text" name="gender" id="gender">
+                                <option value="USER">Male</option>
+                                <option value="ADMIN">Female</option>
+                                <option value="STUDENT">I do not want to answer</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-th-list"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="check" class="col-sm-2 control-label">Role</label>
+                        <div class="checkbox col-sm-10 checkbox-inline float-left" id="check">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Admin
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Student
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Faculty
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-th-list"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="col-sm-2 control-label">License Agreement</label>
+                        <div class="checkbox checkbox-inline">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="choice"> Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="choice"> No
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-th-list"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="addnew" class="col-sm-2 control-label">Gender</label>
+                        <div class="col-sm-10 float-left">
+                            <select class="col-xs-1 form-control" type="text" name="gender" id="addnew">
+                                <option value="SINGLE">Single Line Text Field</option>
+                                <option value="DATE">Date Field</option>
+                                <option value="DROPDOWN">Dropdown Field</option>
+                                <option value="CHECKBOX">Checkbox Field</option>
+                                <option value="RADIO">Radio Button Field</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
