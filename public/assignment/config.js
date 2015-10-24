@@ -4,19 +4,29 @@ function(){
         .config(function($routeProvider){
             $routeProvider
                 .when("/", {
-                    templateUrl: "index.html",
-                    controller: "HomeController"
+                    /*templateUrl : "/assignment/home/home.view.html" */
+                    redirectTo : "/home" 
                 })
-                .when("/profile", {
-                    templateUrl: "admin.html",
-                    controller: "ProfileController"
+                .when("/login", {
+                    templateUrl : "/assignment/login/login.view.html" 
+                })
+                .when("/home", {
+                    templateUrl : "/assignment/home/home.view.html" 
                 })
                 .when("/admin", {
-                    templateUrl: "admin.html",
-                    controller: "AdminController"
+                    templateUrl : "/assignment/admin/admin.view.html" 
+                })
+                .when("/register", {
+                    templateUrl : "/assignment/register/register.view.html" 
+                })
+                .when("/profile", {
+                    templateUrl : "/assignment/profile/profile.view.html" 
+                })
+                .when("/form", {
+                    templateUrl : "/assignment/form/form.view.html" 
                 })
                 .otherwise({
-                    redirectTo: "/"
-                });
+                    redirectTo : "/" 
+                })
         });
 })();
