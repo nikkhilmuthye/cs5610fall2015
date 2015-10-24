@@ -1,4 +1,4 @@
-function(){
+(function(){
 	'use strict';
 
 	angular
@@ -70,6 +70,72 @@ function(){
 							return callback(null, user);
 						else
 							return callback("Incorrect password" , null);
+				}
+			}
+			catch(error)
+			{
+				return callback(error, null);
+			}
+			return callback("Cannot Find User with Username : " + username , null);
+		};
+
+		function createUser(newuser, callback)
+		{
+			try
+			{
+				if(newuser != null && typeof newuser == 'object')
+				{
+					newuser.id = guid();
+					users.push(newuser);
+					return callback(null, newuser);
+				}
+				else
+				{
+					return("Please enter valid User Details", null)
+				}
+			}
+			catch(error)
+			{
+				return callback(error, null);
+			}
+		};
+
+		function deleteUserById(userid, callback)
+		{
+			try
+			{
+				if(newuser != null && typeof newuser == 'string')
+				{
+					var userremoved = users.filter(
+						function (user) {
+                        	return user.id !== userid;
+                       });
+					return callback(null, userremoved);
+				}
+				else
+				{
+					return("Please enter valid User ID", null)
+				}
+			}
+			catch(error)
+			{
+				return callback(error, null);
+			}
+		};
+
+		function updateUser(userid, newuser, callback)
+		{
+			try
+			{
+				for(var user in users)
+				{
+					if(user.id == userid) 
+					{
+						for(var parameter in user)
+							user[parameter] = newuser[parameter];
+						return callback(null, user);
+					}
+						
 				}
 			}
 			catch(error)

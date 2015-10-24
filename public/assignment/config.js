@@ -1,10 +1,9 @@
-function(){
+(function(){
     angular
         .module("FormBuilderApp")
         .config(function($routeProvider){
             $routeProvider
                 .when("/", {
-                    /*templateUrl : "/assignment/home/home.view.html" */
                     redirectTo : "/home" 
                 })
                 .when("/login", {
@@ -26,7 +25,7 @@ function(){
                     templateUrl : "/assignment/form/form.view.html" 
                 })
                 .otherwise({
-                    redirectTo : "/" 
+                    redirectTo : "/home" 
                 })
         });
 })();
