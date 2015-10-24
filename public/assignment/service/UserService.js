@@ -11,16 +11,16 @@
 			id: "9843473b-d068-104e-e46-f623566a5c61",
 			username: "Alice",
 			password: "Alice",
-			fname: "Alice",
-			lname: "Wonderland",
+			firstname: "Alice",
+			lastname: "Wonderland",
 			email: "alice@example.com"
 		},
 		{
 			id: "9843473b-d068-104e-e46-f623566a5c62",
 			username: "Bob",
 			password: "Bob",
-			fname: "Bob",
-			lname: "Marley",
+			firstname: "Bob",
+			lastname: "Marley",
 			email: "bob@example.com"
 		}];
 
@@ -61,16 +61,32 @@
 
 		function findUserByUsernameAndPassword(username, password, callback)
 		{
+			var Founduser;
+			
 			try
 			{
-				for(var user in users)
-				{
-					if(user.username == username) 
-						if(user.password == password)
-							return callback(null, user);
-						else
-							return callback("Incorrect password" , null);
-				}
+				// for(var user in users)
+				// {
+				// 	console.log(user);
+				// 	if(user.username === username) 
+				// 		if(user.password === password)
+				// 			return callback(null, user);
+				// 		else
+				// 			return callback("Incorrect password" , null);
+				// }
+				users.forEach(
+					function(user)
+					{
+		 				if (user && user.username===username) 
+		 				{
+		 					if(user.password===password)
+		 						Founduser = user;
+		 					else
+		 						return callback("Incorrect password" , null);
+		 				}
+		 			});
+				if(Founduser)
+					return callback(null, Founduser);
 			}
 			catch(error)
 			{
@@ -83,7 +99,7 @@
 		{
 			try
 			{
-				if(newuser != null && typeof newuser == 'object')
+				if(newuser !== null && typeof newuser === 'object')
 				{
 					newuser.id = guid();
 					users.push(newuser);
@@ -104,7 +120,7 @@
 		{
 			try
 			{
-				if(newuser != null && typeof newuser == 'string')
+				if(newuser !== null && typeof newuser === 'string')
 				{
 					var userremoved = users.filter(
 						function (user) {
@@ -127,16 +143,26 @@
 		{
 			try
 			{
-				for(var user in users)
+				/*for(var user in users)
 				{
-					if(user.id == userid) 
+					if(user.id === userid) 
 					{
 						for(var parameter in user)
 							user[parameter] = newuser[parameter];
 						return callback(null, user);
 					}
 						
-				}
+				}*/
+				users.forEach(
+					function(user)
+					{
+		 				if (user && user.id===userid) 
+		 				{
+		 					for(var parameter in user)
+								user[parameter] = newuser[parameter];
+							return callback(null, user);
+		 				}
+		 			});
 			}
 			catch(error)
 			{

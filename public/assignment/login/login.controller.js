@@ -8,22 +8,22 @@
 	function LoginController($scope, $location, $rootScope, UserService)
 	{
 		$scope.$location = $location;
-
+		$scope.error = null;
 		$scope.login = function(){
 
 			UserService.findUserByUsernameAndPassword($scope.username, $scope.password, 
 				function(error, user)
 				{
-					$scope.error = null;
-					if(error != null)
+					if(!error)
 					{
+						console.log(user);
 						$rootScope.user = user;
 						$rootScope.$broadcast('loggedin', user);
 						$location.path( "/profile" );
 					}
 					else
 					{
-						alert(error);
+						console.log(error);
 						$scope.error = error;
 					}
 				});
