@@ -11,14 +11,15 @@
 
     <title>Index</title>
 
-    <!--Loading Bootstrap from CDN-->
+    <!-- Bootstrap core CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
+    
     <!-- Custom styles for this template -->
     <link href="../css/style.css" rel="stylesheet">
 
-    <!--Loading JQuerry from CDN-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+
 
     <!--Loading Angular from CDN-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
@@ -48,17 +49,20 @@
 </head>
 <body>
     <header ng-include="'/assignment/header/header.view.html'"></header>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row"> 
             <div class="col-sm-3">
                 <section ng-include="'/assignment/sidebar/sidebar.view.html'"></section>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <div ng-view/>
             </div>
         </div>
         
         
     </div>
+    <!--Loading JQuerry from CDN-->
+    
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

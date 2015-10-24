@@ -14,7 +14,7 @@
 			UserService.findUserByUsernameAndPassword($scope.username, $scope.password, 
 				function(error, user)
 				{
-					if(!error)
+					if(user)
 					{
 						console.log(user);
 						$rootScope.user = user;

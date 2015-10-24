@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="LoginController">
+<div ng-controller="LoginController">
     <h1 class="page-header">Log in</h1>
     <form class="form-horizontal">
         <div class="form-group">
@@ -18,7 +18,7 @@
                 <button type="submit" class="btn btn-default" ng-click="login()">Sign in</button>
             </div>
         </div>
-        <div class="error not-found" ng-if="error">
+        <div class="error glyphicon glyphicon-remove" ng-if="error">
             <span>{{error}}</span>
         </div>
     </form>

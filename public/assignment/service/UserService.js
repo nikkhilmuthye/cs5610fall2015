@@ -43,7 +43,8 @@
 			createUser: createUser,
 			findUserByUsernameAndPassword: findUserByUsernameAndPassword,
 			updateUser: updateUser,
-			deleteUserById: deleteUserById
+			deleteUserById: deleteUserById,
+			checkNewUser : checkNewUser
 		};
 		return userService;
 
@@ -61,7 +62,7 @@
 
 		function findUserByUsernameAndPassword(username, password, callback)
 		{
-			var Founduser;
+			var Founduser, error, found = false;
 			
 			try
 			{
@@ -77,22 +78,26 @@
 				users.forEach(
 					function(user)
 					{
-		 				if (user && user.username===username) 
+		 				if (user.username===username) 
 		 				{
+		 					found = true;
 		 					if(user.password===password)
 		 						Founduser = user;
 		 					else
-		 						return callback("Incorrect password" , null);
+		 						error = "Incorrect password";
 		 				}
 		 			});
-				if(Founduser)
+				if(Founduser && found)
 					return callback(null, Founduser);
+				else if(found === true)
+					return callback(error, null);
+				else
+					return callback("Cannot Find User with Username : " + username , null);
 			}
 			catch(error)
 			{
 				return callback(error, null);
 			}
-			return callback("Cannot Find User with Username : " + username , null);
 		};
 
 		function createUser(newuser, callback)
@@ -141,6 +146,7 @@
 
 		function updateUser(userid, newuser, callback)
 		{
+			console.log(newuser);
 			try
 			{
 				/*for(var user in users)
@@ -158,6 +164,7 @@
 					{
 		 				if (user && user.id===userid) 
 		 				{
+		 					console.log(user);
 		 					for(var parameter in user)
 								user[parameter] = newuser[parameter];
 							return callback(null, user);
@@ -170,7 +177,35 @@
 			}
 			return callback("Cannot Find User with Username : " + username , null);
 		};
-    }
 
+		function checkNewUser(username, email)
+		{
+			console.log("i am here");
+			var exists = false;
+			var emailExists = false;
+			var errorMessage = null;
+			users.forEach(
+				function(user)
+				{
+					if (user && user.username===username)
+					{
+						exists = true;
+					}
+					if (user && user.email === email){
+						emailExists = true;
+					} 
+				});
+			if (exists)
+			{
+				errorMessage = errorMessage + "User already exists with that username.";
+			} 
+			if (emailExists)
+			{
+				errorMessage = errorMessage + "User already exists with that email.";
+			} 
+			console.log("i am here");
+			return errorMessage;
+		};
+    }
 
 })();
