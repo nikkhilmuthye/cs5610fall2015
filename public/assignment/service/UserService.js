@@ -13,7 +13,8 @@
 			password: "Alice",
 			firstname: "Alice",
 			lastname: "Wonderland",
-			email: "alice@example.com"
+			email: "alice@example.com",
+			role : ["Student"]
 		},
 		{
 			id: "9843473b-d068-104e-e46-f623566a5c62",
@@ -21,7 +22,17 @@
 			password: "Bob",
 			firstname: "Bob",
 			lastname: "Marley",
-			email: "bob@example.com"
+			email: "bob@example.com",
+			role : ["Faculty", "Admin"]
+		},
+		{
+			id: "984dac373b-2345-1578t-e46-86439002834",
+			username: "Charlie",
+			password: "Charlie",
+			firstname: "Charlie",
+			lastname: "Sheen",
+			email: "charlie@example.com",
+			role : []
 		}];
 
         function guid() 

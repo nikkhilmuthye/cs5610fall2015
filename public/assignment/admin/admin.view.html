@@ -1,6 +1,6 @@
 <div>   
      <div ng-if="user">
-     	<div>
+     	<div data-ng-controller="AdminController">
 		    <h1 class="page-header">Admin</h1>
 		    <h3>Users</h3>
 
@@ -48,7 +48,12 @@
 		            </tr>
 		            </thead>
 		            <tbody>
-		            <tr>
+		            <tr ng-repeat="user in users">
+		            	<td>{{user.username}}</td>
+		            	<td></td>
+		            	<td>{{user.role}}</td>
+		            </tr>
+		            <!-- <tr>
 		                <td>Alice</td>
 		                <td></td>
 		                <td>Student</td>
@@ -86,7 +91,7 @@
 		                        <scan class="glyphicon glyphicon-remove"></scan>
 		                    </a>
 		                </td>
-		            </tr>
+		            </tr> -->
 		            </tbody>
 		        </table>
 		    </div>
