@@ -121,6 +121,47 @@
 			else
 				$scope.error = "Please enter valid index number of the form";
 		};
+
+		$scope.selectForm = function()
+		{
+			$scope.error = null;
+			var selectedForm;
+			if ($scope.formName)
+			{
+				$scope.userForms.forEach(
+					function(form, index)
+					{
+						if (form.name === $scope.formName)
+						{
+							selectedForm = form;
+							alert("Form Selected : " + JSON.stringify(selectedForm));
+						}
+					});
+
+				if (!selectedForm)
+				{
+					$scope.error = "No form with name as  " + $scope.formName + "exists";
+				}
+			} 
+			else 
+			{
+				$scope.error = "Please provide the name of the form";	
+			}			
+		};
+
+		$scope.updateForm = function(index)
+		{
+			$scope.error = null;
+			if (typeof index !== "undefined")
+			{
+				var selectedForm = $scope.userForms[index];
+				alert(selectedForm.name + " caanot be updated at this point of time. Please come back to this in the next assignment");
+			} 
+			else 
+			{
+				$scope.error = "Please provide a valid form index.";
+			}
+		};
 	}
 
 })();
