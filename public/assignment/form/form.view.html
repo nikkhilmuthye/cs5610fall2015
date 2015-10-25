@@ -1,9 +1,9 @@
-<div>
+<div data-ng-controller="FormController as controller">
     <h1 class="page-header">Forms</h1>
 
     <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="forms.html">Forms</a></li>
-            <li role="presentation"><a href="form-fields.html">Fields</a></li>
+            <li role="presentation" class="active"><a href="#/form">Forms</a></li>
+            <li role="presentation"><a>Fields</a></li>
     </ul>
 
 
@@ -25,9 +25,9 @@
                 </th>
             </tr>
             <tr>
-                <td><input class="form-control" type="text" name="formname" placeholder="Important Form"/></td>
+                <td><input class="form-control" type="text" name="formname" placeholder="Important Form" data-ng-model="formName"/></td>
                 <td class="col-nowrap">
-                    <a href="#" class="btn btn-primary">
+                    <a href="#/form" class="btn btn-primary" ng-click="addForm()">
                         <scan class="glyphicon glyphicon-plus"></scan>
                     </a>
                     <a href="#" class="btn btn-success">
@@ -37,7 +37,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+                <tr ng-repeat="form in controller.userForms">
+                    <td>
+                        <a href="">{{form.name}}</a>
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="#" class="btn btn-warning">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href="#" class="btn btn-danger">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                    </td>
+            <!-- <tr>
                 <td><a href="form-fields.html">Registration Form</a></td>
                 <td class="col-nowrap">
                     <a href="#" class="btn btn-warning">
@@ -69,8 +81,12 @@
                         <scan class="glyphicon glyphicon-remove"></scan>
                     </a>
                 </td>
-            </tr>
+            </tr> -->
             </tbody>
         </table>
+
+        <div class="error glyphicon glyphicon-remove" ng-if="error">
+            <span>{{error}}</span>
+        </div>
     </div>
 </div>

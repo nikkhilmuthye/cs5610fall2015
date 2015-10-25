@@ -10,7 +10,7 @@
 		$scope.$location = $location;
 		console.log("Hello register here");
 
-		$scope.registerUser = function()
+		$scope.register = function()
 		{
 			$scope.error = null;
 			if ($scope.username && $scope.password && $scope.verifypassword && $scope.email)

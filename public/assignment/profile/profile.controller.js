@@ -14,7 +14,7 @@
 		});
 
 
-		$scope.updateuser = function(){
+		$scope.update = function(){
 			$scope.error = null;
 			$scope.success = null;
 			UserService.updateUser($scope.user.id, $scope.user, 

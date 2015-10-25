@@ -58,7 +58,7 @@
 		  	{
 		  		return callback(error);
 		  	}
-		  };
+		};
 
 		function findUserByUsernameAndPassword(username, password, callback)
 		{
