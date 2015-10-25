@@ -19,10 +19,10 @@
 	                	<a href="#/login">Login</a>
 	                </li>
 	                <li ng-if="user" ng-class="{'active' : $location.url().indexOf('profile') >= 0}">
-	                	<a href="#/profile.html">Username</a>
+	                	<a href="#/profile">Username</a>
 	                </li>
 	                <li ng-if="user">
-	                	<a href="#/login.html" ng-click="logout()">Log out</a>
+	                	<a href="#/login" ng-click="logout()">Log out</a>
 	                </li>
 	            </ul>
 	        </div>
