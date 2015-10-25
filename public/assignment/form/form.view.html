@@ -27,17 +27,17 @@
             <tr>
                 <td><input class="form-control" type="text" name="formname" placeholder="Important Form" data-ng-model="formName"/></td>
                 <td class="col-nowrap">
-                    <a href="#/form" class="btn btn-primary" ng-click="addForm()">
+                    <a href="" class="btn btn-primary" ng-click="addForm()">
                         <scan class="glyphicon glyphicon-plus"></scan>
                     </a>
-                    <a href="#" class="btn btn-success">
+                    <a href="" class="btn btn-success">
                         <scan class="glyphicon glyphicon-ok"></scan>
                     </a>
                 </td>
             </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="form in controller.userForms">
+                <tr ng-repeat="form in userForms">
                     <td>
                         <a href="">{{form.name}}</a>
                     </td>
@@ -45,7 +45,7 @@
                         <a href="#" class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
                         </a>
-                        <a href="#" class="btn btn-danger">
+                        <a href="" class="btn btn-danger" ng-click="deleteForm($index)">
                             <scan class="glyphicon glyphicon-remove"></scan>
                         </a>
                     </td>

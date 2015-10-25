@@ -61,11 +61,17 @@
 			{
 				if(formId !== null && typeof formId === 'string')
 				{
-					var formremoved = forms.filter(
-						function (form) {
-	                    	return form.name !== formId;
-	                   });
-					return callback(null, formremoved);
+					forms.forEach(
+						function(form, index)
+						{
+			 				if (form && form.id === formId)
+			 				{
+			 					forms.splice(index, 1);
+			 					return callback(null, true);
+			 				}
+			 			});
+					console.log(forms);
+					return callback(null, false);
 				}
 				else
 				{
