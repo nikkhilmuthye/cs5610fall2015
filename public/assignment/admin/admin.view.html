@@ -1,8 +1,100 @@
-<div>
-	<h1 class="page-header">Admin</h1>
+<div>   
+     <div ng-if="user">
+     	<div>
+		    <h1 class="page-header">Admin</h1>
+		    <h3>Users</h3>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.
-	</p>
-
+		    <div class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    UserName
+		                </th>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    Password
+		                </th>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    Role
+		                </th>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    Actions
+		                </th>
+		            </tr>
+		            <tr>
+		                <td><input class="form-control" type="text" name="username" placeholder="johnDoe"/></td>
+		                <td><input class="form-control" type="text" name="password" placeholder="Password"/></td>
+		                <td><input class="form-control" type="text" name="role" placeholder="Student"/></td>
+		                <td style="white-space: nowrap">
+		                    <a href="#" class="btn btn-primary">
+		                        <scan class="glyphicon glyphicon-plus"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-success">
+		                        <scan class="glyphicon glyphicon-ok"></scan>
+		                    </a>
+		                </td>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <tr>
+		                <td>Alice</td>
+		                <td></td>
+		                <td>Student</td>
+		                <td>
+		                    <a href="#" class="btn btn-warning">
+		                        <scan class="glyphicon glyphicon-pencil"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-danger">
+		                        <scan class="glyphicon glyphicon-remove"></scan>
+		                    </a>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>Bob</td>
+		                <td></td>
+		                <td>Faculty / Admin</td>
+		                <td>
+		                    <a href="#" class="btn btn-warning">
+		                        <scan class="glyphicon glyphicon-pencil"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-danger">
+		                        <scan class="glyphicon glyphicon-remove"></scan>
+		                    </a>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>Charlie</td>
+		                <td></td>
+		                <td></td>
+		                <td>
+		                    <a href="#" class="btn btn-warning">
+		                        <scan class="glyphicon glyphicon-pencil"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-danger">
+		                        <scan class="glyphicon glyphicon-remove"></scan>
+		                    </a>
+		                </td>
+		            </tr>
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
+	<div ng-if="!user">
+    <h2> 
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
 </div>
