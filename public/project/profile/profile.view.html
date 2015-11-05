@@ -6,23 +6,23 @@
                 <img class="img-responsive background" src="img/football_PNG1085.png">
             </div>
             <div class="col-sm-9">
-                <ul>
-                <li class="form-group">
-                    <label for="username" class="col-sm-2 control-label">Username</label>
-                    <label id="username" class="col-sm-2 control-label" data-ng-model="user.username">{{user.username}}</label>
+                <ul class="list-group">
+                <li class="form-group list-group-item">
+                    <label for="username" >Username :</label>
+                    <label id="username" data-ng-model="user.username">{{user.username}}</label>
                 </li>
 
-                <li class="form-group">
-                    <label for="firstname" class="col-sm-2 control-label">First Name</label>
-                    <label id="firstname" class="col-sm-2 control-label" data-ng-model="user.firstname">{{user.firstname}}</label>
+                <li class="form-group list-group-item">
+                    <label for="firstname" >First Name :</label>
+                    <label id="firstname"  data-ng-model="user.firstname">{{user.firstname}}</label>
                 </li>
-                <li class="form-group">
-                    <label for="lastname" class="col-sm-2 control-label">Last Name</label>
-                    <label id="lastname" class="col-sm-2 control-label" data-ng-model="user.lastname">{{user.lastname}}</label>
+                <li class="form-group list-group-item">
+                    <label for="lastname" >Last Name :</label>
+                    <label id="lastname"  data-ng-model="user.lastname">{{user.lastname}}</label>
                 </li>
-                <li class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-                    <label id="inputEmail" class="col-sm-2 control-label" data-ng-model="user.email">{{user.email}}</label>
+                <li class="form-group list-group-item">
+                    <label for="inputEmail" >Email :</label>
+                    <label id="inputEmail"  data-ng-model="user.email">{{user.email}}</label>
                 </li>
                 <ul>
             </div>
@@ -30,11 +30,8 @@
 
           <div id="favorites" class="row">
           	<h2>Favourite Teams</h2>
-          	<ul>
-          		<li>Manhester United</li>
-          		<li>Barcelona</li>
-          		<li>Real Madrid</li>
-          		<li>Arsenal</li>
+          	<ul class="list-group" ng-repeat=" team in user.favoriteteams" ng-bind-html-unsafe="team">
+          		<li class="list-group-item">{{team}}</li>
           	</ul>
           </div>
 
@@ -42,16 +39,16 @@
           	<h2>Your Stories</h2>
 
             <div class="table-responsive">
-                <table class="tables">
+                <table class="tables table-bordered table1">
                     <thead>
                     <tr>
-                        <th>
+                        <th class="th1">
                             <a href="#">
                                 <scan class="glyphicon glyphicon-triangle-bottom"></scan>
                             </a>
                             Story Heading
                         </th>
-                        <th>
+                        <th class="th1">
                             <a href="#">
                                 <scan class="glyphicon glyphicon-triangle-bottom"></scan>
                             </a>
@@ -61,10 +58,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="story in userStories">
-                            <td>
-                                <a href="" ng-click="updateForm($index)">{{story.heading}}</a>
-                            </td>
-                            <td class="col-nowrap">
+                            <td class="storycontent td1"><a class="whitefont" href="#/story">{{story.heading}}</a></td>
+                            <td class="col-nowrap td1">
                                 <a href="" class="btn btn-warning" ng-click="updateStory($index)">
                                     <scan class="glyphicon glyphicon-pencil"></scan>
                                 </a>

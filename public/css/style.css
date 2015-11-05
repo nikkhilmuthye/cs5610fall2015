@@ -256,3 +256,17 @@ max-height:100%;
 .right-align{
     text-align: right;
 }
+.list-group, .list-group-item {
+    background-color: transparent;
+}
+.table1{
+    border: 1px solid black;
+    table-layout: fixed;
+    width: 200px;
+}
+
+.th1, .td1 {
+    border: 1px solid black;
+    overflow: hidden;
+    width: 100px;
+}
