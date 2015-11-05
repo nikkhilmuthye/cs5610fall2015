@@ -3,10 +3,21 @@
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+
 body {
     padding-top: 50px;
 }
 
+.child-1 {
+    float: left;
+    border-right: 1px solid white;
+}
+
+.child-2 {
+    float: left;
+    border-left: 1px solid white;
+    margin-left: -1px;
+}
 
 /*
  * Global add-ons
@@ -23,6 +34,30 @@ body {
  */
 .navbar-fixed-top {
     border: 0;
+}
+
+.tabs-1 {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.tabs-li {
+    float: left;
+    border: 1px solid #000;
+    border-bottom-width: 0;
+    margin: 3px 3px 0px 3px;
+    padding: 5px 5px 0px 5px;
+    background-color: #CCC;
+    color: #696969;
+}
+#mainView {
+    border: 1px solid black;
+    clear: both;
+    padding: 0 1em;
+}
+.active {
+    background-color: #FFF;
+    color: #000;
 }
 
 /*
@@ -83,6 +118,13 @@ body {
     margin-top: 0;
 }
 
+.nav-tabs {
+    color: white;
+}
+
+ul.nav-tabs li a{
+    color: white;
+}
 
 /*
  * Placeholder dashboard ideas
@@ -136,4 +178,81 @@ background-color: #FEEFB3;
 .error {
 color: #D8000C;
 background-color: #FFBABA;
+}
+
+.background {
+    background:url(../project/img/background.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    color: white;
+}
+
+.layer {
+    background-color: rgba(248, 247, 216, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  width: 100%;
+  height: 400px;
+  margin: auto;
+}
+.bold{
+    font-weight: bold;
+    font-size: x-large;
+}
+.storycontent{
+    font-size: large;
+}
+.whitebg {
+    background-color: white;
+}
+.whitefont{
+    color: white;
+}
+.shadow {
+-moz-box-shadow: 0 0 30px 5px #999;
+-webkit-box-shadow: 0 0 30px 5px #999;
+}
+.overlay{
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+.blackbg{
+    background-color: rgba(0, 0, 0, 0);
+}
+.widewrapper {
+  width:100%;
+  }
+
+.widewrapper > img {
+  width:100%;
+}
+.jumbotron
+{   
+    background-image: url("../project/img/widemanutd.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+    color: white;
+    border: solid red 1px;
+ }
+ .storyimg {
+    width: 1500px;
+    height: 300px;
+    max-width:100%;
+max-height:100%;
+ }
+ .rating > span:hover:before {
+   content: "\2605";
+   position: absolute;
+}
+.ratingstart{
+   font-size: x-large;
+}
+.right-align{
+    text-align: right;
 }
