@@ -1,16 +1,6 @@
 var q = require("q");
 
-module.exports = function(mongoose, db){
-
-    var api = {
-        Create: Create,
-        FindAll: FindAll,
-        FindById: FindById,
-        Update: Update,
-        Delete : Delete,
-        findFormByTitle: findFormByTitle
-    };
-    return api;
+module.exports = function(app, mongoose, db){
 
     var forms =
         [
@@ -36,9 +26,45 @@ module.exports = function(mongoose, db){
             }
         ];
 
-    function Create()
+
+
+
+
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
+
+    function Create(userId, form)
     {
         var deferred = q.defer();
+
+        try{
+            if(form !== null && typeof form === 'object'
+               && userId !== null)
+            {
+                form.id = guid();
+                form.userId = userId;
+                console.log(form);
+                forms.push(form);
+                console.log(forms);
+                deferred.resolve(form);
+            }
+            else
+            {
+                deferred.reject("Please enter valid Form Details")
+            }
+        }
+        catch(error)
+        {
+            console.log("Caught exception in createFormForUser "  + error);
+            deferred.reject(error);
+        }
 
         return deferred.promise;
     }
@@ -47,12 +73,80 @@ module.exports = function(mongoose, db){
     {
         var deferred = q.defer();
 
+        try
+        {
+
+            deferred.resolve(forms);
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+
         return deferred.promise;
     }
 
-    function FindById()
+    function FindAllForUser(userId)
     {
         var deferred = q.defer();
+
+        var userForms = [];
+
+        try
+        {
+
+            if(userId)
+            {
+                forms.forEach(
+                    function(form)
+                    {
+                        if (form.userId==userId)
+                        {
+                            userForms.push(form);
+                        }
+                    });
+                deferred.resolve(userForms);
+            }
+            else
+            {
+                console.log("Please enter proper User ID");
+                deferred.reject("Please enter proper User ID");
+            }
+        }
+        catch(error)
+        {
+            console.log("Caught exception in findAllFormsForUser "  + error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function FindById(formId)
+    {
+        var deferred = q.defer();
+        var requestedform, found = false;
+        try{
+            if (formId && typeof formId !== "undefined"){
+                forms.forEach(function(form, index){
+                    if (form.id == formId){
+                        found =  true;
+                        requestedform = form;
+                    }
+                });
+                if (found){
+                    deferred.resolve(requestedform);
+                } else {
+                    deferred.reject("No form with formId:"+formId+" exists in th DB");
+                }
+            }
+            else {
+                deferred.reject("please provide a formId");
+            }
+        }
+        catch(error){
+            deferred.reject(error);
+        }
 
         return deferred.promise;
     }
@@ -60,22 +154,115 @@ module.exports = function(mongoose, db){
     function Update()
     {
         var deferred = q.defer();
+        var found =  false;
+        try
+        {
+            forms.forEach(
+                function(form)
+                {
+                    if (form && form.id==formId)
+                    {
+                        found  = true;
+
+                        for(var parameter in newForm)
+                            form[parameter] = newuser[parameter];
+                        deferred.resolve(form);
+                    }
+                });
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+        if(!found)
+            deferred.reject("Cannot Find User with Form ID : : " + formId);
 
         return deferred.promise;
     }
 
-    function Delete()
+    function Delete(formId)
+    {
+        var deferred = q.defer();
+        var found = false, userId;
+        var userforms = [];
+        try
+        {
+            if(formId !== null && typeof formId === 'string')
+            {
+                forms.forEach(
+                    function(form, index)
+                    {
+                        if (form && form.id === formId)
+                        {
+                            found = true;
+                            userId = form.userId;
+                            forms.splice(index, 1);
+                        }
+                    });
+                if(found){
+                    forms.forEach(function(form, index){
+                        if (form && form.userId == userId){
+                            userforms.push(form);
+                        }
+                    })
+                    deferred.resolve(userforms);
+                }
+                else{
+                    deferred.reject("Cannot Find User with Form ID : : " + formId);
+                }
+            }
+            else
+            {
+                deferred.reject("Please enter valid Form ID")
+            }
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function findFormByTitle(title)
     {
         var deferred = q.defer();
 
+        var requestedform, found = false;
+        try{
+            if (title && typeof title !== "undefined"){
+                forms.forEach(function(form, index){
+                    if (form.title == title){
+                        found =  true;
+                        requestedform = form;
+                    }
+                });
+                if (found){
+                    deferred.resolve(requestedform);
+                } else {
+                    deferred.reject("No form with formId:"+formId+" exists in th DB");
+                }
+            }
+            else {
+                deferred.reject("please provide a formId");
+            }
+        }
+        catch(error){
+            deferred.reject(error);
+        }
+
         return deferred.promise;
     }
 
-    function findFormByTitle()
-    {
-        var deferred = q.defer();
-
-        return deferred.promise;
-    }
+    var api = {
+        Create: Create,
+        FindAll: FindAll,
+        FindById: FindById,
+        Update: Update,
+        Delete : Delete,
+        findFormByTitle: findFormByTitle,
+        FindAllForUser : FindAllForUser
+    };
+    return api;
 
 };
