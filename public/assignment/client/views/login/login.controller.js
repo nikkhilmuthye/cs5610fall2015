@@ -11,39 +11,20 @@
 		$scope.error = null;
 		$scope.login = function(){
 
-			UserService.findUserByUsernameAndPassword($scope.username, $scope.password, 
-				function(error, user)
-				{
-					if(user)
-					{
+			UserService.findUserByUsernameAndPassword($scope.username, $scope.password)
+				.then(
+				function(user) {
+					if (user) {
 						console.log(user);
 						$rootScope.user = user;
 						$rootScope.$broadcast('loggedin', user);
-						$location.path( "/profile" );
+						$location.path("/profile");
 					}
-					else
-					{
-						console.log(error);
-						$scope.error = error;
-					}
+				})
+				.catch(function(error){
+                    console.log(error);
+					$scope.error = error;
 				});
 		};
 	};
-
-	function callback(error, user)
-	{
-		$scope.error = null;
-		if(error != null)
-		{
-			$rootScope.user = user;
-			$rootScope.$broadcast('loggedin', user);
-			$location.path( "/profile" );
-		}
-		else
-		{
-			alert(error);
-			$scope.error = error;
-		}
-	}
-
 })();

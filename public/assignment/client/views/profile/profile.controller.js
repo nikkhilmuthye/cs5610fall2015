@@ -17,19 +17,18 @@
 		$scope.update = function(){
 			$scope.error = null;
 			$scope.success = null;
-			UserService.updateUser($scope.user.id, $scope.user, 
-				function(error, updatedUser)
-				{
+			UserService.updateUser($scope.user.id, $scope.user)
+				.then(function(updatedUser){
 					console.log(updatedUser);
-					if (error)
-					{
-						$scope.error = error;
-					} 
-					else 
-					{
+
 						$scope.user = updatedUser;
 						$scope.success = "Succesfully updated user profile"
 						console.log("Succesfully updated user profile");
+				})
+				.catch(function(error){
+					if (error)
+					{
+						$scope.error = error;
 					}
 				});
 		};

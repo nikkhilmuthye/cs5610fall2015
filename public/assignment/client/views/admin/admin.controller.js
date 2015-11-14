@@ -17,16 +17,15 @@
 		$scope.users = [];
 
 		$scope.init = function () {
-			UserService.findAllUsers( 
+			UserService.findAllUsers( )
+				.then(
 						function(error, users)
 						{
-							if(error)
-								$scope.error = error;
-							else
-							{
 								$scope.users = users;
-							}  
-						});
+						})
+				.catch(function (error) {
+					$scope.error = error;
+				});
 		};
 		$scope.init();
 	}

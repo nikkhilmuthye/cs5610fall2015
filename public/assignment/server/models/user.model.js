@@ -1,6 +1,16 @@
 var q = require("q");
 
-module.exports = function(mongoose, db){
+module.exports = function(app, mongoose, db){
+
+    var users =
+        [
+            {"id": 123, "firstName": "Alice", 	"lastName": "Wonderland",	"username": "alice", 	"password": "alice"},
+            {"id": 234, "firstName": "Bob",	"lastName": "Hope", 		"username": "bob", 	"password": "bob"},
+            {"id": 345, "firstName": "Charlie",	"lastName": "Brown", 		"username": "charlie", "password": "charlie"},
+            {"id": 456, "firstName": "Dan",	"lastName": "Craig", 		"username": "dan", 	"password": "dan"},
+            {"id": 567, "firstName": "Edward",	"lastName": "Norton",		"username": "ed",	"password": "ed"}
+        ];
+
 
     var api = {
         Create: Create,
@@ -13,16 +23,18 @@ module.exports = function(mongoose, db){
     };
     return api;
 
-    var users =
-        [
-            {"id": 123, "firstName": "Alice", 	"lastName": "Wonderland",	"username": "alice", 	"password": "alice"},
-            {"id": 234, "firstName": "Bob",	"lastName": "Hope", 		"username": "bob", 	"password": "bob"},
-            {"id": 345, "firstName": "Charlie",	"lastName": "Brown", 		"username": "charlie", "password": "charlie"},
-            {"id": 456, "firstName": "Dan",	"lastName": "Craig", 		"username": "dan", 	"password": "dan"},
-            {"id": 567, "firstName": "Edward",	"lastName": "Norton",		"username": "ed",	"password": "ed"}
-        ];
 
-    function Create(userId, user)
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
+
+    function Create(newuser)
     {
         var deferred = q.defer();
 
@@ -32,16 +44,17 @@ module.exports = function(mongoose, db){
             {
                 newuser.id = guid();
                 users.push(newuser);
-                return callback(null, newuser);
+                deferred.resolve(newuser);
             }
             else
             {
-                return("Please enter valid User Details", null)
+                deferred.reject("Please enter valid User Details");
             }
         }
         catch(error)
         {
-            return callback(error, null);
+            console.log(error);
+            deferred.reject(error);
         }
 
         return deferred.promise;
@@ -50,14 +63,14 @@ module.exports = function(mongoose, db){
     function FindAll()
     {
         var deferred = q.defer();
-
         try
         {
-            return deferred.resolve(users);
+
+            deferred.resolve(users);
         }
         catch(error)
         {
-            return deferred.reject(error);
+            deferred.reject(error);
         }
 
         return deferred.promise;
@@ -67,13 +80,58 @@ module.exports = function(mongoose, db){
     {
         var deferred = q.defer();
 
+        try{
+            var deletedUser, found = false;
+            if (typeof userId === 'undefined' || userId === null){
+                deferred.reject("Please provide valid user id");
+            } else {
+                users.forEach(function(user){
+                    if (user && user.id==userId)
+                    {
+                        found = true;
+                        deletedUser = user;
+                    }
+                });
+                if (found){
+                    deferred.resolve(deletedUser);
+                } else {
+                    deferred.reject("no user found with id:"+instanceId);
+                }
+            }
+        }
+        catch(error){
+            deferred.reject(error);
+        }
+
         return deferred.promise;
     }
 
-    function Update(userId, user)
+    function Update(userId, newuser)
     {
         var deferred = q.defer();
-
+        var found = false;
+        try
+        {
+            console.log(newuser);
+            users.forEach(
+                function(user)
+                {
+                    if (user && user.id==userId)
+                    {
+                        found = true;
+                        for(var parameter in user)
+                            user[parameter] = newuser[parameter];
+                        deferred.resolve(user);
+                    }
+                });
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+        if(!found) {
+            deferred.reject("Cannot Find User with Username : " + user.username);
+        }
         return deferred.promise;
     }
 
@@ -81,6 +139,18 @@ module.exports = function(mongoose, db){
     {
         var deferred = q.defer();
 
+        if (typeof userId==="undefined" || userId === null){
+            deferred.reject("Please enter a userId");
+        } else {
+            users.forEach(function (user, index) {
+                if (user.id == userId) {
+                    users.splice(index, 1);
+                    console.log("Userid :  " + userId + "succesfully deleted");
+
+                }
+            });
+            deferred.resolve(users);
+        }
         return deferred.promise;
     }
 
@@ -100,15 +170,15 @@ module.exports = function(mongoose, db){
                     }
                 });
             if(Founduser && found)
-                return deferred.resolve(Founduser);
+                deferred.resolve(Founduser);
             else if(found === true)
-                return deferred.reject(error);
+                deferred.reject(error);
             else
-                return deferred.reject("Cannot Find User with Username : " + username );
+                deferred.reject("Cannot Find User with Username : " + username );
         }
         catch(error)
         {
-            return deferred.reject(error);
+            deferred.reject(error);
         }
         return deferred.promise;
     }
@@ -133,15 +203,15 @@ module.exports = function(mongoose, db){
                     }
                 });
             if(Founduser && found)
-                return deferred.resolve(Founduser);
+                deferred.resolve(Founduser);
             else if(found === true)
-                return deferred.reject(error);
+                deferred.reject(error);
             else
-                return deferred.reject("Cannot Find User with Username : " + username);
+                deferred.reject("Cannot Find User with Username : " + username);
         }
         catch(error)
         {
-            return deferred.reject(error);
+            deferred.reject(error);
         }
 
         return deferred.promise;

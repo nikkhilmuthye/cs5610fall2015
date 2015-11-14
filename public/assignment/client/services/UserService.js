@@ -5,7 +5,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService() {
+    function UserService($http, $q) {
         var users = [
 		{
 			id: "9843473b-d068-104e-e46-f623566a5c61",
@@ -59,137 +59,92 @@
 		};
 		return userService;
 
-		function findAllUsers(callback)
+		function findAllUsers()
 		{
-		  	try 
-		  	{
-		  		return callback(null, users);
-		  	} 
-		  	catch(error)
-		  	{
-		  		return callback(error);
-		  	}
+            var deferred = $q.defer();
+            console.log("in here");
+            $http.get("/api/assignment/user")
+                .success(function(users){
+                    deferred.resolve(users);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
 		};
 
-		function findUserByUsernameAndPassword(username, password, callback)
+		function findUserByUsernameAndPassword(username, password)
 		{
-			var Founduser, error, found = false;
-			
-			try
-			{
-				// for(var user in users)
-				// {
-				// 	console.log(user);
-				// 	if(user.username === username) 
-				// 		if(user.password === password)
-				// 			return callback(null, user);
-				// 		else
-				// 			return callback("Incorrect password" , null);
-				// }
-				users.forEach(
-					function(user)
-					{
-		 				if (user.username===username) 
-		 				{
-		 					found = true;
-		 					if(user.password===password)
-		 						Founduser = user;
-		 					else
-		 						error = "Incorrect password";
-		 				}
-		 			});
-				if(Founduser && found)
-					return callback(null, Founduser);
-				else if(found === true)
-					return callback(error, null);
-				else
-					return callback("Cannot Find User with Username : " + username , null);
-			}
-			catch(error)
-			{
-				return callback(error, null);
-			}
+            var deferred = $q.defer();
+
+            $http.get("/api/assignment/user/"+username+"/"+password)
+                .success(function(user){
+                    deferred.resolve(user);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
 		};
 
-		function createUser(newuser, callback)
+		function createUser(newuser)
 		{
-			try
-			{
-				if(newuser !== null && typeof newuser === 'object')
-				{
-					newuser.id = guid();
-					users.push(newuser);
-					return callback(null, newuser);
-				}
-				else
-				{
-					return("Please enter valid User Details", null)
-				}
-			}
-			catch(error)
-			{
-				return callback(error, null);
-			}
+			var deferred = $q.defer();
+            console.log(newuser);
+
+			$http.post("/api/assignment/user", newuser)
+				.success(function(newUser){
+					console.log("success");
+					deferred.resolve(newUser);
+				})
+				.error(function(error){
+					console.log("error");
+					if (error){
+						deferred.reject(error);
+					}
+				});
+
+			return deferred.promise;
 		};
 
-		function deleteUserById(userid, callback)
+		function deleteUserById(userid)
 		{
-			try
-			{
-				if(newuser !== null && typeof newuser === 'string')
-				{
-					var userremoved = users.filter(
-						function (user) {
-                        	return user.id !== userid;
-                       });
-					return callback(null, userremoved);
-				}
-				else
-				{
-					return("Please enter valid User ID", null)
-				}
-			}
-			catch(error)
-			{
-				return callback(error, null);
-			}
+            var deferred = $q.defer();
+
+            $http.delete("/api/assignment/user/"+userid)
+                .success(function(users){
+                    deferred.resolve(users);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
 		};
 
-		function updateUser(userid, newuser, callback)
+		function updateUser(userid, newuser)
 		{
 			console.log(newuser);
-			try
-			{
-				/*for(var user in users)
-				{
-					if(user.id === userid) 
-					{
-						for(var parameter in user)
-							user[parameter] = newuser[parameter];
-						return callback(null, user);
-					}
-						
-				}*/
-				users.forEach(
-					function(user)
-					{
-		 				if (user && user.id===userid) 
-		 				{
-		 					console.log(user);
-		 					for(var parameter in user)
-								user[parameter] = newuser[parameter];
-							return callback(null, user);
-		 				}
-		 			});
-			}
-			catch(error)
-			{
-				return callback(error, null);
-			}
-			return callback("Cannot Find User with Username : " + username , null);
+            var deferred = $q.defer();
+
+            $http.put("/api/assignment/user/"+userid, newuser)
+                .success(function(newuser){
+                    deferred.resolve(newuser);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
 		};
 
-		function checkNewUser(username, email)
+		function checkNewUser(username, email, users)
 		{
 			console.log("i am here");
 			var exists = false;
