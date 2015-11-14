@@ -19,7 +19,7 @@
 		$scope.init = function () {
 			UserService.findAllUsers( )
 				.then(
-						function(error, users)
+						function(users)
 						{
 								$scope.users = users;
 						})

@@ -100,17 +100,6 @@
 					function(result)
 					{
                         $scope.userForms = result;
-                        /*if(result)
-                        {
-                            $scope.userForms.forEach(
-                                function(form, index)
-                                {
-                                    if (form && form.id === $scope.userForms[index].id)
-                                    {
-                                        $scope.userForms.splice(index, 1);
-                                    }
-                                });
-                        }*/
 				})
                     .catch(
                     function(error){
