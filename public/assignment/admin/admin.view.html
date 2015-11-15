@@ -1,0 +1,105 @@
+<div>   
+     <div ng-if="user">
+     	<div data-ng-controller="AdminController">
+		    <h1 class="page-header">Admin</h1>
+		    <h3>Users</h3>
+
+		    <div class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    UserName
+		                </th>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    Password
+		                </th>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    Role
+		                </th>
+		                <th>
+		                    <a href="#">
+		                        <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+		                    </a>
+		                    Actions
+		                </th>
+		            </tr>
+		            <tr>
+		                <td><input class="form-control" type="text" name="username" placeholder="johnDoe"/></td>
+		                <td><input class="form-control" type="text" name="password" placeholder="Password"/></td>
+		                <td><input class="form-control" type="text" name="role" placeholder="Student"/></td>
+		                <td style="white-space: nowrap">
+		                    <a href="#" class="btn btn-primary">
+		                        <scan class="glyphicon glyphicon-plus"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-success">
+		                        <scan class="glyphicon glyphicon-ok"></scan>
+		                    </a>
+		                </td>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <tr ng-repeat="user in users">
+		            	<td>{{user.username}}</td>
+		            	<td></td>
+		            	<td>{{user.role}}</td>
+		            </tr>
+		            <!-- <tr>
+		                <td>Alice</td>
+		                <td></td>
+		                <td>Student</td>
+		                <td>
+		                    <a href="#" class="btn btn-warning">
+		                        <scan class="glyphicon glyphicon-pencil"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-danger">
+		                        <scan class="glyphicon glyphicon-remove"></scan>
+		                    </a>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>Bob</td>
+		                <td></td>
+		                <td>Faculty / Admin</td>
+		                <td>
+		                    <a href="#" class="btn btn-warning">
+		                        <scan class="glyphicon glyphicon-pencil"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-danger">
+		                        <scan class="glyphicon glyphicon-remove"></scan>
+		                    </a>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>Charlie</td>
+		                <td></td>
+		                <td></td>
+		                <td>
+		                    <a href="#" class="btn btn-warning">
+		                        <scan class="glyphicon glyphicon-pencil"></scan>
+		                    </a>
+		                    <a href="#" class="btn btn-danger">
+		                        <scan class="glyphicon glyphicon-remove"></scan>
+		                    </a>
+		                </td>
+		            </tr> -->
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
+	<div ng-if="!user">
+    <h2> 
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
+</div>

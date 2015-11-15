@@ -147,7 +147,8 @@
 			if (typeof index !== "undefined")
 			{
 				var selectedForm = $scope.userForms[index];
-				alert(selectedForm.title + " cannot be updated at this point of time. Please come back to this in the next assignment");
+                $scope.formName = selectedForm.title;
+				//alert(selectedForm.title + " cannot be updated at this point of time. Please come back to this in the next assignment");
 			} 
 			else 
 			{
