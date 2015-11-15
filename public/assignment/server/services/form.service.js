@@ -62,12 +62,13 @@ module.exports = function(app, model) {
     {
         var formId = req.params.formId;
         var form = req.body;
-
+        console.log(formId);
+        console.log(form);
         model
             .Update(formId, form)
             .then(
-            function(form){
-                res.json(form);
+            function(forms){
+                res.json(forms);
             })
             .catch(
             function(error){

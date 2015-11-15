@@ -151,10 +151,12 @@ module.exports = function(app, mongoose, db){
         return deferred.promise;
     }
 
-    function Update()
+    function Update(formId, newForm)
     {
         var deferred = q.defer();
         var found =  false;
+        var userId = "";
+        var userForms = [];
         try
         {
             forms.forEach(
@@ -163,12 +165,22 @@ module.exports = function(app, mongoose, db){
                     if (form && form.id==formId)
                     {
                         found  = true;
+                        userId = form.userId;
 
-                        for(var parameter in newForm)
-                            form[parameter] = newuser[parameter];
-                        deferred.resolve(form);
+                        for(var parameter in newForm) {
+
+                            form[parameter] = newForm[parameter];
+                        }
+                        deferred.resolve(newForm);
                     }
                 });
+            /*forms.forEach(
+                function(form) {
+                    if (form && form.userId == userId) {
+                        userForms.push(form);
+                    }
+                });*/
+            //deferred.resolve(userForms);
         }
         catch(error)
         {

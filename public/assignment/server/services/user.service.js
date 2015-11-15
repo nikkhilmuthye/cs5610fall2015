@@ -21,7 +21,7 @@ module.exports = function(app, model) {
 
     function FindUsers(req, res)
     {
-        if(req.query)
+        if(req.query.username)
         {
             if(req.query.password)
             {
@@ -39,7 +39,6 @@ module.exports = function(app, model) {
     }
     function FindAll(req, res)
     {
-        console.log(req);
         model
             .FindAll()
             .then(

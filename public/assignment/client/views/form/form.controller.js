@@ -13,7 +13,7 @@
 		$rootScope.$on("loggedin", function(event, user){
 			$scope.user = $rootScope.user = user;
 		});
-
+        
 		$scope.userForms = [];
 		
 		 $scope.init = function () {
@@ -71,7 +71,6 @@
 							function(formadded)
 							{
                                 $scope.userForms.push(formadded);
-                                console.log($scope.userForms);
                             })
                             .catch(
                             function(error){
@@ -100,7 +99,7 @@
 					function(result)
 					{
                         $scope.userForms = result;
-				})
+				    })
                     .catch(
                     function(error){
                         $scope.error = error;
@@ -126,6 +125,7 @@
 				}
                 else
                 {
+                    $scope.selectedForm = selectedForm;
                     $rootScope.selectedForm = selectedForm;
 
                     $rootScope.$broadcast('selectedForm', selectedForm);
@@ -141,13 +141,15 @@
 			}			
 		};
 
-		$scope.updateForm = function(index)
+		$scope.selectUpdateForm = function(index)
 		{
 			$scope.error = null;
 			if (typeof index !== "undefined")
 			{
 				var selectedForm = $scope.userForms[index];
                 $scope.formName = selectedForm.title;
+                $scope.selectedForm = $scope.userForms[index];
+                $scope.index = index;
 				//alert(selectedForm.title + " cannot be updated at this point of time. Please come back to this in the next assignment");
 			} 
 			else 
@@ -155,6 +157,34 @@
 				$scope.error = "Please provide a valid form index.";
 			}
 		};
+
+        $scope.updateForm = function()
+        {
+            if (!$scope.selectedForm)
+            {
+                $scope.error = "No form with name as  " + $scope.formName + "exists";
+            }
+            else
+            {
+                console.log($scope.userForms);
+                var newForm = { title : $scope.formName };
+                FormService.updateFormById($scope.selectedForm.id, newForm)
+                    .then(
+                    function(result)
+                    {
+                        /*$scope.userForms = null;
+                        $scope.userForms = result;
+                        $scope.selectForm = "";
+                        $scope.formName = "";*/
+                        $scope.init();
+                    })
+                    .catch(
+                    function(error){
+                        $scope.error = error;
+                    }
+                )
+            }
+        };
 	}
 
 })();
