@@ -111,26 +111,29 @@
 				$scope.error = "Please enter valid index number of the form";
 		};
 
-		$scope.selectForm = function()
+		$scope.selectForm = function(index)
 		{
 			$scope.error = null;
 			var selectedForm;
-			if ($scope.formName)
-			{
-				$scope.userForms.forEach(
-					function(form, index)
-					{
-						if (form.name === $scope.formName)
-						{
-							selectedForm = form;
-							alert("Form Selected : " + JSON.stringify(selectedForm));
-						}
-					});
 
-				if (!selectedForm)
+			if (index !== null)
+			{
+                selectedForm = $scope.userForms[index];
+
+                if (!selectedForm)
 				{
 					$scope.error = "No form with name as  " + $scope.formName + "exists";
 				}
+                else
+                {
+                    $rootScope.selectedForm = selectedForm;
+
+                    $rootScope.$broadcast('selectedForm', selectedForm);
+
+                    console.log(selectedForm);
+
+                    $location.path("/user");
+                }
 			} 
 			else 
 			{
@@ -144,7 +147,7 @@
 			if (typeof index !== "undefined")
 			{
 				var selectedForm = $scope.userForms[index];
-				alert(selectedForm.name + " caanot be updated at this point of time. Please come back to this in the next assignment");
+				alert(selectedForm.title + " cannot be updated at this point of time. Please come back to this in the next assignment");
 			} 
 			else 
 			{

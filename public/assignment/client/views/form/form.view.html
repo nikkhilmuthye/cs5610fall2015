@@ -5,7 +5,7 @@
 
             <ul class="nav nav-tabs">
                     <li role="presentation" class="active"><a href="#/form">Forms</a></li>
-                    <li role="presentation"><a>Fields</a></li>
+                    <li role="presentation"><a href="#/user">Fields</a></li>
             </ul>
 
 
@@ -41,7 +41,7 @@
                     <tbody>
                         <tr ng-repeat="form in userForms">
                             <td>
-                                <a href="" ng-click="updateForm($index)">{{form.title}}</a>
+                                <a href="" ng-click="selectForm($index)">{{form.title}}</a>
                             </td>
                             <td class="col-nowrap">
                                 <a href="" class="btn btn-warning" ng-click="updateForm($index)">

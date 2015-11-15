@@ -5,5 +5,5 @@ module.exports = function(app, mongoose, db) {
 
     require("./services/user.service.js")(app, usermodel);
     require("./services/form.service.js")(app, formmodel);
-    //require("./services/field.service.js")(app, formmodel);
+    require("./services/field.service.js")(app, formmodel);
 };

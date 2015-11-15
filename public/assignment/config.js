@@ -24,6 +24,9 @@
                 .when("/form", {
                     templateUrl : "/assignment/client/views/form/form.view.html"
                 })
+                .when("/user", {
+                    templateUrl : "/assignment/client/views/field/field.view.html"
+                })
                 .otherwise({
                     redirectTo : "/home" 
                 })

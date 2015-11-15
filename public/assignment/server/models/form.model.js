@@ -50,9 +50,9 @@ module.exports = function(app, mongoose, db){
             {
                 form.id = guid();
                 form.userId = userId;
-                console.log(form);
+
                 forms.push(form);
-                console.log(forms);
+
                 deferred.resolve(form);
             }
             else
@@ -254,6 +254,134 @@ module.exports = function(app, mongoose, db){
         return deferred.promise;
     }
 
+    function DeleteField(formId, fieldId)
+    {
+        var deferred = q.defer();
+        var found = false, foundfield = false, selectedform;
+        var userforms = [];
+        try
+        {
+            if(formId !== null && typeof formId === 'string')
+            {
+                forms.forEach(
+                    function(form, index)
+                    {
+                        if (form && form.id === formId)
+                        {
+                            found = true;
+                            selectedform = form;
+                        }
+                    });
+                if(found){
+                    selectedform.fields.forEach(function(field, index){
+                        if (field && field.id == fieldId){
+                            selectedform.fields.splice(index, 1);
+                        }
+                    })
+                    deferred.resolve(selectedform.fields);
+                }
+                else{
+                    deferred.reject("Cannot Find Field with Field ID : : " + fieldId);
+                }
+            }
+            else
+            {
+                deferred.reject("Please enter valid Field ID")
+            }
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+
+    function CreateField(formId, field)
+    {
+        var deferred = q.defer();
+        var found = false, foundfield = false, selectedform;
+
+        try
+        {
+            if(formId !== null && typeof formId === 'string' && field != null)
+            {
+                forms.forEach(
+                    function(form, index)
+                    {
+                        if (form && form.id === formId)
+                        {
+                            found = true;
+                            selectedform = form;
+                        }
+                    });
+                if(found){
+                    field.id = guid();
+                    selectedform.fields.push(field);
+
+                    deferred.resolve(field);
+                }
+                else{
+                    deferred.reject("Cannot Find Form with Form ID : : " + formId);
+                }
+            }
+            else
+            {
+                deferred.reject("Please enter valid Form ID")
+            }
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function CloneField(formId, field, index)
+    {
+        var deferred = q.defer();
+        var found = false, foundfield = false, selectedform;
+
+        try
+        {
+            if(formId !== null && typeof formId === 'string' && field != null)
+            {
+                forms.forEach(
+                    function(form, index)
+                    {
+                        if (form && form.id === formId)
+                        {
+                            found = true;
+                            selectedform = form;
+                        }
+                    });
+                if(found){
+                    field.id = guid();
+                    selectedform.fields.splice(index+1, 0, field);
+
+                    deferred.resolve(field);
+                }
+                else{
+                    deferred.reject("Cannot Find Form with Form ID : : " + formId);
+                }
+            }
+            else
+            {
+                deferred.reject("Please enter valid Form ID")
+            }
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
     var api = {
         Create: Create,
         FindAll: FindAll,
@@ -261,7 +389,10 @@ module.exports = function(app, mongoose, db){
         Update: Update,
         Delete : Delete,
         findFormByTitle: findFormByTitle,
-        FindAllForUser : FindAllForUser
+        FindAllForUser : FindAllForUser,
+        DeleteField : DeleteField,
+        CreateField : CreateField,
+        CloneField : CloneField
     };
     return api;
 

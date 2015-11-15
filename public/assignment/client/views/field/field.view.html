@@ -1,0 +1,116 @@
+<div>
+    <div ng-if="user">
+        <div data-ng-controller="FieldController">
+            <h1 class="page-header">{{selectedForm.title}}</h1>
+
+            <ul class="nav nav-tabs">
+                <li role="presentation"><a href="#/form">Forms</a></li>
+                <li role="presentation" class="active"><a href="#/user">Fields</a></li>
+            </ul>
+
+            <table class="table">
+                <tr ng-repeat="field in fields">
+                    <td>
+                        <label for="{{field.id}}" class="col-sm-2 control-label">{{field.label}}</label>
+                        <div class="col-sm-10  float-left" ng-switch on="field.type">
+                            <div class="animate-switch" ng-switch-when="TEXT" id="{{field.id}}">
+                                <input class="form-control" type="{{field.type}}"  placeholder="{{field.placeholder}}">
+                            </div>
+                            <div class="animate-switch" ng-switch-when="DATE">
+                                <input class="form-control" type="date" placeholder="{{field.placeholder}}">
+                            </div>
+                            <div class="animate-switch" ng-switch-when="EMAIL">
+                                <input type="email" class="form-control" id="inputEmail" placeholder="{{field.placeholder}}">
+                            </div>
+
+                            <div class="animate-switch" ng-switch-when="TEXTAREA">
+                                <textarea rows="4" cols="50" />
+                            </div>
+                            <div class="animate-switch" ng-switch-when="OPTIONS">
+                                <select class="col-xs-1 form-control" ng-options="option.label for option in field.options">
+                                   <!-- <option value="OPTION_1">Option 1</option>
+                                    <option value="OPTION_2">Option 2</option>
+                                    <option value="OPTION_3">Option 3</option>-->
+                                </select>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="CHECKBOXES">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> OPTION A
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> OPTION B
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> OPTION C
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="RADIOS">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="choice" value="OPTION_X"> OPTION X
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="OPTION_Y"> OPTION Y
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="OPTION_Z"> OPTION Z
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="white-space: nowrap">
+                        <a href="#" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-pencil"></scan>
+                        </a>
+                        <a href="" class="btn btn-primary" ng-click="cloneSameField($index)">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                        <a href="" class="btn btn-primary" ng-click="deletefield($index)">
+                            <scan class="glyphicon glyphicon-remove"></scan>
+                        </a>
+                        <a href="#" class="btn btn-success">
+                            <scan class="glyphicon glyphicon-th-list"></scan>
+                        </a>
+                    </td>
+                </tr>
+                <hr/>
+                <tr>
+                    <td>
+                        <label for="addnew" class="col-sm-2 control-label">Add New</label>
+                        <div class="col-sm-10 float-left">
+                            <select class="col-xs-1 form-control" type="text" name="addNew" id="addnew" data-ng-model="FieldType">
+                                <option value="TEXT">Single Line Text Field</option>
+                                <option value="TEXTAREA">Multi Line Text Field</option>
+                                <option value="DATE">Date Field</option>
+                                <option value="OPTIONS">Dropdown Field</option>
+                                <option value="CHECKBOXES">Checkbox Field</option>
+                                <option value="RADIOS">Radio Button Field</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td class="col-nowrap">
+                        <a href="" ng-click="addField(FieldType)" class="btn btn-primary">
+                            <scan class="glyphicon glyphicon-plus"></scan>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div ng-if="!user">
+        <h2>
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
+</div>

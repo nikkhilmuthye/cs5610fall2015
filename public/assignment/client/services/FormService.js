@@ -30,7 +30,7 @@
 		 	return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 		 };
 
-	    function createFormForUser(userId, form, callback)
+	    function createFormForUser(userId, form)
 	    {
 			var deferred = $q.defer();
 
