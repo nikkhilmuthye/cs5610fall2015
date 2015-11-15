@@ -15,7 +15,6 @@
 		});
 
 		$scope.userForms = [];
-        $scope.h = "";
 		
 		 $scope.init = function () {
 			FormService.findAllFormsForUser($scope.user.id)

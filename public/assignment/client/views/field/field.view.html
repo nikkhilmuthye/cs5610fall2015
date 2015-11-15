@@ -27,43 +27,24 @@
                                 <textarea rows="4" cols="50" />
                             </div>
                             <div class="animate-switch" ng-switch-when="OPTIONS">
-                                <select class="col-xs-1 form-control" ng-options="option.label for option in field.options">
-                                   <!-- <option value="OPTION_1">Option 1</option>
-                                    <option value="OPTION_2">Option 2</option>
-                                    <option value="OPTION_3">Option 3</option>-->
+                                {{options=field.options;""}}
+                                <select class="col-xs-1 form-control">
+                                    <option ng-repeat="option in options" value="option.value">{{option.label}}</option>
                                 </select>
                             </div>
                             <div class="animate-switch" ng-switch-when="CHECKBOXES">
-                                <div class="checkbox">
+                                {{options=field.options;""}}
+                                <div class="checkbox" ng-repeat="option in options" value="option.value">
                                     <label>
-                                        <input type="checkbox"> OPTION A
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> OPTION B
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> OPTION C
+                                        <input type="checkbox"> {{option.label}}
                                     </label>
                                 </div>
                             </div>
                             <div class="animate-switch" ng-switch-when="RADIOS">
-                                <div class="radio">
+                                {{options=field.options;""}}
+                                <div class="radio" ng-repeat="option in options" value="option.value">
                                     <label>
-                                        <input type="radio" name="choice" value="OPTION_X"> OPTION X
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="OPTION_Y"> OPTION Y
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="OPTION_Z"> OPTION Z
+                                        <input type="radio" name="choice" value="option.value"> {{option.label}}
                                     </label>
                                 </div>
                             </div>
