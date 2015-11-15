@@ -4,12 +4,15 @@
 
     angular
         .module("FormBuilderApp")
-        .controller("FieldController", ['$scope', '$location', '$rootScope', 'FieldService', FieldController]);
+        .controller("FieldController", ['$scope', '$location', '$rootScope', '$routeParams', 'FieldService', FieldController]);
 
-    function FieldController($scope, $location, $rootScope, FieldService) {
+    function FieldController($scope, $location, $rootScope, $routeParams, FieldService) {
         $scope.$location = $location;
         $scope.user = $rootScope.user;
         $scope.fields = [];
+
+        $scope.formID = $routeParams.formId || "";
+        $scope.userID = $routeParams.userId || "";
 
         $rootScope.$on("loggedin", function (event, user) {
             $scope.user = $rootScope.user = user;
