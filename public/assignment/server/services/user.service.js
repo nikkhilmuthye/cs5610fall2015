@@ -1,11 +1,9 @@
 module.exports = function(app, model) {
     app.post("/api/assignment/user", Create);
-    app.get("/api/assignment/user", FindAll);
+    app.get("/api/assignment/user", FindUsers);
     app.get("/api/assignment/user/:id", FindById);
     app.put("/api/assignment/user/:id", Update);
     app.delete("/api/assignment/user/:id", Delete);
-    app.get("/api/assignment/user/:username", FindUserByUsername);
-    app.get("/api/assignment/user/:username/:password", FindUserByUsernameAndPassword);
 
 
     function Create(req, res)
@@ -21,9 +19,27 @@ module.exports = function(app, model) {
             });
     }
 
+    function FindUsers(req, res)
+    {
+        if(req.query)
+        {
+            if(req.query.password)
+            {
+                FindUserByUsernameAndPassword(req, res);
+            }
+            else
+            {
+                FindUserByUsername(req, res);
+            }
+        }
+        else
+        {
+            FindAll(req, res);
+        }
+    }
     function FindAll(req, res)
     {
-        console.log("in here 1");
+        console.log(req);
         model
             .FindAll()
             .then(
@@ -82,9 +98,11 @@ module.exports = function(app, model) {
             });
     }
 
-    function FindUserByUsernameAndPassword(req, res, next){
-        var username = req.params.username;
-        var password = req.params.password;
+    function FindUserByUsernameAndPassword(req, res){
+        var username = req.query.username;
+        var password = req.query.password;
+
+        console.log(req.query.password);
 
         if (username === null){
             res.status(400).send("Please supply a username");
@@ -101,8 +119,8 @@ module.exports = function(app, model) {
         }
     }
 
-    function FindUserByUsername(req, res, next){
-        var username = req.params.username;
+    function FindUserByUsername(req, res){
+        var username = req.query.username;
         if (username === null){
             res.status(400).send("Please supply a username");
         } else {
