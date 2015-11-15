@@ -24,7 +24,7 @@
                 .when("/form", {
                     templateUrl : "/assignment/client/views/form/form.view.html"
                 })
-                .when("/user", {
+                .when("/user/:userId/form/:formId/fields", {
                     templateUrl : "/assignment/client/views/field/field.view.html"
                 })
                 .otherwise({

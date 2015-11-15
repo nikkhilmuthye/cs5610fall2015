@@ -132,7 +132,7 @@
 
                     console.log(selectedForm);
 
-                    $location.path("/user");
+                    $location.path("/user/"+$scope.user.id+"/form/"+$scope.selectedForm.id+"/fields");
                 }
 			} 
 			else 
