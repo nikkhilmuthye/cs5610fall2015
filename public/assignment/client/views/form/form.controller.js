@@ -13,8 +13,9 @@
 		$rootScope.$on("loggedin", function(event, user){
 			$scope.user = $rootScope.user = user;
 		});
-        
+
 		$scope.userForms = [];
+        $scope.h = "";
 		
 		 $scope.init = function () {
 			FormService.findAllFormsForUser($scope.user.id)
