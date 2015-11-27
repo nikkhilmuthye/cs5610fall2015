@@ -181,7 +181,7 @@ background-color: #FFBABA;
 }
 
 .background {
-    background:url(../project/img/background.jpg);
+    background:url(../project/client/views/img/background.jpg);
     background-repeat:no-repeat;
     background-size:cover;
     color: white;
@@ -234,7 +234,7 @@ background-color: #FFBABA;
 }
 .jumbotron
 {   
-    background-image: url("../project/img/widemanutd.jpg");
+    background-image: url("../project/client/views/img/widemanutd.jpg");
     background-repeat:no-repeat;
     background-size:cover;
     color: white;

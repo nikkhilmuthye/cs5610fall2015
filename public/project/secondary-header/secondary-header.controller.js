@@ -14,6 +14,7 @@
 		$rootScope.$on("loggedin", function(event, user){
 			$scope.user = $rootScope.user = user;
 		});
-		
+
+
 	};
 })();

@@ -134,6 +134,7 @@
 
             $http.put("/api/assignment/user/"+userid, newuser)
                 .success(function(newuser){
+					console.log(newuser);
                     deferred.resolve(newuser);
                 })
                 .error(function(error){

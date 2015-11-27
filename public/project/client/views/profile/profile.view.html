@@ -1,0 +1,84 @@
+<div ng-controller="ProfileController">
+    <div ng-if="user">
+        <h1 class="page-header">Profile</h1>  
+        <div id="personal" class="row">
+            <div class="col-sm-2">
+                <img class="img-responsive background" src="img/football_PNG1085.png">
+            </div>
+            <div class="col-sm-9">
+                <ul class="list-group">
+                <li class="form-group list-group-item">
+                    <label for="username" >Username :</label>
+                    <label id="username" data-ng-model="user.username">{{user.username}}</label>
+                </li>
+
+                <li class="form-group list-group-item">
+                    <label for="firstname" >First Name :</label>
+                    <label id="firstname"  data-ng-model="user.firstname">{{user.firstname}}</label>
+                </li>
+                <li class="form-group list-group-item">
+                    <label for="lastname" >Last Name :</label>
+                    <label id="lastname"  data-ng-model="user.lastname">{{user.lastname}}</label>
+                </li>
+                <li class="form-group list-group-item">
+                    <label for="inputEmail" >Email :</label>
+                    <label id="inputEmail"  data-ng-model="user.email">{{user.email}}</label>
+                </li>
+                <ul>
+            </div>
+          </div>
+
+          <div id="favorites" class="row">
+          	<h2>Favourite Teams</h2>
+          	<ul class="list-group" ng-repeat=" team in user.favoriteteams" ng-bind-html-unsafe="team">
+          		<li class="list-group-item">{{team}}</li>
+          	</ul>
+          </div>
+
+          <div id="stories" class="row">
+          	<h2>Your Stories</h2>
+
+            <div class="table-responsive">
+                <table class="tables table-bordered table1">
+                    <thead>
+                    <tr>
+                        <th class="th1">
+                            <a href="#">
+                                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+                            </a>
+                            Story Heading
+                        </th>
+                        <th class="th1">
+                            <a href="#">
+                                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+                            </a>
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="story in userStories">
+                            <td class="storycontent td1"><a class="whitefont" href="#/story">{{story.heading}}</a></td>
+                            <td class="col-nowrap td1">
+                                <a href="" class="btn btn-warning" ng-click="updateStory($index)">
+                                    <scan class="glyphicon glyphicon-pencil"></scan>
+                                </a>
+                                <a href="" class="btn btn-danger" ng-click="deleteStory($index)">
+                                    <scan class="glyphicon glyphicon-remove"></scan>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="error glyphicon glyphicon-remove" ng-if="error">
+                    <span>{{error}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!user">
+    	<h2> 
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
+</div>

@@ -17,7 +17,7 @@
 		$scope.userForms = [];
 		
 		 $scope.init = function () {
-			FormService.findAllFormsForUser($scope.user.id)
+			FormService.findAllFormsForUser($scope.user._id)
                 .then(
                     function(forms)
                     {
@@ -41,7 +41,7 @@
 			{
 				if($scope.user)
 				{
-					FormService.findAllFormsForUser($scope.user.id)
+					FormService.findAllFormsForUser($scope.user._id)
                         .then(
 						function(forms)
 						{
@@ -66,7 +66,7 @@
 					{
 						var newForm = { title : $scope.formName, fields: [] };
 
-						FormService.createFormForUser($scope.user.id, newForm)
+						FormService.createFormForUser($scope.user._id, newForm)
 							.then(
 							function(formadded)
 							{
@@ -94,7 +94,7 @@
 			if(typeof index !== "undefined")
 			{
 				console.log($scope.userForms[index]);
-				FormService.deleteFormById($scope.userForms[index].id)
+				FormService.deleteFormById($scope.userForms[index]._id)
                     .then(
 					function(result)
 					{
@@ -132,7 +132,7 @@
 
                     console.log(selectedForm);
 
-                    $location.path("/user/"+$scope.user.id+"/form/"+$scope.selectedForm.id+"/fields");
+                    $location.path("/user/"+$scope.user._id+"/form/"+$scope.selectedForm._id+"/fields");
                 }
 			} 
 			else 
@@ -168,7 +168,7 @@
             {
                 console.log($scope.userForms);
                 var newForm = { title : $scope.formName };
-                FormService.updateFormById($scope.selectedForm.id, newForm)
+                FormService.updateFormById($scope.selectedForm._id, newForm)
                     .then(
                     function(result)
                     {

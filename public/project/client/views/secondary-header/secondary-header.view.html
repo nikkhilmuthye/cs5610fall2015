@@ -1,0 +1,31 @@
+<div class="container-fluid" data-ng-controller="SecondaryHeaderController as controller" id="tabs">
+	<ul class="nav nav-tabs nav-justified">
+	    <li >
+	        <a href="#/home" data-target="#home" data-toggle="tab">Home</a>
+	    </li>
+	    <li class="dropdown no-display" >
+		    <a class="dropdown-toggle" data-toggle="dropdown" href="">Leagues
+		    <span class="caret"></span></a>
+		    <ul class="dropdown-menu no-display overlay">
+				<li class="animate-repeat" ng-repeat="league in leagues">
+					<a data-toggle="tab" href="" ng-click="selectLeague($index)">{{league.caption}}</a>
+                </li>
+				<!--<li><a data-toggle="tab" href="#/league" data-target="#league">Barclays Premiere League</a></li>
+                  <li><a data-toggle="tab" href="#/league" data-target="#league">La Liga</a></li>
+                  <li><a data-toggle="tab" href="#/league" data-target="#league">Bundesliga</a></li>-->
+		    </ul>
+		</li>
+		<li class="dropdown no-display" data-toggle="tab">
+		    <a class="dropdown-toggle" data-toggle="dropdown" href="">Clubs
+		    <span class="caret"></span></a>
+		    <ul class="dropdown-menu no-display overlay">
+		      <li><a data-toggle="tab" href="#/team" data-target="#team">Manchester United</a></li>
+		      <li><a data-toggle="tab" href="#/team" data-target="#team">Real Madrid</a></li>
+		      <li><a data-toggle="tab" href="#/team" data-target="#team">All Teams</a></li>
+		    </ul>
+		</li>
+	    <li>
+	        <a href="#/transfer" data-toggle="tab" data-target="#transfer">Transfers </a>
+	    </li>
+	</ul>
+</div>

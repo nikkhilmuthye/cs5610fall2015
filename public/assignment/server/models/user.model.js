@@ -2,6 +2,16 @@ var q = require("q");
 
 module.exports = function(app, mongoose, db){
 
+    var UserSchema = mongoose.Schema({
+        "firstName": String,
+        "lastName" : String,
+        "username" : String,
+        "password" : String,
+        "email" : String
+    }, {collection: "user"});
+
+    var userModel = mongoose.model("user", UserSchema);
+
     var users =
         [
             {"id": 123, "firstName": "Alice", 	"lastName": "Wonderland",	"username": "alice", 	"password": "alice"},
@@ -43,8 +53,10 @@ module.exports = function(app, mongoose, db){
             if(newuser !== null && typeof newuser === 'object')
             {
                 newuser.id = guid();
-                users.push(newuser);
-                deferred.resolve(newuser);
+                console.log(newuser);
+                userModel.create(newuser, function(err, users){
+                    deferred.resolve(users);
+                });
             }
             else
             {
@@ -65,8 +77,9 @@ module.exports = function(app, mongoose, db){
         var deferred = q.defer();
         try
         {
-
-            deferred.resolve(users);
+            userModel.find(function(err, users) {
+                deferred.resolve(users);
+            });
         }
         catch(error)
         {
@@ -85,18 +98,25 @@ module.exports = function(app, mongoose, db){
             if (typeof userId === 'undefined' || userId === null){
                 deferred.reject("Please provide valid user id");
             } else {
-                users.forEach(function(user){
+                userModel.findById({_id: userId}, function(err, user){
+                    if (user){
+                        deferred.resolve(user);
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+userId);
+                    }
+                });
+                /*users.forEach(function(user){
                     if (user && user.id==userId)
                     {
                         found = true;
                         deletedUser = user;
                     }
-                });
-                if (found){
-                    deferred.resolve(deletedUser);
-                } else {
-                    deferred.reject("no user found with id:"+instanceId);
-                }
+                });*/
+
             }
         }
         catch(error){
@@ -113,7 +133,17 @@ module.exports = function(app, mongoose, db){
         try
         {
             console.log(newuser);
-            users.forEach(
+            userModel.update({_id: userId}, {$set: newuser},
+                function(err,result){
+                    if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.resolve(newuser);
+                        console.log(result);
+                    }
+                });
+            /*users.forEach(
                 function(user)
                 {
                     if (user && user.id==userId)
@@ -123,15 +153,13 @@ module.exports = function(app, mongoose, db){
                             user[parameter] = newuser[parameter];
                         deferred.resolve(user);
                     }
-                });
+                });*/
         }
         catch(error)
         {
             deferred.reject(error);
         }
-        if(!found) {
-            deferred.reject("Cannot Find User with Username : " + user.username);
-        }
+
         return deferred.promise;
     }
 
@@ -142,13 +170,17 @@ module.exports = function(app, mongoose, db){
         if (typeof userId==="undefined" || userId === null){
             deferred.reject("Please enter a userId");
         } else {
-            users.forEach(function (user, index) {
+            userModel.remove({_id: userId},function(err, users){
+                console.log(users);
+                deferred.resolve(users);
+            });
+            /*users.forEach(function (user, index) {
                 if (user.id == userId) {
                     users.splice(index, 1);
                     console.log("Userid :  " + userId + "succesfully deleted");
 
                 }
-            });
+            });*/
             deferred.resolve(users);
         }
         return deferred.promise;
@@ -161,14 +193,20 @@ module.exports = function(app, mongoose, db){
 
         try
         {
-            users.forEach(
+            userModel.findOne({username: username}, function(err, user){
+                if(user)
+                    deferred.resolve(user);
+                else
+                    deferred.reject("Cannot Find User with Username : " + username );
+            });
+            /*users.forEach(
                 function(user)
                 {
                     if (user.username===username)
                     {
                         Founduser = user;
                     }
-                });
+                });*/
             if(Founduser && found)
                 deferred.resolve(Founduser);
             else if(found === true)
@@ -190,7 +228,13 @@ module.exports = function(app, mongoose, db){
 
         try
         {
-            users.forEach(
+            userModel.findOne({username: username, password: password}, function(err, Founduser){
+                if(Founduser)
+                    deferred.resolve(Founduser);
+                else
+                    deferred.reject("Cannot Find User with Username : " + username);
+            });
+            /*users.forEach(
                 function(user)
                 {
                     if (user.username===username)
@@ -207,7 +251,7 @@ module.exports = function(app, mongoose, db){
             else if(found === true)
                 deferred.reject(error);
             else
-                deferred.reject("Cannot Find User with Username : " + username);
+                deferred.reject("Cannot Find User with Username : " + username);*/
         }
         catch(error)
         {

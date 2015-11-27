@@ -2,6 +2,28 @@ var q = require("q");
 
 module.exports = function(app, mongoose, db){
 
+    var OptionsSchema = mongoose.Schema({
+            "label" : String,
+            "value" : String
+    });
+
+    var FieldSchema = mongoose.Schema({
+            "id": String,
+            "label" : String,
+            "type" : String,
+            "placeholder" : String,
+            "options" : [OptionsSchema]
+    });
+
+    var FormSchema = mongoose.Schema({
+        "id": String,
+        "title" : String,
+        "userId" : String,
+        "fields" : [FieldSchema]
+    }, {collection: "form"});
+
+    var FormModel = mongoose.model("form", FormSchema);
+
     var forms =
         [
             {"id": "000", "title": "Contacts", "userId": 123,
@@ -53,7 +75,12 @@ module.exports = function(app, mongoose, db){
 
                 forms.push(form);
 
-                deferred.resolve(form);
+                FormModel.create(form, function(err, forms){
+                    console.log(forms);
+                    deferred.resolve(forms);
+                });
+
+                //deferred.resolve(form);
             }
             else
             {
@@ -75,8 +102,9 @@ module.exports = function(app, mongoose, db){
 
         try
         {
-
-            deferred.resolve(forms);
+            FormModel.find(function(err, forms) {
+                deferred.resolve(forms);
+            });
         }
         catch(error)
         {
@@ -97,7 +125,7 @@ module.exports = function(app, mongoose, db){
 
             if(userId)
             {
-                forms.forEach(
+                /*forms.forEach(
                     function(form)
                     {
                         if (form.userId==userId)
@@ -105,7 +133,18 @@ module.exports = function(app, mongoose, db){
                             userForms.push(form);
                         }
                     });
-                deferred.resolve(userForms);
+                deferred.resolve(userForms);*/
+                FormModel.find({userId: userId}, function(err, forms){
+                    if (forms){
+                        deferred.resolve(forms);
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+userId);
+                    }
+                });
             }
             else
             {
@@ -128,7 +167,18 @@ module.exports = function(app, mongoose, db){
         var requestedform, found = false;
         try{
             if (formId && typeof formId !== "undefined"){
-                forms.forEach(function(form, index){
+                FormModel.findById({_id: formId}, function(err, forms){
+                    if (forms){
+                        deferred.resolve(forms);
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("No form with formId:"+formId+" exists in th DB");
+                    }
+                });
+                /*forms.forEach(function(form, index){
                     if (form.id == formId){
                         found =  true;
                         requestedform = form;
@@ -138,7 +188,7 @@ module.exports = function(app, mongoose, db){
                     deferred.resolve(requestedform);
                 } else {
                     deferred.reject("No form with formId:"+formId+" exists in th DB");
-                }
+                }*/
             }
             else {
                 deferred.reject("please provide a formId");
@@ -159,7 +209,17 @@ module.exports = function(app, mongoose, db){
         var userForms = [];
         try
         {
-            forms.forEach(
+            FormModel.update({_id: formId}, {$set: newForm},
+                function(err,result){
+                    if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.resolve(newForm);
+                        console.log(result);
+                    }
+                });
+            /*forms.forEach(
                 function(form)
                 {
                     if (form && form.id==formId)
@@ -173,7 +233,7 @@ module.exports = function(app, mongoose, db){
                         }
                         deferred.resolve(newForm);
                     }
-                });
+                });*/
             /*forms.forEach(
                 function(form) {
                     if (form && form.userId == userId) {
@@ -201,7 +261,33 @@ module.exports = function(app, mongoose, db){
         {
             if(formId !== null && typeof formId === 'string')
             {
-                forms.forEach(
+                FormModel.findById({_id: formId}, function(err, forms){
+                    if (forms) {
+                        userId = forms.userId;
+                        FormModel.remove({_id: formId}, function (err, forms) {
+
+                            FormModel.find({userId: userId}, function (err, forms) {
+                                if (forms) {
+                                    deferred.resolve(forms);
+                                }
+                                else if (err) {
+                                    deferred.reject(err);
+                                }
+                                else {
+                                    deferred.reject("no user found with id:" + userId);
+                                }
+                            });
+                        });
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+userId);
+                    }
+                });
+
+                /*forms.forEach(
                     function(form, index)
                     {
                         if (form && form.id === formId)
@@ -221,7 +307,7 @@ module.exports = function(app, mongoose, db){
                 }
                 else{
                     deferred.reject("Cannot Find User with Form ID : : " + formId);
-                }
+                }*/
             }
             else
             {
@@ -243,7 +329,20 @@ module.exports = function(app, mongoose, db){
         var requestedform, found = false;
         try{
             if (title && typeof title !== "undefined"){
-                forms.forEach(function(form, index){
+
+                FormModel.findOne({title: title}, function(err, forms){
+                    if (forms){
+                        deferred.resolve(forms);
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("No form with formId:"+formId+" exists in th DB");
+                    }
+                });
+
+                /*forms.forEach(function(form, index){
                     if (form.title == title){
                         found =  true;
                         requestedform = form;
@@ -253,7 +352,7 @@ module.exports = function(app, mongoose, db){
                     deferred.resolve(requestedform);
                 } else {
                     deferred.reject("No form with formId:"+formId+" exists in th DB");
-                }
+                }*/
             }
             else {
                 deferred.reject("please provide a formId");
@@ -275,6 +374,41 @@ module.exports = function(app, mongoose, db){
         {
             if(formId !== null && typeof formId === 'string')
             {
+                console.log(formId);
+                console.log(fieldId);
+                FormModel.update({_id: formId}, {$pull : {fields : fieldId}}, function(err,result){
+                    if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        //deferred.resolve(newForm);
+                        console.log(result);
+                    }
+                });
+                /*FormModel.findById({_id: formId}, function(err, form){
+                    if (form) {
+                        form.fields[0].remove();
+                        form.save(function (err) {
+                            if (!err) {
+                                console.log('Success!');
+                                deferred.resolve(form.fields);
+                            }
+                            else
+                            {
+                                deferred.reject(err);
+                            }
+                        })
+                        console.log(form.fields);
+
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+userId);
+                    }
+                });
+                });
                 forms.forEach(
                     function(form, index)
                     {
@@ -294,7 +428,7 @@ module.exports = function(app, mongoose, db){
                 }
                 else{
                     deferred.reject("Cannot Find Field with Field ID : : " + fieldId);
-                }
+                }*/
             }
             else
             {
@@ -319,7 +453,35 @@ module.exports = function(app, mongoose, db){
         {
             if(formId !== null && typeof formId === 'string' && field != null)
             {
-                forms.forEach(
+                console.log(formId);
+                FormModel.findById({_id: formId}, function(err, form){
+                    if (form) {
+                        console.log(form);
+                        console.log(form.fields);
+                        form.fields.push(field);
+                        form.save(function (err) {
+                            if (!err) {
+                                console.log('Success!');
+                                deferred.resolve(field);
+                            }
+                            else
+                            {
+                                deferred.reject(err);
+                            }
+                        })
+                        console.log(form.fields);
+
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+userId);
+                    }
+                });
+
+
+                /*forms.forEach(
                     function(form, index)
                     {
                         if (form && form.id === formId)
@@ -336,7 +498,7 @@ module.exports = function(app, mongoose, db){
                 }
                 else{
                     deferred.reject("Cannot Find Form with Form ID : : " + formId);
-                }
+                }*/
             }
             else
             {

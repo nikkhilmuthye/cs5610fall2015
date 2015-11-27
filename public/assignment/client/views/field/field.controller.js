@@ -24,7 +24,7 @@
         });
 
         $scope.init = function () {
-            FieldService.getFieldsForForm($scope.selectedForm.id)
+            FieldService.getFieldsForForm($scope.selectedForm._id)
                 .then(
                 function(fields)
                 {
@@ -93,7 +93,7 @@
             {
 
                 var newFieldObject = cloneField(newField[FieldType]);
-                FieldService.createFieldForForm($scope.selectedForm.id,newFieldObject)
+                FieldService.createFieldForForm($scope.selectedForm._id,newFieldObject)
                     .then(
                     function(result){
                         $scope.fields.push(result);
@@ -115,7 +115,8 @@
 
             if(typeof index !== "undefined")
             {
-                FieldService.deleteFieldFromForm($scope.selectedForm.id, $scope.fields[index].id)
+                console.log(index);
+                FieldService.deleteFieldFromForm($scope.selectedForm._id, $scope.fields[index]._id)
                     .then(
                     function(result)
                     {
@@ -138,7 +139,7 @@
             if(typeof index !== "undefined")
             {
                 var newFieldObject = cloneField(newField[$scope.fields[index].type]);
-                FieldService.cloneFieldFromForm($scope.selectedForm.id, newFieldObject, index)
+                FieldService.cloneFieldFromForm($scope.selectedForm._id, newFieldObject, index)
                     .then(
                     function(result)
                     {
