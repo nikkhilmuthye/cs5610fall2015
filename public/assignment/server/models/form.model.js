@@ -76,7 +76,6 @@ module.exports = function(app, mongoose, db){
                 forms.push(form);
 
                 FormModel.create(form, function(err, forms){
-                    console.log(forms);
                     deferred.resolve(forms);
                 });
 
@@ -216,7 +215,6 @@ module.exports = function(app, mongoose, db){
                     }
                     else {
                         deferred.resolve(newForm);
-                        console.log(result);
                     }
                 });
             /*forms.forEach(
@@ -374,15 +372,29 @@ module.exports = function(app, mongoose, db){
         {
             if(formId !== null && typeof formId === 'string')
             {
-                console.log(formId);
-                console.log(fieldId);
-                FormModel.update({_id: formId}, {$pull : {fields : fieldId}}, function(err,result){
+                FormModel.findById({_id: formId}, function(err,form){
                     if(err){
                         deferred.reject(err);
                     }
                     else {
-                        //deferred.resolve(newForm);
-                        console.log(result);
+                        form.fields.pull(fieldId);
+                        form.save(function (err) {
+                            if (!err) {
+                                FormModel.findById({_id: formId}, function (err, forms) {
+                                    if(err){
+                                        deferred.reject(err);
+                                    }
+                                    else{
+                                        deferred.resolve(form.fields);
+                                    }
+
+                                })
+                            }
+                            else
+                            {
+                                deferred.reject(err);
+                            }
+                        });
                     }
                 });
                 /*FormModel.findById({_id: formId}, function(err, form){
@@ -453,24 +465,33 @@ module.exports = function(app, mongoose, db){
         {
             if(formId !== null && typeof formId === 'string' && field != null)
             {
-                console.log(formId);
                 FormModel.findById({_id: formId}, function(err, form){
                     if (form) {
-                        console.log(form);
-                        console.log(form.fields);
+                        field.id = guid();
                         form.fields.push(field);
                         form.save(function (err) {
                             if (!err) {
-                                console.log('Success!');
-                                deferred.resolve(field);
+                                FormModel.findById({_id : formId}, function(err, form){
+                                    if(err){
+                                        deferred.reject(err);
+                                    }
+                                    else {
+                                        form.fields.forEach(
+                                            function(formfield, index)
+                                            {
+                                                if (formfield && formfield.id === field.id)
+                                                {
+                                                    deferred.resolve(formfield);
+                                                }
+                                            });
+                                    }
+                                });
                             }
                             else
                             {
                                 deferred.reject(err);
                             }
-                        })
-                        console.log(form.fields);
-
+                        });
                     }
                     else if(err){
                         deferred.reject(err);
@@ -523,7 +544,45 @@ module.exports = function(app, mongoose, db){
         {
             if(formId !== null && typeof formId === 'string' && field != null)
             {
-                forms.forEach(
+                FormModel.findById({_id: formId}, function(err, form){
+                    if (form) {
+                        field.id = guid();
+                        form.fields.splice(index+1, 0, field);
+                        form.save(function (err) {
+                            if (!err) {
+                                FormModel.findById({_id : formId}, function(err, form){
+                                   if(err){
+                                       deferred.reject(err);
+                                   }
+                                    else {
+                                       form.fields.forEach(
+                                           function(formfield, index)
+                                           {
+                                               if (formfield && formfield.id === field.id)
+                                               {
+                                                   deferred.resolve(formfield);
+                                               }
+                                           });
+                                   }
+                                });
+
+                            }
+                            else
+                            {
+                                deferred.reject(err);
+                            }
+                        });;
+
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+userId);
+                    }
+                });
+
+                /*forms.forEach(
                     function(form, index)
                     {
                         if (form && form.id === formId)
@@ -540,7 +599,7 @@ module.exports = function(app, mongoose, db){
                 }
                 else{
                     deferred.reject("Cannot Find Form with Form ID : : " + formId);
-                }
+                }*/
             }
             else
             {

@@ -116,10 +116,13 @@
             if(typeof index !== "undefined")
             {
                 console.log(index);
+                console.log($scope.fields);
+                console.log($scope.fields[index]._id);
                 FieldService.deleteFieldFromForm($scope.selectedForm._id, $scope.fields[index]._id)
                     .then(
                     function(result)
                     {
+                        console.log(result);
                         $scope.fields = result;
                     })
                     .catch(
@@ -143,6 +146,7 @@
                     .then(
                     function(result)
                     {
+                        console.log(result);
                         $scope.fields.splice(index+1, 0,result);
                     })
                     .catch(

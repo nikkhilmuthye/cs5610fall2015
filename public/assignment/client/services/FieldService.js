@@ -53,6 +53,7 @@
         {
             var deferred = $q.defer();
 
+            console.log(fieldId);
             $http.delete("/api/assignment/form/"+formId+"/field/"+fieldId)
                 .success(function(fields){
                     deferred.resolve(fields);
