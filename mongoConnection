@@ -1,0 +1,5 @@
+Root User:     admin
+   Root Password: FUpufKj9Weun
+   Database Name: nodejs
+
+Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
