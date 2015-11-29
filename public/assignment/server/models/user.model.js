@@ -2,13 +2,7 @@ var q = require("q");
 
 module.exports = function(app, mongoose, db){
 
-    var UserSchema = mongoose.Schema({
-        "firstName": String,
-        "lastName" : String,
-        "username" : String,
-        "password" : String,
-        "email" : String
-    }, {collection: "user"});
+    var UserSchema = require('./user.schema.js');
 
     var userModel = mongoose.model("user", UserSchema);
 
@@ -133,16 +127,25 @@ module.exports = function(app, mongoose, db){
         try
         {
             console.log(newuser);
-            userModel.update({_id: userId}, {$set: newuser},
-                function(err,result){
-                    if(err){
-                        deferred.reject(err);
-                    }
-                    else {
-                        deferred.resolve(newuser);
-                        console.log(result);
-                    }
-                });
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+                    console.log(user);
+                    for(var parameter in newuser)
+                        user[parameter] = newuser[parameter];
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
             /*users.forEach(
                 function(user)
                 {

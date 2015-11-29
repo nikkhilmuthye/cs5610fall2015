@@ -2,25 +2,7 @@ var q = require("q");
 
 module.exports = function(app, mongoose, db){
 
-    var OptionsSchema = mongoose.Schema({
-            "label" : String,
-            "value" : String
-    });
-
-    var FieldSchema = mongoose.Schema({
-            "id": String,
-            "label" : String,
-            "type" : String,
-            "placeholder" : String,
-            "options" : [OptionsSchema]
-    });
-
-    var FormSchema = mongoose.Schema({
-        "id": String,
-        "title" : String,
-        "userId" : String,
-        "fields" : [FieldSchema]
-    }, {collection: "form"});
+    var FormSchema = require('./form.schema.js');
 
     var FormModel = mongoose.model("form", FormSchema);
 
@@ -208,15 +190,33 @@ module.exports = function(app, mongoose, db){
         var userForms = [];
         try
         {
-            FormModel.update({_id: formId}, {$set: newForm},
-                function(err,result){
-                    if(err){
-                        deferred.reject(err);
-                    }
-                    else {
-                        deferred.resolve(newForm);
-                    }
-                });
+            FormModel.findById({_id: formId}, function(err, form){
+                if (forms){
+                    for(var parameter in newForm)
+                        form[parameter] = newForm[parameter];
+                    form.save(function (err) {
+                        if(!err) {
+                            FormModel.find({userId: form.userId}, function(err, forms){
+                                if (forms){
+                                    deferred.resolve(forms);
+                                }
+                                else if(err){
+                                    deferred.reject(err);
+                                }
+                                else {
+                                    deferred.reject("no user found with id:"+form.userId);
+                                }
+                            });
+                        }
+                    })
+                }
+                else if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.reject("No form with formId:"+formId+" exists in th DB");
+                }
+            });
             /*forms.forEach(
                 function(form)
                 {
