@@ -19,7 +19,7 @@
          $scope.init = function () {
             if($scope.user)
             {
-                StoryService.findAllStoryForUser($scope.user.id)
+                StoryService.findAllStoryForUser($scope.user._id)
                     .then(
                             function(stories)
                             {

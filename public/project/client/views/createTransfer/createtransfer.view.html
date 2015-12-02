@@ -1,0 +1,30 @@
+<div ng-controller="CreateTransferController">
+    <div ng-if="user">
+        <h1 class="page-header">New Story</h1>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="Header">Transfer News</label>
+                <input type="text" class="form-control" id="Header" placeholder="Some header" data-ng-model="Header">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <input type="file" id="exampleInputFile">
+                <p class="help-block">Please select an image for your story.</p>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="create(Header)">Submit</button>
+            <div class="error glyphicon glyphicon-remove" ng-if="error">
+                <span>{{error}}</span>
+            </div>
+            <div class="success glyphicon glyphicon-ok" ng-if="error">
+                <span>{{success}}</span>
+            </div>
+        </form>
+
+    </div>
+    <div ng-if="!user">
+        <h2>
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
+</div>

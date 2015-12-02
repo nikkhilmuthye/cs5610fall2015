@@ -75,9 +75,10 @@
 		function findAllUsers()
 		{
             var deferred = $q.defer();
-            console.log("in here");
+
             $http.get("/api/project/user")
                 .success(function(users){
+					console.log(users);
                     deferred.resolve(users);
                 })
                 .error(function(error){
@@ -85,6 +86,7 @@
                         deferred.reject(error);
                     }
                 });
+            return deferred.promise;
 		};
 
 		function findUserByUsernameAndPassword(username, password)
@@ -147,7 +149,7 @@
 		{
             var deferred = $q.defer();
 
-            $http.put("/api/project /user/"+userid, newuser)
+            $http.put("/api/project/user/"+userid, newuser)
                 .success(function(newuser){
                     deferred.resolve(newuser);
                 })

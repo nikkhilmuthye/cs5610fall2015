@@ -22,8 +22,8 @@
             $scope.success = null;
 
             $http.get("api.sportradar.us/soccer-t2/eu/teams/standing.xml?api_key=husdyx6m5rngzr4abfpbutsm")
-                .success(function(user){
-                    console.log(user);
+                .success(function(league){
+                    console.log(league);
                 })
                 .error(function(error){
                     if (error){

@@ -1,30 +1,32 @@
 <div class="container-fluid" data-ng-controller="SecondaryHeaderController as controller" id="tabs">
 	<ul class="nav nav-tabs nav-justified">
-	    <li >
+	    <li ng-class="{'active' : $location.url().indexOf('home') >= 0}">
 	        <a href="#/home" data-target="#home" data-toggle="tab">Home</a>
 	    </li>
-	    <li class="dropdown no-display" >
+	    <li class="dropdown no-display" ng-class="{'active' : $location.url().indexOf('league') >= 0}">
 		    <a class="dropdown-toggle" data-toggle="dropdown" href="">Leagues
 		    <span class="caret"></span></a>
 		    <ul class="dropdown-menu no-display overlay">
 				<li class="animate-repeat" ng-repeat="league in leagues">
 					<a data-toggle="tab" href="" ng-click="selectLeague($index)">{{league.caption}}</a>
                 </li>
-				<!--<li><a data-toggle="tab" href="#/league" data-target="#league">Barclays Premiere League</a></li>
-                  <li><a data-toggle="tab" href="#/league" data-target="#league">La Liga</a></li>
-                  <li><a data-toggle="tab" href="#/league" data-target="#league">Bundesliga</a></li>-->
 		    </ul>
 		</li>
-		<li class="dropdown no-display" data-toggle="tab">
+		<li class="dropdown no-display" data-toggle="tab" ng-class="{'active' : $location.url().indexOf('team') >= 0}">
 		    <a class="dropdown-toggle" data-toggle="dropdown" href="">Clubs
 		    <span class="caret"></span></a>
 		    <ul class="dropdown-menu no-display overlay">
-		      <li><a data-toggle="tab" href="#/team" data-target="#team">Manchester United</a></li>
-		      <li><a data-toggle="tab" href="#/team" data-target="#team">Real Madrid</a></li>
-		      <li><a data-toggle="tab" href="#/team" data-target="#team">All Teams</a></li>
+		      <li><a data-toggle="tab" href="" ng-click="selectTeam(66)">Manchester United</a></li>
+		      <li><a data-toggle="tab" href="" ng-click="selectTeam(86)">Real Madrid</a></li>
+				<li><a data-toggle="tab" href="" ng-click="selectTeam(86)">Real Madrid</a></li>
+                <li><a data-toggle="tab" href="" ng-click="selectTeam(81)">Barcelona</a></li>
+                <li><a data-toggle="tab" href="" ng-click="selectTeam(5)">Bayern Munich</a></li>
+                <li><a data-toggle="tab" href="" ng-click="selectTeam(57)">Arsenal</a></li>
+                <li class="divider"></li>
+		      <li><a data-toggle="tab" href="" ng-click="selectTeam(0)">All Teams</a></li>
 		    </ul>
 		</li>
-	    <li>
+	    <li ng-class="{'active' : $location.url().indexOf('transfer') >= 0}">
 	        <a href="#/transfer" data-toggle="tab" data-target="#transfer">Transfers </a>
 	    </li>
 	</ul>

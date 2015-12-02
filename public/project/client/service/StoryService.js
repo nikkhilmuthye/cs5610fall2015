@@ -5,7 +5,7 @@
         .module("SportsNewsApp")
         .factory("StoryService", StoryService);
 
-    function StoryService() {
+    function StoryService($http, $q) {
         var stories = [
         {heading: "Carrick defends Van Gaal: I'll take winning over tactics", contents: "ff", id: "4cbe04f5-3463-95e7-a1ab-62b7a11cfd30", userId: "9843473b-d068-104e-e46-f623566a5c61"}
         ];
@@ -34,108 +34,123 @@
 
 		function createStoryForUser(userId, story, callback)
 	    {
+            var deferred = $q.defer();
 			try
 			{
 				if(story !== null && typeof story === 'object')
 				{
-					story.id = guid();
-					story.userId = userId;
-					stories.push(story);
-					console.log(story);
-					return callback(null, story);
+
+                    story.id = guid();
+                    story.userId = userId;
+                    $http.post("/api/project/story", story)
+                        .success(function(newstory){
+                            console.log("success");
+                            deferred.resolve(newstory);
+                        })
+                        .error(function(error){
+                            console.log("error");
+                            if (error){
+                                deferred.reject(error);
+                            }
+                        });
 				}
 				else
 				{
-					return("Please enter valid Story Details", null)
+                    deferred.reject("Please enter valid Story Details");
 				}
 			}
 			catch(error)
 			{
 				console.log("Caught exception in createStoryForUser "  + error);
-				return callback(error, null);
+                deferred.reject(error);
 			}
+            return deferred.promise;
 		};
 
 		function deleteStoryById(storyId, callback)
 		{
+            var deferred = $q.defer();
+
 			try
 			{
 				if(storyId !== null && typeof storyId === 'string')
 				{
-					stories.forEach(
-						function(story, index)
-						{
-			 				if (story && story.id === storyId)
-			 				{
-			 					stories.splice(index, 1);
-			 					return callback(null, true);
-			 				}
-			 			});
-					console.log(stories);
-					return callback(null, false);
+                    $http.delete("/api/project/story/"+storyId)
+                        .success(function(stories){
+                            deferred.resolve(stories);
+                        })
+                        .error(function(error){
+                            if (error){
+                                deferred.reject(error);
+                            }
+                        });
 				}
 				else
 				{
-					return("Please enter valid Story ID", null)
+                    deferred.reject("Please enter valid Story ID");
 				}
 			}
 			catch(error)
 			{
-				return callback(error, null);
+                deferred.reject(error);
 			}
+            return deferred.promise;
 		};
 
 		function findAllStoryForUser(userId, callback)
 		{
+            var deferred = $q.defer();
 			var userStories = [];
 			try
 			{
-				if(userId && typeof userId === 'string')
-				{
-					stories.forEach(
-							function(story)
-							{
-				 				if (story.userId===userId) 
-				 				{	
-				 					userStories.push(story);
-				 				}
-				 			});
-		 			return callback(null, userStories);
-		 		}
+				if(userId && typeof userId === 'string') {
+
+					$http.get("/api/project/story/userId/"+userId)
+						.success(function (users) {
+							console.log(users);
+							deferred.resolve(users);
+						})
+						.error(function (error) {
+							if (error) {
+								deferred.reject(error);
+							}
+						});
+				}
 		 		else
 		 		{
 		 			console.log("Please enter proper User ID");
-		 			return callback("Please enter proper User ID", null);
+					deferred.reject("Please enter proper User ID");
 		 		}
+                return deferred.promise;
 		 	}
 		 	catch(error)
 		 	{
 		 		console.log("Caught exception in findAllStoryForUser "  + error);
-		 		return callback(error, null);
+				deferred.reject(error);
 		 	}
 		};
 
 		function updateStoryById(storyId, newstory, callback)
 		{
+            var deferred = $q.defer();
+
 			try
-				{
-					stories.forEach(
-						function(story)
-						{
-			 				if (story && story.id===storyId) 
-			 				{
-			 					console.log(story);
-			 					for(var parameter in newstory)
-									story[parameter] = newstory[parameter];
-								return callback(null, story);
-			 				}
-			 			});
-				}
-				catch(error)
-				{
-					return callback(error, null);
-				}
-				return callback("Cannot Find User with Story ID : : " + storyId , null);
+            {
+                $http.put("/api/project/story/"+storyId, newstory)
+                    .success(function(newstory){
+                        deferred.resolve(newstory);
+                    })
+                    .error(function(error){
+                        if (error){
+                            deferred.reject(error);
+                        }
+                    });
+            }
+            catch(error)
+            {
+                deferred.reject(error);
+            }
+            return deferred.promise;
 		};
 	};
 })();

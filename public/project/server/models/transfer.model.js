@@ -2,18 +2,9 @@ var q = require("q");
 
 module.exports = function(app, mongoose, db){
 
-    var StorySchema = require('./story.schema.js');
+    var TranserSchema = require('./transfer.schema.js');
 
-    var storyModel = mongoose.model("story-project", StorySchema);
-
-    var stories = [
-        {
-            heading: "Carrick defends Van Gaal: I'll take winning over tactics",
-            contents: "ff",
-            id: "4cbe04f5-3463-95e7-a1ab-62b7a11cfd30",
-            userId: "9843473b-d068-104e-e46-f623566a5c61"
-        }
-    ];
+    var transerModel = mongoose.model("transfer-project", TranserSchema);
 
     var api = {
         Create: Create,
@@ -21,9 +12,79 @@ module.exports = function(app, mongoose, db){
         FindById: FindById,
         Update: Update,
         Delete : Delete,
-        findStoryByUserId: findStoryByUserId
+        findTransferByUserId: findTransferByUserId,
+        addLike: addLike,
+        addDislike: addDislike
     };
     return api;
+
+    function addDislike(transferId)
+    {
+        var deferred = q.defer();
+
+        try{
+            if (typeof transferId === 'undefined' || transferId === null){
+                deferred.reject("Please provide valid transfer id");
+            } else {
+                transerModel.findById({_id: transferId}, function(err, transfer){
+                    if (transfer){
+                        transfer.dislikes = transfer.dislikes + 1;
+                        transfer.save(function (err) {
+                            if(!err) {
+                                console.log(transfer);
+                                deferred.resolve(transfer);
+                            }
+                        });
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+transferId);
+                    }
+                });
+            }
+        }
+        catch(error){
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function addLike(transferId)
+    {
+        var deferred = q.defer();
+
+        try{
+            if (typeof transferId === 'undefined' || transferId === null){
+                deferred.reject("Please provide valid transfer id");
+            } else {
+                transerModel.findById({_id: transferId}, function(err, transfer){
+                    if (transfer){
+                        transfer.likes = transfer.likes + 1;
+                        transfer.save(function (err) {
+                            if(!err) {
+                                console.log(transfer);
+                                deferred.resolve(transfer);
+                            }
+                        });
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+storyId);
+                    }
+                });
+            }
+        }
+        catch(error){
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
 
     function guid() {
         function s4() {
@@ -44,7 +105,7 @@ module.exports = function(app, mongoose, db){
             if(newstory !== null && typeof newstory === 'object')
             {
                 newstory.id = guid();
-                storyModel.create(newstory, function(err, newstory){
+                transerModel.create(newstory, function(err, newstory){
                     deferred.resolve(newstory);
                 });
             }
@@ -67,7 +128,7 @@ module.exports = function(app, mongoose, db){
         var deferred = q.defer();
         try
         {
-            storyModel.find(function(err, stories) {
+            transerModel.find(function(err, stories) {
                 deferred.resolve(stories);
             });
         }
@@ -88,7 +149,7 @@ module.exports = function(app, mongoose, db){
             if (typeof storyId === 'undefined' || storyId === null){
                 deferred.reject("Please provide valid user id");
             } else {
-                storyModel.findById({_id: storyId}, function(err, story){
+                transerModel.findById({_id: storyId}, function(err, story){
                     if (story){
                         deferred.resolve(story);
                     }
@@ -115,7 +176,7 @@ module.exports = function(app, mongoose, db){
         try
         {
             console.log(newuser);
-            storyModel.findById({_id: storyId}, function(err, story){
+            transerModel.findById({_id: storyId}, function(err, story){
                 if (story){
                     console.log(story);
                     for(var parameter in newstory)
@@ -152,7 +213,7 @@ module.exports = function(app, mongoose, db){
         if (typeof storyId==="undefined" || storyId === null){
             deferred.reject("Please enter a userId");
         } else {
-            storyModel.remove({_id: storyId},function(err, stories){
+            transerModel.remove({_id: storyId},function(err, stories){
                 console.log(stories);
                 deferred.resolve(stories);
             });
@@ -160,14 +221,14 @@ module.exports = function(app, mongoose, db){
         return deferred.promise;
     }
 
-    function findStoryByUserId(userId)
+    function findTransferByUserId(userId)
     {
         var deferred = q.defer();
         var Founduser, error, found = false;
 
         try
         {
-            storyModel.find({userId: userId}, function(err, stories){
+            transerModel.find({userId: userId}, function(err, stories){
                 if(stories)
                     deferred.resolve(stories);
                 else

@@ -8,7 +8,7 @@ module.exports = function(app, mongoose, db){
 
     var users =
         [
-            {"id": 123, "firstName": "Alice", 	"lastName": "Wonderland",	"username": "alice", 	"password": "alice"},
+            {"id": 123, "firstName": "Alice", 	"lastName": "dC",	"username": "alice", 	"password": "alice"},
             {"id": 234, "firstName": "Bob",	"lastName": "Hope", 		"username": "bob", 	"password": "bob"},
             {"id": 345, "firstName": "Charlie",	"lastName": "Brown", 		"username": "charlie", "password": "charlie"},
             {"id": 456, "firstName": "Dan",	"lastName": "Craig", 		"username": "dan", 	"password": "dan"},
@@ -71,7 +71,9 @@ module.exports = function(app, mongoose, db){
         var deferred = q.defer();
         try
         {
+            console.log("in here");
             userModel.find(function(err, users) {
+                console.log(users);
                 deferred.resolve(users);
             });
         }

@@ -24,6 +24,9 @@
 	                <li ng-if="user" ng-class="{'active' : $location.url().indexOf('createstory') >= 0}">
 	                	<a href="#/createstory">Create New Story</a>
 	                </li>
+					<li ng-if="user" ng-class="{'active' : $location.url().indexOf('createtransfer') >= 0}">
+						<a href="#/createtransfer">Create New Tansfer</a>
+					</li>
 	                <li ng-if="user">
 	                	<a href="#/login" ng-click="logout()">Log out</a>
 	                </li>

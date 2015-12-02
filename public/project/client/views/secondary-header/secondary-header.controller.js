@@ -26,8 +26,9 @@
                 dataType: 'json',
                 type: 'GET'
             }).success(function(response) {
-                console.log(response);
                 $scope.leagues = response;
+                $rootScope.leagues = response;
+                $rootScope.$broadcast('leagues', response);
             });
 		};
 		$scope.init();
@@ -41,5 +42,32 @@
             $rootScope.$broadcast('league', league);
             $location.path("/league");
         };
+
+        $scope.selectTeam=function($index){
+            console.log($index);
+            if($index != 0) {
+                var teamurl = "http://api.football-data.org/v1/teams/" + $index;
+                $http({
+                    headers: {'X-Auth-Token': '7da7a8a5ea4b46e8a834318a57ca8634'},
+                    url: teamurl,
+                    dataType: 'json',
+                    type: 'GET'
+                }).success(function (response) {
+                    console.log(response);
+                    $scope.team = response;
+
+                    $rootScope.team = response;
+                    $rootScope.$broadcast('team', response);
+                    $location.path("/team");
+                });
+            }
+            else{
+                $scope.team = null;
+                $rootScope.team = null;
+                $rootScope.$broadcast('team', null);
+                $location.path("/team");
+            }
+        };
+
 	};
 })();

@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-    .module("SportsNewsApp")
-    .controller("CreateStoryController", ['$scope', '$location', '$rootScope', 'StoryService', CreateStoryController]);
-    
-    function CreateStoryController($scope, $location, $rootScope, StoryService ){
+        .module("SportsNewsApp")
+        .controller("CreateTransferController", ['$scope', '$location', '$rootScope', 'TransferService', CreateTransferController]);
+
+    function CreateTransferController($scope, $location, $rootScope, TransferService ){
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -15,24 +15,23 @@
         });
 
 
-        $scope.create = function(Header, story){
+        $scope.create = function(Header){
             $scope.error = null;
             $scope.success = null;
 
-            if (Header && story)
+            if (Header)
             {
-                var newStory = {
-                    heading: Header,
-                    contents: story
+                var newTransfer = {
+                    contents: Header
                 }
-                StoryService.createStoryForUser($scope.user._id, newStory)
+                TransferService.createTransfer($scope.user._id, newTransfer)
                     .then(function(updatedUser) {
                         console.log(updatedUser);
 
                         $scope.user = updatedUser;
                         $scope.success = "Succesfully added new story"
                         console.log("Succesfully updated user profile");
-                        $location.path( "/profile" );
+                        $location.path( "/transfer" );
                     })
                     .catch(function(err){
                         if (error)

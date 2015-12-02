@@ -2,6 +2,10 @@ var q = require("q");
 
 module.exports = function(app, mongoose, db){
 
+    var UserSchema = require('./user.schema.js');
+
+    var userModel = mongoose.model("user-project", UserSchema);
+
     var users = [
         {
             id: "9843473b-d068-104e-e46-f623566a5c61",
@@ -97,8 +101,10 @@ module.exports = function(app, mongoose, db){
             if(newuser !== null && typeof newuser === 'object')
             {
                 newuser.id = guid();
-                users.push(newuser);
-                deferred.resolve(newuser);
+                console.log(newuser);
+                userModel.create(newuser, function(err, users){
+                    deferred.resolve(users);
+                });
             }
             else
             {
@@ -119,8 +125,9 @@ module.exports = function(app, mongoose, db){
         var deferred = q.defer();
         try
         {
-
-            deferred.resolve(users);
+            userModel.find(function(err, users) {
+                deferred.resolve(users);
+            });
         }
         catch(error)
         {
@@ -139,18 +146,25 @@ module.exports = function(app, mongoose, db){
             if (typeof userId === 'undefined' || userId === null){
                 deferred.reject("Please provide valid user id");
             } else {
-                users.forEach(function(user){
-                    if (user && user.id==userId)
-                    {
-                        found = true;
-                        deletedUser = user;
+                userModel.findById({_id: userId}, function(err, user){
+                    if (user){
+                        deferred.resolve(user);
+                    }
+                    else if(err){
+                        deferred.reject(err);
+                    }
+                    else {
+                        deferred.reject("no user found with id:"+userId);
                     }
                 });
-                if (found){
-                    deferred.resolve(deletedUser);
-                } else {
-                    deferred.reject("no user found with id:"+instanceId);
-                }
+                /*users.forEach(function(user){
+                 if (user && user.id==userId)
+                 {
+                 found = true;
+                 deletedUser = user;
+                 }
+                 });*/
+
             }
         }
         catch(error){
@@ -167,25 +181,42 @@ module.exports = function(app, mongoose, db){
         try
         {
             console.log(newuser);
-            users.forEach(
-                function(user)
-                {
-                    if (user && user.id==userId)
-                    {
-                        found = true;
-                        for(var parameter in user)
-                            user[parameter] = newuser[parameter];
-                        deferred.resolve(user);
-                    }
-                });
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+                    console.log(user);
+                    for(var parameter in newuser)
+                        user[parameter] = newuser[parameter];
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
+            /*users.forEach(
+             function(user)
+             {
+             if (user && user.id==userId)
+             {
+             found = true;
+             for(var parameter in user)
+             user[parameter] = newuser[parameter];
+             deferred.resolve(user);
+             }
+             });*/
         }
         catch(error)
         {
             deferred.reject(error);
         }
-        if(!found) {
-            deferred.reject("Cannot Find User with Username : " + user.username);
-        }
+
         return deferred.promise;
     }
 
@@ -196,13 +227,17 @@ module.exports = function(app, mongoose, db){
         if (typeof userId==="undefined" || userId === null){
             deferred.reject("Please enter a userId");
         } else {
-            users.forEach(function (user, index) {
-                if (user.id == userId) {
-                    users.splice(index, 1);
-                    console.log("Userid :  " + userId + "succesfully deleted");
-
-                }
+            userModel.remove({_id: userId},function(err, users){
+                console.log(users);
+                deferred.resolve(users);
             });
+            /*users.forEach(function (user, index) {
+             if (user.id == userId) {
+             users.splice(index, 1);
+             console.log("Userid :  " + userId + "succesfully deleted");
+
+             }
+             });*/
             deferred.resolve(users);
         }
         return deferred.promise;
@@ -215,20 +250,26 @@ module.exports = function(app, mongoose, db){
 
         try
         {
-            users.forEach(
-                function(user)
-                {
-                    if (user.username===username)
-                    {
-                        Founduser = user;
-                    }
-                });
+            userModel.findOne({username: username}, function(err, user){
+                if(user)
+                    deferred.resolve(user);
+                else
+                    deferred.reject("Cannot Find User with Username : " + username );
+            });
+            /*users.forEach(
+             function(user)
+             {
+             if (user.username===username)
+             {
+             Founduser = user;
+             }
+             });
             if(Founduser && found)
                 deferred.resolve(Founduser);
             else if(found === true)
                 deferred.reject(error);
             else
-                deferred.reject("Cannot Find User with Username : " + username );
+                deferred.reject("Cannot Find User with Username : " + username );*/
         }
         catch(error)
         {
@@ -244,24 +285,30 @@ module.exports = function(app, mongoose, db){
 
         try
         {
-            users.forEach(
-                function(user)
-                {
-                    if (user.username===username)
-                    {
-                        found = true;
-                        if(user.password===password)
-                            Founduser = user;
-                        else
-                            error = "Incorrect password";
-                    }
-                });
-            if(Founduser && found)
-                deferred.resolve(Founduser);
-            else if(found === true)
-                deferred.reject(error);
-            else
-                deferred.reject("Cannot Find User with Username : " + username);
+            userModel.findOne({username: username, password: password}, function(err, Founduser){
+                if(Founduser)
+                    deferred.resolve(Founduser);
+                else
+                    deferred.reject("Cannot Find User with Username : " + username);
+            });
+            /*users.forEach(
+             function(user)
+             {
+             if (user.username===username)
+             {
+             found = true;
+             if(user.password===password)
+             Founduser = user;
+             else
+             error = "Incorrect password";
+             }
+             });
+             if(Founduser && found)
+             deferred.resolve(Founduser);
+             else if(found === true)
+             deferred.reject(error);
+             else
+             deferred.reject("Cannot Find User with Username : " + username);*/
         }
         catch(error)
         {

@@ -1,124 +1,74 @@
-<div class="container">
-	<div class="jumbotron">
+<div class="container" data-ng-controller="TeamController">
+    <div>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label for="sel1">Select League:</label>
+                <select class="form-control" ng-options="league as league.caption for league in leagues"
+                        ng-model="league" ng-change="selectedLeague()" id="sel1"></select>
+                <!--<select class="form-control" id="sel1">
+                    <option ng-repeat="option in leagues" ng-model="league" ng-change="selectedLeague()">{{option.caption}}</option>
+                </select>-->
+            </div>
 
-	</div>
-	<h1 class="page-header">Manchester United !</h1>
+            <div class="form-group col-xs-6">
+                <label for="sel2">Select Team:</label>
+                <select class="form-control" ng-options="team as team.name for team in teams.teams"
+                        ng-model="team" ng-change="selectedTeam()" id="sel2"></select>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div ng-if="team">
+        <h1 class="page-header">{{teamdetails.name}} !</h1>
 
-	<div class = "container col-sm-8 child-1">
-		<table class="table ">
-			<thead>
-				<tr>Manager</tr>
-			</thead>
-		    <tbody>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>Louis Van Gaal</td>
-			    </tr>
-			</tbody>
-		</table>
-		<table class="table ">
-			<thead>
-				<tr width="15%"></tr>
-				<tr>Goal Keepers</tr>
-			</thead>
-		    <tbody>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			</tbody>
-		</table>
-		<table class="table ">
-			<thead>
-				<tr width="15%"></tr>
-				<tr>Defenders</tr>
-			</thead>
-		    <tbody>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			</tbody>
-		</table>
-		<table class="table ">
-			<thead>
-				<tr width="15%"></tr>
-				<tr>Midfielders</tr>
-			</thead>
-		    <tbody>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			</tbody>
-		</table>
-		<table class="table ">
-			<thead>
-				<tr width="15%"></tr>
-				<tr>Strikers</tr>
-			</thead>
-		    <tbody>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			</tbody>
-		</table>
-		<table class="table ">
-			<thead>
-				<tr width="15%"></tr>
-				<tr>Staff</tr>
-			</thead>
-		    <tbody>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			    <tr>
-			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-			      	<td>David De Gea</td>
-			    </tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="col-sm-4 child-2 container">
-		<br/>
-		<h3>Recent Fixtures</h3>
-		<br/>
-		<table class="table ">
-		    <tbody>
-		      <tr>
-		        <td class="bold"><a class="whitefont" href="#">ManUtd 2 - 0 Ars</a></td>
-		      </tr>
-		      <tr>
-		        <td class="bold"> <a class="whitefont" href="#">ManCity 1 - 0 ManUtd</a></td>
-		      </tr>
-		      <tr>
-		        <td class="bold"><a class="whitefont" href="#">ManUtd 3 - 0 Liv</a></td>
-		      </tr>
-		      <tr>
-		        <td class="bold"><a class="whitefont"href="#">ManUtd 2 - 0 CryPal</a></td>
-		      </tr>
-		      <tr>
-		        <td class="bold"> <a class="whitefont" href="#">ManUtd 1 - 0 Chelsea</a></td>
-		      </tr>
-		    </tbody>
-		  </table>
-	</div>
+        <div class = "container col-sm-8 child-1 table-responsive">
+            <h2>League Table</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="" ng-click="order('name')" class="whitefont">Name</a>
+                            <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="" ng-click="order('jerseyNumber')" class="whitefont">Jersey Number</a>
+                            <span class="sortorder" ng-show="predicate === 'phone'" ng-class="{reverse:reverse}"></span>
+                        </th>
+                        <th>
+                            <a href="" ng-click="order('position')" class="whitefont">Position</a>
+                            <span class="sortorder" ng-show="predicate === 'age'" ng-class="{reverse:reverse}"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="player in players.players | orderBy:predicate:reverse">
+                        <td>{{player.name}}</td>
+                        <td>{{player.jerseyNumber}}</td>
+                        <td>{{player.position}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4 child-2 container">
+            <br/>
+            <h3>Recent Fixtures</h3>
+            <br/>
+            <table class="table ">
+                <thead>
+                <td>Home</td>
+                <td></td>
+                <td>Away</td>
+                <td>Result</td>
+                </thead>
+                <tbody>
+                <tr ng-repeat="fixture in FinishedFixtures | limitTo:-5 | orderBy:'time':true">
+                    <td><a class="whitefont" href="">{{fixture.homeTeamName}}</a></td>
+                    <td>vs</td>
+                    <td><a class="whitefont" href="">{{fixture.awayTeamName}}</a></td>
+                    <td>{{fixture.result.goalsHomeTeam}} - {{fixture.result.goalsAwayTeam}}</td>
+                </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
 </div>

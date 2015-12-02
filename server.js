@@ -17,14 +17,12 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 var db = mongoose.connect(connectionString);
 
-console.log('db', db);
-
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./public/assignment/server/app.js')(app, mongoose, db);
-require('./public/project/server/app.js')(app);
+require('./public/project/server/app.js')(app, mongoose, db);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 

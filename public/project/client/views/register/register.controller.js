@@ -17,7 +17,6 @@
 				UserService.findAllUsers()
 					.then(function(users)
 					{
-
 						if ($scope.password !== $scope.verifypassword)
 						{
 							$scope.error = "both the password fields should match";
