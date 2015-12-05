@@ -1,0 +1,58 @@
+<div ng-controller="PersonalController">
+    <div ng-if="user">
+        <h1 class="page-header">Personal Stories</h1>
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"><a href="#/profile">Profile</a></li>
+            <li role="presentation"><a href="#/favorites">Favorites</a></li>
+            <li role="presentation" class="active"><a href="#/personal">Personal Stories</a></li>
+            <li role="presentation" ng-if="isAdmin"><a href="#/reported">Reported Stories</a></li>
+        </ul>
+
+        <div id="stories" class="container">
+            <h2>Your Stories</h2>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="th1 width-90 storycontent">
+                            <a href="#">
+                                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+                            </a>
+                            Story Heading
+                        </th>
+                        <th class="th1 width-10 storycontent">
+                            <a href="#">
+                                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+                            </a>
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="story in userStories">
+                        <td class="storycontent td1 width-90"><a class="whitefont" href="" ng-click="selectStory($index)">
+                            {{story.heading}}</a></td>
+                        <td class="col-nowrap td1 width-q0">
+                            <a href="" class="btn btn-warning" ng-click="updateStory($index)">
+                                <scan class="glyphicon glyphicon-pencil"></scan>
+                            </a>
+                            <a href="" class="btn btn-danger" ng-click="deleteStory($index)">
+                                <scan class="glyphicon glyphicon-remove"></scan>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="error glyphicon glyphicon-remove" ng-if="error">
+                    <span>{{error}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!user">
+        <h2>
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
+</div>

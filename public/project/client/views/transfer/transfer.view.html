@@ -5,8 +5,11 @@
 	<table class="table ">
 	    <tbody>
 	      <tr ng-repeat="transfer in transfers">
-	      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-	        <td class="bold"><a class="whitefont" href="#">{{transfer.contents}}</a></td>
+	      	<td width="15%"><img src="views/img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
+	        <td>
+                <div class="bold">{{transfer.heading}}</div>
+                <div><p>{{transfer.contents}}</p></div>
+            </td>
 	        <td width="5%">
 	        	<a href="" class="btn btn-success" ng-click="addlike($index)">{{transfer.likes}}
                     <scan class="glyphicon glyphicon-thumbs-up"></scan>

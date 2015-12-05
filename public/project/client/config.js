@@ -39,6 +39,24 @@
                 .when("/story", {
                     templateUrl : "/project/client/views/story/story.view.html"
                 })
+                .when("/personal", {
+                    templateUrl : "/project/client/views/personal/personal.view.html"
+                })
+                .when("/favorites", {
+                    templateUrl : "/project/client/views/favorites/favorites.view.html"
+                })
+                .when("/reported", {
+                    templateUrl : "/project/client/views/reported/reported.view.html"
+                })
+                .when("/publicprofile", {
+                    templateUrl : "/project/client/views/publicprofile/publicprofile.view.html"
+                })
+                .when("/search", {
+                    templateUrl : "/project/client/views/search/search.view.html"
+                })
+                .when("/publicprofile", {
+                    templateUrl : "/project/client/views/publicprofile/publicprofile.view.html"
+                })
                 .otherwise({
                     redirectTo : "/home" 
                 })

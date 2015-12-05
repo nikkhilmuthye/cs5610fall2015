@@ -1,11 +1,12 @@
 (function(){
     'use strict';
 
-    angular
+    var controller = angular
         .module("SportsNewsApp")
-        .controller("TeamController", ['$scope', '$location', '$rootScope', "$http",'StoryService', TeamController]);
+        .controller("TeamController", ['$scope', '$location', '$rootScope', "$http",'StoryService'
+            ,'UserService', TeamController]);
 
-    function TeamController($scope, $location, $rootScope, $http, StoryService ){
+    function TeamController($scope, $location, $rootScope, $http, StoryService, UserService ){
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -37,11 +38,14 @@
             //$scope.init();
         });
 
+        $scope.notInFavorite = true;
+
         $scope.init = function(){
             $scope.error = null;
             $scope.success = null;
 
             if($scope.team) {
+                console.log($scope.team)
                 if($scope.team._links.team) {
                     $http({
                         headers: {'X-Auth-Token': '7da7a8a5ea4b46e8a834318a57ca8634'},
@@ -58,10 +62,49 @@
                     $scope.teamdetails = $scope.team;
                     $scope.getTeamDetails();
                 }
+
+                if($scope.user)
+                {
+                    var found = false;
+                    var index1 = null;
+                    UserService.getAllFavorite($scope.user._id)
+                        .then(function (favorites) {
+                            console.log(favorites);
+                            console.log($scope.team);
+                            var url = "";
+
+                            if($scope.team._links.self)
+                                url = $scope.team._links.self.href;
+                            else
+                                url = $scope.team._links.team.href;
+
+                            console.log(url);
+
+                            favorites.forEach(function(fav, index){
+                                if (fav && fav==url)
+                                {
+                                    found = true;
+                                    index1 = index;
+                                }
+                            })
+
+                            if(found)
+                            {
+                                $scope.notInFavorite = false;
+                            }
+                            else
+                            {
+                                $scope.notInFavorite = true;
+                            }
+                        })
+                        .catch(function(err){
+                            if(err)
+                                $scope.err = err;
+                        });
+                }
             }
-            if($scope.league) {
-                $scope.selectedLeague();
-            }
+
+
         };
 
         $scope.getTeamDetails = function (){
@@ -113,9 +156,49 @@
         };
 
         $scope.selectedTeam = function (){
-            console.log($scope.league);
+            console.log($scope.team);
         };
 
-    };
+        $scope.addToFavorites = function(){
 
+            if($scope.user) {
+                var url = "";
+
+                if($scope.team._links.self)
+                    url = $scope.team._links.self.href;
+                else
+                    url = $scope.team._links.team.href;
+
+                var teamUrl = {"url": url};
+                console.log(teamUrl);
+                UserService.addTeam(teamUrl, $scope.user._id)
+                    .then(function (user) {
+                        console.log(user);
+                    })
+                    .catch(
+                    function (error) {
+                        $scope.error = error;
+                    });
+                $scope.notInFavorite = false;
+            }
+        }
+
+        $scope.removeFromFavorites = function(){
+
+            if($scope.user) {
+                var teamUrl = {"url": $scope.team._links.self.href}
+                UserService.removeTeam(teamUrl, $scope.user._id)
+                    .then(function (user) {
+                        console.log(user);
+                    })
+                    .catch(
+                    function (error) {
+                        $scope.error = error;
+                    });
+                $scope.notInFavorite = true;
+            }
+        }
+
+    };
 })();
+

@@ -1,0 +1,33 @@
+<div class="container" data-ng-controller="SearchController">
+    <div>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label for="sel1">Search:</label>
+                <input class="form-control" ng-model="searchtext" id="sel1">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class = "container col-sm-8 child-1 table-responsive">
+        <h2>Search Results:</h2>
+        <table class="table pointer">
+            <thead>
+
+            </thead>
+            <tbody>
+            <tr ng-if="searchtext" ng-repeat="league in leagues | filter: searchtext">
+                <td><a ng-click="selectLeague(league)" class="whitefont">{{league.caption}}</a></td>
+            </tr>
+            <tr ng-if="searchtext" ng-repeat="team in teams | filter: searchtext">
+                <td><a ng-click="selectTeam(team)" class="whitefont">{{team.name}}</a></td>
+            </tr>
+            <tr ng-if="searchtext" ng-repeat="story in stories | filter: searchtext">
+                <td><a ng-click="selectStory(story)" class="whitefont">{{story.heading}}</a></td>
+            </tr>
+            <tr ng-if="searchtext" ng-repeat="user in users | filter: searchtext">
+                <td><a ng-click="selectProfile(user)" class="whitefont">{{user.firstName}}</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

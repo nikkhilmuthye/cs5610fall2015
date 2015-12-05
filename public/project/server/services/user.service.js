@@ -2,9 +2,104 @@ module.exports = function(app, model) {
     app.post("/api/project/user", Create);
     app.get("/api/project/user", FindUsers);
     app.get("/api/project/user/:id", FindById);
+    app.get("/api/project/user/favoriteTeams/:id", GetAllFavoriteTeams);
+    app.get("/api/project/user/favoriteStories/:id", GetAllFavoriteStories);
     app.put("/api/project/user/:id", Update);
+    app.put("/api/project/user/:userid/removeTeam", RemoveTeam);
+    app.put("/api/project/user/:userid/addTeam", AddTeam);
+    app.put("/api/project/user/:userid/removeStory/:id", RemoveStory);
+    app.put("/api/project/user/:userid/addStory/:id", AddStory);
     app.delete("/api/project/user/:id", Delete);
 
+
+    function GetAllFavoriteStories(req, res)
+    {
+        var userId = req.params.id;
+
+        model
+            .GetAllFavoriteStories(userId)
+            .then(
+            function (favorites) {
+                res.json(favorites);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function AddStory(req, res)
+    {
+        var storyId = req.params.id;
+        var userId = req.params.userid;
+
+        model.AddStory(storyId, userId)
+            .then(function(newUser){
+                res.json(newUser);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function RemoveStory(req, res)
+    {
+        var storyId = req.params.id;
+        var userId = req.params.userid;
+
+        model.RemoveStory(storyId, userId)
+            .then(function(newUser){
+                res.json(newUser);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function GetAllFavoriteTeams(req, res)
+    {
+        var userId = req.params.id;
+
+        model
+            .GetAllFavoriteTeams(userId)
+            .then(
+            function (favorites) {
+                res.json(favorites);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function AddTeam(req, res)
+    {
+        var teamUrl = req.body;
+        var userId = req.params.userid;
+
+        model.AddTeam(teamUrl.url, userId)
+            .then(function(newUser){
+                res.json(newUser);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function RemoveTeam(req, res)
+    {
+        var teamUrl = req.body;
+        var userId = req.params.userid;
+
+        console.log(teamUrl);
+        console.log(userId);
+
+        model.RemoveTeam(teamUrl.url, userId)
+            .then(function(newUser){
+                res.json(newUser);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
 
     function Create(req, res)
     {

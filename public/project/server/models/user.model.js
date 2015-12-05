@@ -77,7 +77,13 @@ module.exports = function(app, mongoose, db){
         Update: Update,
         Delete : Delete,
         findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials
+        findUserByCredentials: findUserByCredentials,
+        RemoveTeam: RemoveTeam,
+        AddTeam: AddTeam,
+        GetAllFavoriteTeams: GetAllFavoriteTeams,
+        RemoveStory: RemoveStory,
+        AddStory: AddStory,
+        GetAllFavoriteStories: GetAllFavoriteStories
     };
     return api;
 
@@ -90,6 +96,184 @@ module.exports = function(app, mongoose, db){
         }
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
+    }
+
+    function RemoveStory(teamId, userId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+                    var index1 = null;
+                    var found = false;
+                    user.favoritestories.forEach(function(team, index) {
+                        if(team == teamId) {
+                            found = true;
+                            index1 = index;
+                        }
+                    });
+                    if(found)
+                        user.favoritestories.splice(index1, 1);
+
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    console.log(err);
+                    deferred.reject(err);
+                }
+                else {
+                    console.log("no user found with id:"+userId);
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function AddStory(teamId, userId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+
+                    var index1 = null;
+                    var found = false;
+                    user.favoritestories.forEach(function(team, index) {
+                        if(team == teamId) {
+                            found = true;
+                            index1 = index;
+                        }
+                    });
+                    if(!found)
+                        user.favoritestories.push(teamId);
+
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    console.log(err);
+                    deferred.reject(err);
+                }
+                else {
+                    console.log("no user found with id:"+userId);
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function RemoveTeam(teamId, userId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+                    var index1 = null;
+                    var found = false;
+                    user.favoriteteams.forEach(function(team, index) {
+                        if(team == teamId) {
+                            found = true;
+                            index1 = index;
+                        }
+                    });
+                    if(found)
+                        user.favoriteteams.splice(index1, 1);
+
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    console.log(err);
+                    deferred.reject(err);
+                }
+                else {
+                    console.log("no user found with id:"+userId);
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function AddTeam(teamId, userId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+
+                    var index1 = null;
+                    var found = false;
+                    user.favoriteteams.forEach(function(team, index) {
+                        if(team == teamId) {
+                            found = true;
+                            index1 = index;
+                        }
+                    });
+                    if(!found)
+                        user.favoriteteams.push(teamId);
+
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    console.log(err);
+                    deferred.reject(err);
+                }
+                else {
+                    console.log("no user found with id:"+userId);
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
     }
 
     function Create(newuser)
@@ -114,6 +298,40 @@ module.exports = function(app, mongoose, db){
         catch(error)
         {
             console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function GetAllFavoriteTeams(userId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId},function(err, users) {
+                deferred.resolve(users.favoriteteams);
+            });
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function GetAllFavoriteStories(userId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId},function(err, users) {
+                deferred.resolve(users.favoritestories);
+            });
+        }
+        catch(error)
+        {
             deferred.reject(error);
         }
 

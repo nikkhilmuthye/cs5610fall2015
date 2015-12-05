@@ -6,13 +6,16 @@
                 <label for="Header">Transfer News</label>
                 <input type="text" class="form-control" id="Header" placeholder="Some header" data-ng-model="Header">
             </div>
-
+            <div class="form-group">
+                <label for="story">Contents</label>
+                <textarea type="text" class="form-control" id="story" placeholder="Transfer Description..." rows="10" data-ng-model="contents"/>
+            </div>
             <div class="form-group">
                 <label for="exampleInputFile">File input</label>
                 <input type="file" id="exampleInputFile">
                 <p class="help-block">Please select an image for your story.</p>
             </div>
-            <button type="submit" class="btn btn-default" ng-click="create(Header)">Submit</button>
+            <button type="submit" class="btn btn-default" ng-click="create(Header, contents)">Submit</button>
             <div class="error glyphicon glyphicon-remove" ng-if="error">
                 <span>{{error}}</span>
             </div>

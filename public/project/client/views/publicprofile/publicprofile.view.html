@@ -1,0 +1,53 @@
+<div class="container" data-ng-controller="PublicProfileController">
+    <div ng-if="user">
+        <div class="row page-header">
+            <h1>{{selectedUser.firstName}} {{selectedUser.lastName}}</h1>
+            <hr>
+            <button type="submit" class="left btn btn-default" ng-click="addToFavorites()"
+                    ng-if="follow">Follow</button>
+            <button type="submit" class="left btn btn-default" ng-if="!follow"
+                    ng-click="removeFromFavorites()">Remove following</button>
+        </div>
+        <div class = "container col-sm-8 child-1 table-responsive">
+            <h2>Favorite Team</h2>
+            <table class="table">
+                <thead>
+                </thead>
+                <tbody>
+                <tr ng-repeat="team in teams">
+                    <td>{{team}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "container col-sm-8 child-1 table-responsive">
+            <h2>Favorite Stories</h2>
+            <table class="table">
+                <thead>
+                </thead>
+                <tbody>
+                <tr ng-repeat="story in stories">
+                    <td>{{story.heading}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "container col-sm-8 child-1 table-responsive">
+            <h2>Personal Stories</h2>
+            <table class="table">
+                <thead>
+                </thead>
+                <tbody>
+                <tr ng-repeat="story in personalStories">
+                    <td>{{story.heading}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div ng-if="!user">
+        <h2>
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
+</div>

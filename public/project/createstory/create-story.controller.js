@@ -3,9 +3,10 @@
 
     angular
     .module("SportsNewsApp")
-    .controller("CreateStoryController", ['$scope', '$location', '$rootScope', 'StoryService', CreateStoryController]);
+    .controller("CreateStoryController", ['$scope', '$location', '$upload',
+            '$rootScope', 'StoryService', CreateStoryController]);
     
-    function CreateStoryController($scope, $location, $rootScope, StoryService ){
+    function CreateStoryController($scope, $location, $upload, $rootScope, StoryService ){
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -14,6 +15,23 @@
             $scope.user = $rootScope.user = user;
         });
 
+        $scope.uploadFile = function(){
+
+            $scope.fileSelected = function(files) {
+                if (files && files.length) {
+                    $scope.file = files[0];
+                }
+
+                $upload.upload({
+                    url: "/api/photo",
+                    file: $scope.file
+                })
+                    .success(function(data) {
+                        console.log(data, 'uploaded');
+                    });
+
+            };
+        };
 
         $scope.create = function(Header, story){
             $scope.error = null;

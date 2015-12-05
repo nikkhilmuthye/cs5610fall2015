@@ -1,10 +1,28 @@
 module.exports = function(app, model) {
     app.post("/api/project/story", Create);
-    app.get("/api/project/story", FindStories);
+    app.get("/api/project/story", FindAll);
+    app.get("/api/project/story/reported", FindAllReported);
     app.get("/api/project/story/:id", FindById);
+    app.delete("/api/project/story/approve/:id", ApproveById);
+    app.get("/api/project/story/report/:id", ReportById);
     app.get("/api/project/story/userId/:id", FindByUserId);
     app.put("/api/project/story/:id", Update);
+    app.put("/api/project/story/:id/addComment", AddComment);
     app.delete("/api/project/story/:id", Delete);
+
+
+    function AddComment(req, res){
+        var storyId = req.params.id;
+        var comment = req.body;
+
+        model.AddComment(storyId, comment.comment)
+            .then(function(newUser){
+                res.json(newUser);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
 
     function Create(req, res)
     {
@@ -37,6 +55,19 @@ module.exports = function(app, model) {
             FindAll(req, res);
         }
     }
+    function FindAllReported(req, res)
+    {
+        model
+            .FindAllReported()
+            .then(
+            function (users) {
+                res.json(users);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
     function FindAll(req, res)
     {
         model
@@ -50,15 +81,46 @@ module.exports = function(app, model) {
             });
     }
 
-    function FindById(req, res)
+    function ApproveById(req, res)
     {
-        var userId = req.params.id;
+        var storyId = req.params.id;
+        console.log(storyId);
 
         model
-            .FindById(userId)
+            .ApproveById(storyId)
             .then(
-            function(user){
-                res.json(user);
+            function(story){
+                res.json(story);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function ReportById(req, res)
+    {
+        var storyId = req.params.id;
+
+        model
+            .ReportById(storyId)
+            .then(
+            function(story){
+                res.json(story);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function FindById(req, res)
+    {
+        var storyId = req.params.id;
+
+        model
+            .FindById(storyId)
+            .then(
+            function(story){
+                res.json(story);
             })
             .catch(function(error){
                 res.status(400).send(JSON.stringify(error));

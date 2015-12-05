@@ -5,5 +5,6 @@ module.exports = new mongoose.Schema({
     "heading": { type: String, required: true, unique: true },
     "contents": { type: String, required: true },
     "userId": { type: String, required: true },
-    "hashtags": [{ type: String }]
+    "comments": [{ type: String }],
+    "date": { type: Date, default: Date.now }
 }, {collection: 'cs5610.project.story'});

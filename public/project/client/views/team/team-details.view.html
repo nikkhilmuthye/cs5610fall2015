@@ -19,8 +19,13 @@
     </div>
     <hr>
     <div ng-if="team">
-        <h1 class="page-header">{{teamdetails.name}} !</h1>
-
+        <div class="row page-header">
+            <h1>{{teamdetails.name}} !</h1>
+            <button type="submit" class="left btn btn-default" ng-click="addToFavorites()"
+                    ng-if="notInFavorite">Add to Favorites</button>
+            <button type="submit" class="left btn btn-default" ng-if="!notInFavorite"
+                    ng-click="removeFromFavorites()">Remove from Favorites</button>
+        </div>
         <div class = "container col-sm-8 child-1 table-responsive">
             <h2>League Table</h2>
             <table class="table">

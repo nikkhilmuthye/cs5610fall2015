@@ -1,1 +1,0 @@
-HR.appController.addTemplate("backbone/templates/recruit/sudorank",function(obj){{var __p="";Array.prototype.join}with(obj||{})__p+='<div class="js-alert">\n</div>\n';return __p});

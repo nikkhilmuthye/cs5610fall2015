@@ -209,6 +209,9 @@ background-color: #FFBABA;
 .storycontent{
     font-size: large;
 }
+.storycontent-med{
+    font-size: medium;
+}
 .whitebg {
     background-color: white;
 }

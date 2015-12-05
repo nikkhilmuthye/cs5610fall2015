@@ -2,6 +2,7 @@ var mongoose = require('mongoose'),
     objectId = mongoose.Schema.Types.ObjectId;
 
 module.exports = new mongoose.Schema({
+    "heading": { type: String, required: true },
     "contents": { type: String, required: true },
     "likes": { type: Number, default: 0 },
     "dislikes": { type: Number, default: 0 },

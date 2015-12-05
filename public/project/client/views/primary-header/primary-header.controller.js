@@ -10,11 +10,12 @@
 		
 		$scope.user = $rootScope.user;
 		$scope.$location = $location;
+        $scope.searchtext = "";
 
 		$scope.logout = function()
 		{
 			$scope.user = $rootScope.user = null;
-
+            $rootScope.$broadcast('loggedin', $scope.user);
 			$location.path( "/home" );
 		};
 
@@ -23,6 +24,15 @@
 		{
 			$scope.user = $rootScope.user = user;
 		});
-		
+
+		$scope.change = function(){
+
+            if($scope.searchtext && $scope.searchtext != "") {
+                $rootScope.searchtext = $scope.searchtext;
+                $rootScope.$broadcast('searchtext', $scope.searchtext);
+                $scope.searchtext = "";
+                $location.path("/search");
+            }
+        }
 	};
 })();

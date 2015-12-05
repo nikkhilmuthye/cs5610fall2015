@@ -36,6 +36,7 @@
                 .when("/story", {
                     templateUrl : "/project/story/story.view.html" 
                 })
+
                 .otherwise({
                     redirectTo : "/home" 
                 })

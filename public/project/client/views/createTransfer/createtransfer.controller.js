@@ -15,22 +15,19 @@
         });
 
 
-        $scope.create = function(Header){
+        $scope.create = function(Header, contents){
             $scope.error = null;
             $scope.success = null;
 
             if (Header)
             {
                 var newTransfer = {
-                    contents: Header
+                    heading: Header,
+                    contents: contents
                 }
                 TransferService.createTransfer($scope.user._id, newTransfer)
                     .then(function(updatedUser) {
-                        console.log(updatedUser);
-
                         $scope.user = updatedUser;
-                        $scope.success = "Succesfully added new story"
-                        console.log("Succesfully updated user profile");
                         $location.path( "/transfer" );
                     })
                     .catch(function(err){

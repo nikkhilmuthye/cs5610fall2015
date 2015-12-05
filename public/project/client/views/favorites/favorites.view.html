@@ -1,0 +1,60 @@
+<div ng-controller="FavoritesController">
+    <div ng-if="user">
+        <h1 class="page-header">Profile</h1>
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"><a href="#/profile">Profile</a></li>
+            <li role="presentation" class="active"><a href="#/favorites">Favorites</a></li>
+            <li role="presentation"><a href="#/personal">Personal Stories</a></li>
+            <li role="presentation" ng-if="isAdmin"><a href="#/reported">Reported Stories</a></li>
+        </ul>
+
+        <div id="stories" class="container">
+            <h2>Favourite Teams</h2>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="storycontent th1 width-90">
+                            <a href="">
+                                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+                            </a>
+                            Teams
+                        </th>
+                        <th class="storycontent th1 width-10">
+                            <a href="">
+                                <scan class="glyphicon glyphicon-triangle-bottom"></scan>
+                            </a>
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat=" team in favorites">
+                        <td class="storycontent td1 width-90">
+                            <a class="whitefont" href="" ng-click="deleteFavorite($index)">{{team}}</a>
+                        </td>
+                        <td class="col-nowrap td1 width-10">
+                            <a href="" class="btn btn-danger" ng-click="deleteFavorite($index)">
+                                <scan class="glyphicon glyphicon-remove"></scan>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="error glyphicon glyphicon-remove" ng-if="error">
+                    <span>{{error}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="error glyphicon glyphicon-remove" ng-if="error">
+            <span>{{error}}</span>
+        </div>
+    </div>
+    <div ng-if="!user">
+        <h2>
+            You are not logged in right now. To see your profile, please <a href="#/login">login</a>
+        </h2>
+    </div>
+</div>

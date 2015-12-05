@@ -6,9 +6,6 @@
         .factory("StoryService", StoryService);
 
     function StoryService($http, $q) {
-        var stories = [
-        {heading: "Carrick defends Van Gaal: I'll take winning over tactics", contents: "ff", id: "4cbe04f5-3463-95e7-a1ab-62b7a11cfd30", userId: "9843473b-d068-104e-e46-f623566a5c61"}
-        ];
 
      	function guid() 
         {
@@ -27,12 +24,76 @@
 		{
 			createStoryForUser: createStoryForUser,
 			findAllStoryForUser: findAllStoryForUser,
+            findStoryForUserById: findStoryForUserById,
 			deleteStoryById: deleteStoryById,
-			updateStoryById: updateStoryById
+			updateStoryById: updateStoryById,
+            findAll: findAll,
+            approveStoryById: approveStoryById,
+            reportStoryById: reportStoryById,
+            findAllReportedStories: findAllReportedStories,
+            AddComment: AddComment
 		};
 		return storyService;
 
-		function createStoryForUser(userId, story, callback)
+        function AddComment(storyId, comment){
+            var deferred = $q.defer();
+
+            try
+            {
+                $http.put("/api/project/story/"+storyId+"/addComment", comment)
+                    .success(function(newstory){
+                        deferred.resolve(newstory);
+                    })
+                    .error(function(error){
+                        if (error){
+                            deferred.reject(error);
+                        }
+                    });
+            }
+            catch(error)
+            {
+                deferred.reject(error);
+            }
+            return deferred.promise;
+        }
+
+        function reportStoryById(storyId){
+            var deferred = $q.defer();
+
+            console.log(storyId)
+
+            $http.get("/api/project/story/report/"+storyId)
+                .success(function(user){
+                    console.log(user);
+                    deferred.resolve(user);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function approveStoryById(storyId){
+            var deferred = $q.defer();
+
+            console.log(storyId);
+
+            $http.delete("/api/project/story/approve/"+storyId)
+                .success(function(user){
+                    console.log(user);
+                    deferred.resolve(user);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+		function createStoryForUser(userId, story)
 	    {
             var deferred = $q.defer();
 			try
@@ -67,7 +128,7 @@
             return deferred.promise;
 		};
 
-		function deleteStoryById(storyId, callback)
+		function deleteStoryById(storyId)
 		{
             var deferred = $q.defer();
 
@@ -97,7 +158,61 @@
             return deferred.promise;
 		};
 
-		function findAllStoryForUser(userId, callback)
+        function findAllReportedStories()
+        {
+            var deferred = $q.defer();
+
+            console.log("here");
+            try
+            {
+                $http.get("/api/project/story/reported")
+                    .success(function (users) {
+                        console.log(users);
+                        deferred.resolve(users);
+                    })
+                    .error(function (error) {
+                        if (error) {
+                            deferred.reject(error);
+                        }
+                    });
+
+                return deferred.promise;
+            }
+            catch(error)
+            {
+                console.log("Caught exception in findAllStoryForUser "  + error);
+                deferred.reject(error);
+            }
+        };
+
+        function findAll()
+        {
+            var deferred = $q.defer();
+
+            console.log("here");
+            try
+            {
+                $http.get("/api/project/story")
+                    .success(function (users) {
+                        console.log(users);
+                        deferred.resolve(users);
+                    })
+                    .error(function (error) {
+                        if (error) {
+                            deferred.reject(error);
+                        }
+                    });
+
+                return deferred.promise;
+            }
+            catch(error)
+            {
+                console.log("Caught exception in findAllStoryForUser "  + error);
+                deferred.reject(error);
+            }
+        };
+
+		function findAllStoryForUser(userId)
 		{
             var deferred = $q.defer();
 			var userStories = [];
@@ -130,7 +245,40 @@
 		 	}
 		};
 
-		function updateStoryById(storyId, newstory, callback)
+        function findStoryForUserById(storyId)
+        {
+            var deferred = $q.defer();
+
+            try
+            {
+                if(storyId && typeof storyId === 'string') {
+
+                    $http.get("/api/project/story/"+storyId)
+                        .success(function (story) {
+                            console.log(story);
+                            deferred.resolve(story);
+                        })
+                        .error(function (error) {
+                            if (error) {
+                                deferred.reject(error);
+                            }
+                        });
+                }
+                else
+                {
+                    console.log("Please enter proper story ID");
+                    deferred.reject("Please enter proper story ID");
+                }
+                return deferred.promise;
+            }
+            catch(error)
+            {
+                console.log("Caught exception in findAllStoryForUser "  + error);
+                deferred.reject(error);
+            }
+        };
+
+		function updateStoryById(storyId, newstory)
 		{
             var deferred = $q.defer();
 

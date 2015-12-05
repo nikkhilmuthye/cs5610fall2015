@@ -1,6 +1,7 @@
 <div class = "container" ng-controller="StoryController">
 	<br/>
-	<h2>Some Heading</h2>
+	<h2 ng-if="story">{{story.heading}}</h2>
+	<h2 ng-if="!story">Some Heading</h2>
 	<br/>
 	<div class="shadow">
 		<img class="storyimg" src="img/r4f.jpg">
@@ -8,10 +9,13 @@
 	<br/>
 	<br/>
 	<br/>
-	<div class="shadow">
-		<p class="storycontent">
+	<div class="shadow div-opaque">
+		<pre class="storycontent div-opaque whitefont" ng-if="!story">
 			Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-		</p>
+		</pre>
+        <pre ng-if="story" class="storycontent div-opaque whitefont">
+            {{story.contents}}
+        </pre>
 	</div>
 
 	<br/>
@@ -19,6 +23,9 @@
 	<table class="table ">
 		<tbody>
 		    <tr>
+                <td>
+                    <a ng-click="selectUser()">{{author.firstName}}</a>
+                </td>
 		      	<td width="65%"><h3>Rate the story</h3>
 					<div class="rating">
 						<span class="storycontent">☆</span>
@@ -29,9 +36,12 @@
 					</div>
 				</td>
 		        <td class="">
-		        	<a class="whitefont" href="#/profile">Add to Favorites</a>
+		        	<a class="whitefont" href="" data-ng-click="addToFavorites()"
+                            ng-if="notInFavorite">Add to Favorites</a>
+                    <a class="whitefont" href="" data-ng-click="removeFromFavorites()"
+                       ng-if="!notInFavorite">Remove From Favorites</a>
 		        	<br />
-					<a class="whitefont" href="#/profile">Report</a>
+					<a class="whitefont" href="" ng-click="report()" ng-if="!reported">Report</a>
 				</td>
 		    </tr>
 		</tbody>
@@ -55,7 +65,7 @@
         <div>
 	        <table class="table ">
 			    <tbody>
-			      <tr ng-repeat=" comment in comments" ng-bind-html-unsafe="comment">
+			      <tr ng-repeat=" comment in story.comments" ng-bind-html-unsafe="comment">
 			      	<td width="15%"><img src="img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
 			        <td class="bold whitefont">{{ comment }}</td>
 			      </tr>
@@ -63,23 +73,4 @@
 			</table>
         </div>
 	</div>
-
-	<!-- <div>
-		<h3>Rate the story</h3>
-		<div class="rating">
-			<span class="storycontent">☆</span>
-			<span class="storycontent">☆</span>
-			<span class="storycontent">☆</span>
-			<span class="storycontent">☆</span>
-			<span class="storycontent">☆</span>
-		</div>
-		<div class="right-align">
-			<a class="whitefont" href="#/profile">Add to Favorites</a>
-			<p> | </p>
-			<a class="whitefont" href="#/profile">Report</a>
-		</div>
-	</div>
-
-	< -->
-
 </div>

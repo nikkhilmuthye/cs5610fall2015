@@ -2,10 +2,10 @@
     'use strict';
 
     angular
-    .module("SportsNewsApp")
-    .controller("ProfileController", ['$scope', '$location', '$rootScope', 'UserService', 'StoryService', ProfileController]);
-    
-    function ProfileController($scope, $location, $rootScope, UserService, StoryService ){
+        .module("SportsNewsApp")
+        .controller("PersonalController", ['$scope', '$location', '$rootScope', 'UserService', 'StoryService', PersonalController]);
+
+    function PersonalController($scope, $location, $rootScope, UserService, StoryService ){
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -17,23 +17,22 @@
 
         $scope.userStories = [];
         $scope.updateSelected = false;
-        $scope.verifypassword = null;
-        
-         $scope.init = function () {
+
+        $scope.init = function () {
             if($scope.user)
             {
                 StoryService.findAllStoryForUser($scope.user._id)
                     .then(
-                            function(stories)
-                            {
+                    function(stories)
+                    {
 
-                                    $scope.userStories = stories;
-                                    console.log(stories);
-                            })
+                        $scope.userStories = stories;
+                        console.log(stories);
+                    })
                     .catch(
-                        function(error){
-                            $scope.error = error;
-                        }
+                    function(error){
+                        $scope.error = error;
+                    }
                 );
 
                 $scope.user.role.forEach(function(role){
@@ -45,6 +44,15 @@
         };
         $scope.init();
 
+        $scope.selectStory = function(index){
+            var story = $scope.userStories[index];
+            if(story) {
+                $rootScope.story = story;
+                $rootScope.$broadcast('story', story);
+                $location.path("/story");
+            }
+        }
+
         $scope.selectUpdate = function(){
             $scope.updateSelected = true;
         }
@@ -53,13 +61,11 @@
             $scope.updateSelected = false;
         }
 
-        $scope.update = function(verifypassword){
+        $scope.update = function(){
             $scope.error = null;
             $scope.success = null;
             console.log($scope.user);
-            console.log($scope.user.password);
-            console.log($scope.user.verifypassword);
-            if($scope.user.password == $scope.user.verifypassword) {
+            if($scope.user.password == $scope.verifypassword) {
                 UserService.updateUser($scope.user._id, $scope.user)
                     .then(
                     function (updatedUser) {

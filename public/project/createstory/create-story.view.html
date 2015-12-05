@@ -11,10 +11,18 @@
 		    <textarea type="text" class="form-control" id="story" placeholder="Your whole story..." rows="10" data-ng-model="story"/>
 		  </div>
 		  <div class="form-group">
-		    <label for="exampleInputFile">File input</label>
-		    <input type="file" id="exampleInputFile">
-		    <p class="help-block">Please select an image for your story.</p>
+		      <label for="exampleInputFile">File input</label>
+              <input id="exampleInputFile" type="file" ng-file-select="fileSelected($files)" accept="'image/*'">
+              <input type="submit" ng-click="uploadFile()" >
 		  </div>
+			<div class="form-group">
+				Upload File:
+
+				<form>
+					<input type="file" ng-file-select="fileSelected($files)" accept="'image/*'">
+					<input type="submit" ng-click="uploadFile()" >
+				</form>
+			</div>
 		  <button type="submit" class="btn btn-default" ng-click="create(Header, story)">Submit</button>
 		  <div class="error glyphicon glyphicon-remove" ng-if="error">
             <span>{{error}}</span>

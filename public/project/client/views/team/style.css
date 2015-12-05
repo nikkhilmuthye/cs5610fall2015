@@ -3,3 +3,12 @@
 
     display:inline-block;
 }
+
+.div-opaque{
+    opacity: 1.0;
+    background-color: black;
+}
+
+.pointer {
+    cursor: pointer;
+}

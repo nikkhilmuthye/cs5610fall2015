@@ -68,9 +68,127 @@
 			findUserByUsernameAndPassword: findUserByUsernameAndPassword,
 			updateUser: updateUser,
 			deleteUserById: deleteUserById,
-			checkNewUser : checkNewUser
+			checkNewUser : checkNewUser,
+            addTeam: addTeam,
+            removeTeam: removeTeam,
+            getAllFavorite: getAllFavorite,
+            addStoryToFavorites: addStoryToFavorites,
+            removeStoryFromFavorites: removeStoryFromFavorites,
+            getAllFavoriteStories: getAllFavoriteStories,
+            findUserbyId: findUserbyId
 		};
 		return userService;
+
+        function findUserbyId(userId){
+            var deferred = $q.defer();
+
+            $http.get("/api/project/user/"+userId)
+                .success(function(user){
+                    console.log(user);
+                    deferred.resolve(user);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function getAllFavoriteStories(userId){
+
+            var deferred = $q.defer();
+
+            $http.get("/api/project/user/favoriteStories/"+userId)
+                .success(function(favorites){
+                    console.log(favorites);
+                    deferred.resolve(favorites);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+
+        function removeStoryFromFavorites(storyId, userId){
+            var deferred = $q.defer();
+
+            $http.put("/api/project/user/"+userId+"/removeStory/"+storyId)
+                .success(function(newuser){
+                    deferred.resolve(newuser);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function addStoryToFavorites(userId, storyId){
+            var deferred = $q.defer();
+
+            $http.put("/api/project/user/"+userId+"/addStory/"+storyId)
+                .success(function(newuser){
+                    deferred.resolve(newuser);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function removeTeam(teamUrl, userId){
+            var deferred = $q.defer();
+
+            $http.put("/api/project/user/"+userId+"/removeTeam",teamUrl)
+                .success(function(newuser){
+                    deferred.resolve(newuser);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function addTeam(teamUrl, userId){
+            var deferred = $q.defer();
+
+            $http.put("/api/project/user/"+userId+"/addTeam",teamUrl)
+                .success(function(newuser){
+                    deferred.resolve(newuser);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function getAllFavorite(userId)
+        {
+            var deferred = $q.defer();
+
+            $http.get("/api/project/user/favoriteTeams/"+userId)
+                .success(function(favorites){
+                    console.log(favorites);
+                    deferred.resolve(favorites);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
 
 		function findAllUsers()
 		{
@@ -145,7 +263,7 @@
 
         };
 
-		function updateUser(userid, newuser, callback)
+		function updateUser(userid, newuser)
 		{
             var deferred = $q.defer();
 
