@@ -75,7 +75,10 @@
             addStoryToFavorites: addStoryToFavorites,
             removeStoryFromFavorites: removeStoryFromFavorites,
             getAllFavoriteStories: getAllFavoriteStories,
-            findUserbyId: findUserbyId
+            findUserbyId: findUserbyId,
+            GetAllFollowingUsers: GetAllFollowingUsers,
+            followUser: followUser,
+            unfollowUser: unfollowUser
 		};
 		return userService;
 
@@ -86,6 +89,23 @@
                 .success(function(user){
                     console.log(user);
                     deferred.resolve(user);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function GetAllFollowingUsers(userId){
+
+            var deferred = $q.defer();
+
+            $http.get("/api/project/user/followingUsers/"+userId)
+                .success(function(followingUsers){
+                    console.log(followingUsers);
+                    deferred.resolve(followingUsers);
                 })
                 .error(function(error){
                     if (error){
@@ -112,6 +132,36 @@
             return deferred.promise;
         }
 
+
+        function unfollowUser(followId, userId){
+            var deferred = $q.defer();
+
+            $http.put("/api/project/user/"+userId+"/unfollowUser/"+followId)
+                .success(function(newuser){
+                    deferred.resolve(newuser);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function followUser(followId, userId){
+            var deferred = $q.defer();
+
+            $http.put("/api/project/user/"+userId+"/followUser/"+followId)
+                .success(function(newuser){
+                    deferred.resolve(newuser);
+                })
+                .error(function(error){
+                    if (error){
+                        deferred.reject(error);
+                    }
+                });
+            return deferred.promise;
+        }
 
         function removeStoryFromFavorites(storyId, userId){
             var deferred = $q.defer();
@@ -214,7 +264,7 @@
 			console.log(username);
 			console.log(password);
 
-			$http.get("/api/project/user?username="+username+"&password="+password)
+			$http.get("/api/project/user/login?username="+username+"&password="+password)
 				.success(function(user){
 					deferred.resolve(user);
 				})

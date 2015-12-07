@@ -1,0 +1,51 @@
+{
+  "name": "angular-utils-pagination",
+  "version": "0.9.2",
+  "description": "Magical automatic pagination for anything in AngularJS",
+  "main": "dirPagination.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelbromley/angularUtils.git"
+  },
+  "keywords": [
+    "angularjs",
+    "pagination",
+    "directive",
+    "paging",
+    "angular"
+  ],
+  "author": {
+    "name": "Michael Bromley",
+    "email": "michael@michaelbromley.co.uk"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelbromley/angularUtils/issues"
+  },
+  "homepage": "https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination",
+  "gitHead": "8e80ebab5aa4673ac0f6bc9463bc8008a0ef7583",
+  "_id": "angular-utils-pagination@0.9.2",
+  "_shasum": "8067bf9b1cbf6222ad30d46ffeeca0e887b88716",
+  "_from": "angular-utils-pagination@*",
+  "_npmVersion": "2.14.4",
+  "_nodeVersion": "4.1.1",
+  "_npmUser": {
+    "name": "michaelbromley",
+    "email": "michael@michaelbromley.co.uk"
+  },
+  "maintainers": [
+    {
+      "name": "michaelbromley",
+      "email": "michael@michaelbromley.co.uk"
+    }
+  ],
+  "dist": {
+    "shasum": "8067bf9b1cbf6222ad30d46ffeeca0e887b88716",
+    "tarball": "http://registry.npmjs.org/angular-utils-pagination/-/angular-utils-pagination-0.9.2.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/angular-utils-pagination/-/angular-utils-pagination-0.9.2.tgz"
+}

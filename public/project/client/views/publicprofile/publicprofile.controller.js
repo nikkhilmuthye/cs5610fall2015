@@ -10,7 +10,7 @@
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
-        $scope.follow = false;
+        $scope.follow = true;
 
         $rootScope.$on("loggedin", function(event, user){
             $scope.user = $rootScope.user = user;
@@ -20,6 +20,7 @@
             $scope.selectedUser = $rootScope.selectedUser = user;
         });
 
+        $scope.followingUsers = [];
         $scope.stories = [];
         $scope.teams = [];
         $scope.updateSelected = false;
@@ -27,6 +28,21 @@
         $scope.init = function () {
             if($scope.user && $scope.selectedUser)
             {
+                UserService.GetAllFollowingUsers($scope.user._id)
+                    .then(function(folowingUsers){
+                        folowingUsers.forEach(function(user){
+                            if(user == $scope.selectedUser._id){
+                                $scope.follow = false;
+                            }
+                        })
+                    })
+                    .catch(function(err){
+                        if(err)
+                        {
+                            console.log(err);
+                            $scope.error = err;
+                        }
+                    })
                 console.log($scope.selectedUser);
                 UserService.getAllFavoriteStories($scope.selectedUser._id)
                     .then(
@@ -39,6 +55,30 @@
                                     .then(function(story1){
                                         if(story1)
                                             $scope.stories.push(story1);
+                                    })
+                                    .catch(function(err){
+                                        $scope.error = err;
+                                    })
+                            });
+                        }
+                    })
+                    .catch(
+                    function(error){
+                        $scope.error = error;
+                    }
+                );
+
+                UserService.GetAllFollowingUsers($scope.selectedUser._id)
+                    .then(
+                    function(users)
+                    {
+                        console.log(users);
+                        if(users){
+                            users.forEach(function(user){
+                                UserService.findStoryForUserById(user)
+                                    .then(function(user1){
+                                        if(user1)
+                                            $scope.followingUsers.push(user1);
                                     })
                                     .catch(function(err){
                                         $scope.error = err;
@@ -87,8 +127,7 @@
 
         $scope.addToFavorites = function(){
 
-            if($scope.user) {
-                var teamUrl = {"url": $scope.selectedUser._links.self.href}
+            if($scope.user && $scope.selectedUser._id) {
                 UserService.followUser($scope.selectedUser._id, $scope.user._id)
                     .then(function (user) {
                         console.log(user);
@@ -97,14 +136,13 @@
                     function (error) {
                         $scope.error = error;
                     });
-                $scope.follow = true;
+                $scope.follow = false;
             }
         }
 
         $scope.removeFromFavorites = function(){
 
             if($scope.user) {
-                var teamUrl = {"url": $scope.team._links.self.href}
                 UserService.unfollowUser($scope.selectedUser._id, $scope.user._id)
                     .then(function (user) {
                         console.log(user);
@@ -113,7 +151,7 @@
                     function (error) {
                         $scope.error = error;
                     });
-                $scope.follow = false;
+                $scope.follow = true;
             }
         }
     };

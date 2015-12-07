@@ -1,5 +1,6 @@
 module.exports = function(app, model) {
     app.post("/api/project/story", Create);
+    app.post("/api/project/story", Create);
     app.get("/api/project/story", FindAll);
     app.get("/api/project/story/reported", FindAllReported);
     app.get("/api/project/story/:id", FindById);
@@ -70,6 +71,7 @@ module.exports = function(app, model) {
 
     function FindAll(req, res)
     {
+        console.log("here in FindAll");
         model
             .FindAll()
             .then(

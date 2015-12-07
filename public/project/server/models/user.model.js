@@ -83,7 +83,10 @@ module.exports = function(app, mongoose, db){
         GetAllFavoriteTeams: GetAllFavoriteTeams,
         RemoveStory: RemoveStory,
         AddStory: AddStory,
-        GetAllFavoriteStories: GetAllFavoriteStories
+        GetAllFavoriteStories: GetAllFavoriteStories,
+        GetAllFollowingUsers: GetAllFollowingUsers,
+        followUser: followUser,
+        unfollowUser: unfollowUser
     };
     return api;
 
@@ -231,6 +234,97 @@ module.exports = function(app, mongoose, db){
         return deferred.promise;
     }
 
+    function unfollowUser(userId, followId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+
+                    var index1 = null;
+                    var found = false;
+                    user.followingUsers.forEach(function(user, index) {
+                        if(user == followId) {
+                            found = true;
+                            index1 = index;
+                        }
+                    });
+                    if(found)
+                        user.followingUsers.splice(index1, 1);
+
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    console.log(err);
+                    deferred.reject(err);
+                }
+                else {
+                    console.log("no user found with id:"+userId);
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function followUser(userId, followId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId}, function(err, user){
+                if (user){
+
+                    var index1 = null;
+                    var found = false;
+                    user.followingUsers.forEach(function(user, index) {
+                        if(user == followId) {
+                            found = true;
+                            index1 = index;
+                        }
+                    });
+                    if(!found)
+                        user.followingUsers.push(followId);
+
+                    user.save(function (err) {
+                        if(!err) {
+                            console.log(user);
+                            deferred.resolve(user);
+                        }
+                    })
+                }
+                else if(err){
+                    console.log(err);
+                    deferred.reject(err);
+                }
+                else {
+                    console.log("no user found with id:"+userId);
+                    deferred.reject("no user found with id:"+userId);
+                }
+            });
+        }
+        catch(error)
+        {
+            console.log(error);
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+
     function AddTeam(teamId, userId)
     {
         var deferred = q.defer();
@@ -311,6 +405,23 @@ module.exports = function(app, mongoose, db){
         {
             userModel.findById({_id: userId},function(err, users) {
                 deferred.resolve(users.favoriteteams);
+            });
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function GetAllFollowingUsers(userId)
+    {
+        var deferred = q.defer();
+        try
+        {
+            userModel.findById({_id: userId},function(err, users) {
+                deferred.resolve(users.followingUsers);
             });
         }
         catch(error)

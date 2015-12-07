@@ -1,57 +1,76 @@
 (function(){
     'use strict';
 
-    angular
-    .module("SportsNewsApp")
-    .controller("CreateStoryController", ['$scope', '$location', '$rootScope', 'Upload', 'StoryService', CreateStoryController]);
-    
-    function CreateStoryController($scope, $location, $rootScope, Upload, StoryService ){
+    var module1 = angular.module("SportsNewsApp");
 
-        $scope.submit = function() {
-            if (form.file.$valid && $scope.file) {
-                $scope.upload($scope.file);
+    module1.controller("CreateStoryController", ['$scope', '$location', '$rootScope', 'Upload', 'StoryService', CreateStoryController])
+    /*module1.directive('file', function(){
+            return {
+                scope: {
+                    file: '='
+                },
+                link: function(scope, el, attrs, controller){
+                    el.bind('change', function(event){
+                        var files = event.target.files;
+                        var file = files[0];
+                        scope.file = file ? file.name : undefined;
+                        scope.filename = scope.file;
+                        controller.filename = scope.file;
+                        scope.$apply();
+                        console.log(controller);
+
+                        scope.$watch('filename', function(){
+                            controller.filename = scope.filename;
+                        });
+                    });
+                },
+                controller: 'CreateStoryController',
+                controllerAs: 'cm',
+                bindToController:true
+            };
+        });*/
+
+    module1.directive('file', function(){
+        return {
+            scope: {
+                file: '='
+            },
+            link: function(scope, el, attrs){
+                el.bind('change', function(event){
+                    var files = event.target.files;
+                    var file = files[0];
+                    scope.file = file ? file.name : undefined;
+
+                    scope.$apply();
+                });
             }
         };
+    });
 
-        // upload on file select or drop
-        $scope.upload = function (file) {
-            Upload.upload({
-                url: 'upload/url',
-                data: {file: file, 'username': $scope.username}
-            }).then(function (resp) {
-                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-            }, function (resp) {
-                console.log('Error status: ' + resp.status);
-            }, function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-            });
-        };
-        // for multiple files:
+    function CreateStoryController($scope, $location, $rootScope, Upload, StoryService ){
 
+        var cm = this;
 
-        $(document).ready(function() {
-            console.log("Here");
+        this.filename = $scope.filename;
 
-            $('#uploadForm').submit(function() {
-                console.log("Here again")
-                $("#status").empty().text("File is uploading...");
+        $scope.$watch('filename', function(){
+            this.filename = $scope.filename;
+            console.log(this.filename);
+        }.bind(this));
 
-                $(this).ajaxSubmit({
-
-                    error: function(xhr) {
-                        status('Error: ' + xhr.status);
-                    },
-
-                    success: function(response) {
-                        console.log(response)
-                        $("#status").empty().text(response);
-                    }
-                });
-
-                return false;
-            });
-        });
+        $scope.img = null;
+        var temp = null;
+        /*$scope.$watch(
+            "cm.filename",
+            function handleFooChange( newValue, oldValue ) {
+                if(newValue) {
+                    $scope.filename = newValue;
+                    temp = newValue;
+                    console.log($scope.filename);
+                    $scope.setValue(temp);
+                }
+            }
+        )*/
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -62,9 +81,19 @@
             $scope.user = $rootScope.user = user;
         });
 
+        $rootScope.$on("img", function(event, img){
+            $scope.img = $rootScope.img = img;
+        });
+
         $rootScope.$on("selectedstory", function(event, story){
             $scope.selectedstory = $rootScope.selectedstory = story;
         });
+
+        $scope.setValue = function(temp){
+            $scope.img = temp;
+            console.log(temp);
+            console.log($scope.img);
+        }
 
         $scope.init = function() {
             $scope.update = false;
@@ -73,6 +102,7 @@
                 $scope.story = $scope.story.contents;
                 $scope.update = true;
             }
+            console.log($scope.user);
         };
         $scope.init();
 
@@ -82,18 +112,25 @@
             $scope.selectedstory = null;
         }
 
-        $scope.create = function(Header, story){
+        $scope.create = function(Header, story, file){
             $scope.error = null;
             $scope.success = null;
 
+            console.log(file);
+            console.log(Header);
+            console.log(story);
+
             if (Header && story)
             {
+
                 var newStory = {
                     heading: Header,
                     contents: story,
+                    img: file,
                     date : new Date()
                 }
                 if(!$scope.selectedstory) {
+                    console.log(newStory);
                     StoryService.createStoryForUser($scope.user._id, newStory)
                         .then(function (updatedUser) {
                             console.log(updatedUser);

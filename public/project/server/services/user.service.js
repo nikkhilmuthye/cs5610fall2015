@@ -1,16 +1,70 @@
+
 module.exports = function(app, model) {
+
+
     app.post("/api/project/user", Create);
     app.get("/api/project/user", FindUsers);
+    app.get("/api/project/user/login", FindUserByUsernameAndPassword);
+    //app.get("/api/project/user/login", passport.authenticate('local'), FindUserByUsernameAndPassword);
     app.get("/api/project/user/:id", FindById);
     app.get("/api/project/user/favoriteTeams/:id", GetAllFavoriteTeams);
     app.get("/api/project/user/favoriteStories/:id", GetAllFavoriteStories);
+    app.get("/api/project/user/followingUsers/:id", GetAllFollowingUsers);
     app.put("/api/project/user/:id", Update);
+    app.put("/api/project/user/:id/followUser/:followId", followUser);
+    app.put("/api/project/user/:id/unfollowUser/:followId", unfollowUser);
     app.put("/api/project/user/:userid/removeTeam", RemoveTeam);
     app.put("/api/project/user/:userid/addTeam", AddTeam);
     app.put("/api/project/user/:userid/removeStory/:id", RemoveStory);
     app.put("/api/project/user/:userid/addStory/:id", AddStory);
     app.delete("/api/project/user/:id", Delete);
 
+
+    /*passport.use(new LocalStrategy(
+        function(username, password, done)
+        {
+            model.findUserByCredentials(username, password).then(function(user)
+                {
+                    if (!user) { return done(null, false); }
+
+                    console.log("Here");
+                    console.log(user);
+                    console.log("Here again...");
+                    return done(null, user);
+                })
+                .catch(function(err){
+                    if (err) { return done(err); }
+                })
+        }));
+
+    passport.serializeUser(function(user, done)
+    {
+        done(null, user);
+    });
+
+    passport.deserializeUser(function(user, done)
+    {
+        model.FindById(user._id, function(err, user)
+        {
+            done(err, user);
+        });
+    });
+*/
+
+    function GetAllFollowingUsers(req, res)
+    {
+        var userId = req.params.id;
+
+        model
+            .GetAllFollowingUsers(userId)
+            .then(
+            function (favorites) {
+                res.json(favorites);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
 
     function GetAllFavoriteStories(req, res)
     {
@@ -151,6 +205,37 @@ module.exports = function(app, model) {
 
         model
             .FindById(userId)
+            .then(
+            function(user){
+                res.json(user);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+
+    function followUser(req, res)
+    {
+        var userId = req.params.id;
+        var followId = req.params.followId;
+
+        model
+            .followUser(userId, followId)
+            .then(
+            function(user){
+                res.json(user);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
+    function unfollowUser(req, res)
+    {
+        var userId = req.params.id;
+        var followId = req.params.followId;
+
+        model
+            .unfollowUser(userId, followId)
             .then(
             function(user){
                 res.json(user);

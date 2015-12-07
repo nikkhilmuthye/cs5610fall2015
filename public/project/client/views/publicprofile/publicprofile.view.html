@@ -44,6 +44,18 @@
                 </tbody>
             </table>
         </div>
+        <div class = "container col-sm-8 child-1 table-responsive">
+            <h2>Following Users</h2>
+            <table class="table">
+                <thead>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in followingUsers">
+                    <td>{{user.firstName}} {{user.lastName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div ng-if="!user">
         <h2>

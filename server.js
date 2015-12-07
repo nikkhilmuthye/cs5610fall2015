@@ -2,8 +2,14 @@ var bodyParser = require('body-parser');
 var express    		=       require("express");
 var multer     		=       require('multer');
 var app        		=       express();
-var upload 			= 		multer({ dest: './uploads/'});
+var upload = multer({ dest: 'public/project/uploads/' });
+var fs = require('fs');
+/*var passport      = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var cookieParser  = require('cookie-parser');
+var session       = require('express-session');*/
 
+var multipart = require('connect-multiparty');
 var mongoose = require('mongoose');
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs5610';
@@ -21,7 +27,7 @@ var db = mongoose.connect(connectionString);
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer({ dest: './uploads/',
+app.use(multer({ dest: 'uploads/',
     rename: function (fieldname, filename) {
         return filename+Date.now();
     },
@@ -33,6 +39,15 @@ app.use(multer({ dest: './uploads/',
     }
 }));
 
+/*app.configure(function() {
+    app.use(express.cookieParser());
+    app.use(express.bodyParser());
+    app.use(express.session({ secret: 'keyboard cat' }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(app.router);
+});*/
+
 require('./public/assignment/server/app.js')(app, mongoose, db);
 require('./public/project/server/app.js')(app, mongoose, db);
 
@@ -40,14 +55,14 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
-app.post('/api/photo',function(req,res){
-    console.log(upload);
-    upload(req,res,function(err) {
-        if(err) {
-            return res.end("Error uploading file.");
-        }
-        res.end("File is uploaded");
-    });
+var type = upload.single('userPhoto');
+
+app.post('/api/photos/upload', type, function (req,res) {
+    var tmp_path = req.file.path;
+    var target_path = 'public/project/uploads/' + req.file.originalname;
+
+    fs.rename("public/project/uploads/"+req.file.filename, "public/project/uploads/"+req.file.originalname);
+    res.status(200);
 });
 
 app.listen(port, ipaddress, function(){

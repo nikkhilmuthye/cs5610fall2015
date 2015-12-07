@@ -9,5 +9,6 @@ module.exports = new mongoose.Schema({
     "email": { type: String, required: true },
     "role": [{ type: String }],
     "favoriteteams" : [{ type: String }],
-    "favoritestories" : [{ type: String }]
+    "favoritestories" : [{ type: String }],
+    "followingUsers" : [{ type: String }]
 }, {collection: 'cs5610.project.user'});

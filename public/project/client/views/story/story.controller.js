@@ -3,15 +3,16 @@
 
 	angular
 	.module("SportsNewsApp")
-	.controller("StoryController",  ['$scope', '$location', '$rootScope', 'UserService', 'StoryService', StoryController]);
+	.controller("StoryController",  ['$scope', '$location', '$rootScope', 'UserService', 'StoryService', 'GlobalService',
+            StoryController]);
 
-	function StoryController($scope, $location, $rootScope, UserService, StoryService)
+	function StoryController($scope, $location, $rootScope, UserService, StoryService, GlobalService)
 	{
 		$scope.$location = $location;
 		$scope.user = $rootScope.user;
         $scope.reported = false;
         $scope.author = "";
-
+        $scope.img = "../uploads/Mancahester-United-Logo-art.jpg"
 		$scope.comments = [];
 
         $rootScope.$on("loggedin", function(event, user){
@@ -22,10 +23,12 @@
 			$scope.story = $rootScope.story = story;
 		});
 
-
         $scope.notInFavorite = true;
         $scope.init = function(){
             if($scope.story){
+                GlobalService.setSelectedStory($scope.story._id);
+                if($scope.story.img)
+                    $scope.img = "../uploads/"+$scope.story.img;
                 console.log($scope.story);
 
                 UserService.findUserbyId($scope.story.userId)
@@ -35,6 +38,22 @@
                     .catch(function(err){
                         $scope.error =err;
                     })
+            }
+            else{
+                var storyId = GlobalService.getSelectedStory();
+                console.log(storyId);
+                if(storyId){
+                    StoryService.findStoryForUserById(storyId)
+                        .then(function(story){
+                            $scope.story = story;
+                            $scope.init();
+                        })
+                        .catch(function(err){
+                            if(err){
+                                $scope.error = err;
+                            }
+                        })
+                }
             }
         };
         $scope.init();
