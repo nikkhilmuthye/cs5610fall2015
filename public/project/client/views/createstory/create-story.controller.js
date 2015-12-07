@@ -3,33 +3,7 @@
 
     var module1 = angular.module("SportsNewsApp");
 
-    module1.controller("CreateStoryController", ['$scope', '$location', '$rootScope', 'Upload', 'StoryService', CreateStoryController])
-    /*module1.directive('file', function(){
-            return {
-                scope: {
-                    file: '='
-                },
-                link: function(scope, el, attrs, controller){
-                    el.bind('change', function(event){
-                        var files = event.target.files;
-                        var file = files[0];
-                        scope.file = file ? file.name : undefined;
-                        scope.filename = scope.file;
-                        controller.filename = scope.file;
-                        scope.$apply();
-                        console.log(controller);
-
-                        scope.$watch('filename', function(){
-                            controller.filename = scope.filename;
-                        });
-                    });
-                },
-                controller: 'CreateStoryController',
-                controllerAs: 'cm',
-                bindToController:true
-            };
-        });*/
-
+    module1.controller("CreateStoryController", ['$scope', '$location', '$rootScope', 'StoryService', CreateStoryController])
     module1.directive('file', function(){
         return {
             scope: {
@@ -47,7 +21,7 @@
         };
     });
 
-    function CreateStoryController($scope, $location, $rootScope, Upload, StoryService ){
+    function CreateStoryController($scope, $location, $rootScope, StoryService ){
 
         var cm = this;
 
@@ -60,17 +34,6 @@
 
         $scope.img = null;
         var temp = null;
-        /*$scope.$watch(
-            "cm.filename",
-            function handleFooChange( newValue, oldValue ) {
-                if(newValue) {
-                    $scope.filename = newValue;
-                    temp = newValue;
-                    console.log($scope.filename);
-                    $scope.setValue(temp);
-                }
-            }
-        )*/
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -88,12 +51,6 @@
         $rootScope.$on("selectedstory", function(event, story){
             $scope.selectedstory = $rootScope.selectedstory = story;
         });
-
-        $scope.setValue = function(temp){
-            $scope.img = temp;
-            console.log(temp);
-            console.log($scope.img);
-        }
 
         $scope.init = function() {
             $scope.update = false;
@@ -115,10 +72,6 @@
         $scope.create = function(Header, story, file){
             $scope.error = null;
             $scope.success = null;
-
-            console.log(file);
-            console.log(Header);
-            console.log(story);
 
             if (Header && story)
             {
