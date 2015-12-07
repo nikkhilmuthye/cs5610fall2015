@@ -48,15 +48,20 @@
                     $scope.stories = stories;
 
                     var top = [];
-                    while(top.length != 4){
-                        var random = Math.floor((Math.random() * stories.length));
-                        console.log(random);
+                    if(stories.length > 4) {
+                        while (top.length != 4) {
+                            var random = Math.floor((Math.random() * stories.length));
+                            console.log(random);
 
-                        if(typeof(unique[random]) == "undefined"){
-                            console.log(stories[random]);
-                            top.push(stories[random]);
+                            if (typeof(unique[random]) == "undefined") {
+                                console.log(stories[random]);
+                                top.push(stories[random]);
+                            }
+                            unique[random] = 0;
                         }
-                        unique[random] = 0;
+                    }
+                    else{
+                        top = stories;
                     }
                     $scope.top4 = top;
 
