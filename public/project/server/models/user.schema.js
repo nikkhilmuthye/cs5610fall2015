@@ -10,5 +10,6 @@ module.exports = new mongoose.Schema({
     "role": [{ type: String }],
     "favoriteteams" : [{ type: String }],
     "favoritestories" : [{ type: String }],
-    "followingUsers" : [{ type: String }]
+    "followingUsers" : [{ type: String }],
+    "img": { type: String}
 }, {collection: 'cs5610.project.user'});

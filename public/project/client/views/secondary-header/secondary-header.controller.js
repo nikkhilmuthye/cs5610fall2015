@@ -3,10 +3,11 @@
 
 	angular
 	.module("SportsNewsApp")
-	.controller("SecondaryHeaderController", ['$scope', '$location', '$rootScope', '$http',SecondaryHeaderController]);
+	.controller("SecondaryHeaderController", ['$scope', '$location', '$rootScope',
+            '$http', 'GlobalService', SecondaryHeaderController]);
 	
 	
-	function SecondaryHeaderController($scope, $location, $rootScope, $http){
+	function SecondaryHeaderController($scope, $location, $rootScope, $http, GlobalService){
 		
 		$scope.user = $rootScope.user;
 		$scope.$location = $location;
@@ -39,6 +40,9 @@
 
             var league = $scope.leagues[$index];
             $rootScope.league = league;
+
+            GlobalService.setSelectedLeague(null);
+            GlobalService.setSelectedLeague(league._links.self.href);
             $rootScope.$broadcast('league', league);
             $location.path("/league");
         };
@@ -47,6 +51,7 @@
             console.log($index);
             if($index != 0) {
                 var teamurl = "http://api.football-data.org/v1/teams/" + $index;
+                GlobalService.setSelectedTeam(teamurl);
                 $http({
                     headers: {'X-Auth-Token': '7da7a8a5ea4b46e8a834318a57ca8634'},
                     url: teamurl,

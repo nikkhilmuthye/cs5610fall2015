@@ -68,6 +68,28 @@ app.post('/api/photos/upload', type, function (req,res) {
     res.status(200).redirect(backURL+"#/createstory");
 });
 
+app.post('/api/photos/upload/profile', type, function (req,res) {
+    var tmp_path = req.file.path;
+    var target_path = 'public/project/uploads/' + req.file.originalname;
+    var backURL=req.header('Referer') || '/';
+    console.log(backURL+"#/profile");
+    console.log(req);
+
+    fs.rename("public/project/uploads/"+req.file.filename, "public/project/uploads/"+req.file.originalname);
+    res.status(200).redirect(backURL+"#/profile");
+});
+
+app.post('/api/photos/upload/transfer', type, function (req,res) {
+    var tmp_path = req.file.path;
+    var target_path = 'public/project/uploads/' + req.file.originalname;
+    var backURL=req.header('Referer') || '/';
+    console.log(backURL+"#/createtransfer");
+    console.log(req);
+
+    fs.rename("public/project/uploads/"+req.file.filename, "public/project/uploads/"+req.file.originalname);
+    res.status(200).redirect(backURL+"#/createtransfer");
+});
+
 app.listen(port, ipaddress, function(){
     console.log("Working on port 3000");
 });

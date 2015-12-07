@@ -11,6 +11,8 @@
         globalService.selecteduser = null;
         globalService.selectedStory = null;
         globalService.selectedimg = null;
+        globalService.selectedleague = null;
+        globalService.selectedteam = null;
 
         globalService.isAuth = function ()
         {
@@ -31,6 +33,57 @@
                 globalService.selectedimg = $cookieStore.get('selectedimg');
             }
             return (globalService.token != null);
+        };
+
+        globalService.isSelected = function ()
+        {
+            if (globalService.selectedleague == null)
+            {
+                globalService.selectedleague = $cookieStore.get('selectedleague');
+            }
+            if (globalService.selectedteam == null)
+            {
+                globalService.selectedteam = $cookieStore.get('selectedteam');
+            }
+            return ((globalService.selectedteam != null) || ((globalService.selectedleague != null)));
+        };
+
+        globalService.setSelectedLeague = function(token)
+        {
+            globalService.selectedleague = token;
+
+            if (globalService.selectedleague == null)
+            {
+                console.log("Removing Previous League")
+                $cookieStore.remove('selectedleague');
+            }
+            else
+            {
+                $cookieStore.put('selectedleague', globalService.selectedleague);
+            }
+            // $cookieStore.putokent('token', globalService.token);
+        };
+
+        globalService.getSelectedLeague = function()
+        {
+            return $cookieStore.get('selectedleague');
+        };
+
+        globalService.setSelectedTeam = function(token)
+        {
+            globalService.selectedteam = token;
+            if (globalService.selectedteam == null)
+            {
+                $cookieStore.remove('selectedteam');
+            }
+            else
+                $cookieStore.put('selectedteam', globalService.selectedteam);
+            // $cookieStore.putokent('token', globalService.token);
+        };
+
+        globalService.getSelectedTeam = function()
+        {
+            return $cookieStore.get('selectedteam');
         };
 
         globalService.setSelectedImage = function(token)

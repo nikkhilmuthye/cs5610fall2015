@@ -4,9 +4,9 @@
     var controller = angular
         .module("SportsNewsApp")
         .controller("TeamController", ['$scope', '$location', '$rootScope', "$http",'StoryService'
-            ,'UserService', TeamController]);
+            ,'UserService', 'GlobalService', TeamController]);
 
-    function TeamController($scope, $location, $rootScope, $http, StoryService, UserService ){
+    function TeamController($scope, $location, $rootScope, $http, StoryService, UserService, GlobalService ){
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -43,6 +43,23 @@
         $scope.init = function(){
             $scope.error = null;
             $scope.success = null;
+
+            if(GlobalService.isSelected && !$scope.team)
+            {
+                $scope.teamUrl = GlobalService.getSelectedTeam();
+                console.log($scope.teamUrl);
+                $http({
+                    headers: { 'X-Auth-Token': '7da7a8a5ea4b46e8a834318a57ca8634' },
+                    url: $scope.teamUrl,
+                    dataType: 'json',
+                    type: 'GET'
+                }).success(function(response) {
+                    $scope.team = response;
+                    $rootScope.team = response;
+                    $rootScope.$broadcast('team', response);
+                });
+                //$scope.league = GlobalService.getSelectedLeague();
+            }
 
             if($scope.team) {
                 console.log($scope.team)
@@ -150,6 +167,7 @@
                 dataType: 'json',
                 type: 'GET'
             }).success(function (response) {
+                GlobalService.setSelectedLeague($scope.league._links.self.href);
                 console.log(response);
                 $scope.teams = response;
             });
@@ -157,6 +175,7 @@
 
         $scope.selectedTeam = function (){
             console.log($scope.team);
+            $scope.teamUrl = GlobalService.setSelectedTeam($scope.team._links.self.href);
         };
 
         $scope.addToFavorites = function(){

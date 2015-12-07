@@ -11,49 +11,70 @@
         <br>
         <br>
         <div id="personal" class="row container">
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <img class="img-responsive background" src="views/img/football_PNG1085.png">
+                <form id="uploadForm"
+                      enctype="multipart/form-data"
+                      action="/api/photos/upload"
+                      method="post" ng-if="updateSelected">
+                    <input type="file" class="btn btn-default"
+                           name="userPhoto" data-file="param.file" ng-disabled="selectedImage" id="fileselected" />
+                    <button type="submit" ng-if="updateSelected"
+                            class="btn btn-default" ng-disabled="selectedImage" ng-click="uploadClick(param.file)">Upload Image</button>
+                    <!--<input type="submit" value="Upload Image" name="submit">-->
+                    <span id = "status"></span>
+                </form>
+                <button type="submit" class="btn btn-default" ng-click="create(Header, story, param.file)">Submit</button>
             </div>
 
-            <form class="form-horizontal col-sm-9 storycontent">
+            <div class="div-opaque">
+                <form class="form-horizontal col-sm-7 storycontent">
                 <div class="form-group">
-                    <label for="username" class="col-sm-2 control-label">Username</label>
-                    <label id="username" data-ng-model="user.username" ng-if="!updateSelected">{{user.username}}</label>
-                    <div class="col-sm-10" ng-if="updateSelected">
+                    <label for="username" class="col-sm-3">Username </label>
+                    <div class="col-sm-9" ng-if="!updateSelected">
+                        <label id="username" data-ng-model="user.username">{{user.username}}</label>
+                    </div>
+                    <div class="col-sm-9" ng-if="updateSelected">
                         <input class="form-control" placeholder="johnDoe123" data-ng-model="user.username">
                     </div>
                 </div>
                 <div class="form-group" ng-if="updateSelected">
-                    <label for="inputPassword1" class="col-sm-2 control-label">Password</label>
-                    <div class="col-sm-10">
+                    <label for="inputPassword1" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-9">
                         <input type="password" class="form-control" id="inputPassword1" placeholder="Password" data-ng-model="user.password">
                     </div>
                 </div>
                 <div class="form-group" ng-if="updateSelected">
-                    <label for="inputPassword2" class="col-sm-2 control-label">Verify Password</label>
-                    <div class="col-sm-10">
+                    <label for="inputPassword2" class="col-sm-3 control-label">Verify Password</label>
+                    <div class="col-sm-9">
                         <input type="password" class="form-control" id="inputPassword2" placeholder="Password"
                                data-ng-model="user.verifypassword">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="firstname" class="col-sm-2 control-label">First Name</label>
-                    <label id="firstname"  data-ng-model="user.firstname" ng-if="!updateSelected">{{user.firstName}}</label>
-                    <div class="col-sm-10" ng-if="updateSelected">
+                    <label for="firstname" class="col-sm-3 control-label">First Name</label>
+                    <div class="col-sm-9" ng-if="!updateSelected">
+                    <label id="firstname" data-ng-model="user.firstname">{{user.firstName}}</label>
+                    </div>
+                    <div class="col-sm-9" ng-if="updateSelected">
                         <input class="form-control" placeholder="John" data-ng-model="user.firstName">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="lastname" class="col-sm-2 control-label">Last Name</label>
-                    <label id="lastname"  data-ng-model="user.lastname" ng-if="!updateSelected">{{user.lastName}}</label>
-                    <div class="col-sm-10" ng-if="updateSelected">
+                    <label for="lastname" class="col-sm-3 control-label">Last Name</label>
+                    <div class="col-sm-9" ng-if="!updateSelected">
+                    <label id="lastname" data-ng-model="user.lastname">{{user.lastName}}</label>
+                    </div>
+                    <div class="col-sm-9" ng-if="updateSelected">
                         <input class="form-control" placeholder="Doe" data-ng-model="user.lastName">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-                    <label id="inputEmail"  data-ng-model="user.email" ng-if="!updateSelected">{{user.email}}</label>
-                    <div class="col-sm-10" ng-if="updateSelected">
+                    <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9" ng-if="!updateSelected">
+                    <label id="inputEmail"  data-ng-model="user.email">{{user.email}}</label>
+                    </div>
+                    <div class="col-sm-9" ng-if="updateSelected">
                         <input type="email" class="form-control" placeholder="john.doe@gmail.com" data-ng-model="user.email">
                     </div>
                 </div>
@@ -66,6 +87,7 @@
                     <button type="submit" class="btn btn-default" ng-click="selectUpdate()">Change Profile</button>
                 </div>
             </form>
+            </div>
         </div>
 
 

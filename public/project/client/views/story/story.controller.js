@@ -41,8 +41,7 @@
                 GlobalService.setSelectedStory($scope.story._id);
                 if($scope.story.img)
                     $scope.img = "../uploads/"+$scope.story.img;
-                console.log($scope.story);
-
+                $scope.comments = $scope.story.comments;
                 UserService.findUserbyId($scope.story.userId)
                     .then(function(user){
                         $scope.author = user;
@@ -58,6 +57,7 @@
                     StoryService.findStoryForUserById(storyId)
                         .then(function(story){
                             $scope.story = story;
+                            $scope.comments = story.comments;
                             $scope.init();
                         })
                         .catch(function(err){
