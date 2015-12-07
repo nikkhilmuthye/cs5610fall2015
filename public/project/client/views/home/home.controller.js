@@ -12,6 +12,7 @@
             ,$scope.currentPage = 1
             ,$scope.numPerPage = 10
             ,$scope.maxSize = 5;
+        $scope.top4 = [];
 
         $scope.makeTodos = function() {
             $scope.todos = [];
@@ -38,13 +39,36 @@
         $scope.stories = [];
 
         $scope.init = function () {
+            var unique = {};
             StoryService.findAll()
                 .then(
                 function(stories)
                 {
 
                     $scope.stories = stories;
-                    console.log(stories);
+
+                    var top = [];
+                    while(top.length != 4){
+                        var random = Math.floor((Math.random() * stories.length));
+                        console.log(random);
+
+                        if(typeof(unique[random]) == "undefined"){
+                            console.log(stories[random]);
+                            top.push(stories[random]);
+                        }
+                        unique[random] = 0;
+                    }
+                    $scope.top4 = top;
+
+                    $scope.top4.forEach(function(story){
+                        if(!story.img){
+                            story.img = "../img/championsleague.png"
+                        }
+                        else{
+                            story.img = "../uploads/"+story.img;
+                        }
+                    });
+
                 })
                 .catch(
                 function(error){

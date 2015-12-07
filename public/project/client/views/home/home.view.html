@@ -16,15 +16,15 @@
 	    <!-- Wrapper for slides -->
 	    <div class="carousel-inner " role="listbox">
 
-	      <div class="item active">
-	        <img src="views/img/175061-bigthumbnail.jpg" alt="Chania" width="460" height="345">
+	      <div class="item" ng-class="{active:!$index}" ng-repeat="story in top4">
+	        <img ng-src="{{story.img}}" alt="Chania" width="460" height="345">
 	        <div class="carousel-caption">
-	          <h3 class="div-opaque">Story 1</h3>
+	          <h3 class="div-opaque">{{story.heading}}</h3>
 	          <p class="div-opaque">The atmosphere in Chania has a touch of Florence and Venice.</p>
 	        </div>
 	      </div>
 
-	      <div class="item">
+	      <!--<div class="item">
 	        <img src="views/img/r4f.jpg" alt="Flower" width="460" height="345">
 	        <div class="carousel-caption">
 	          <h3 class="div-opaque">Story 2</h3>
@@ -48,7 +48,7 @@
 	        </div>
 	      </div>
 	  
-	    </div>
+	    </div>-->
 	  </div>
 	</div>
 	<hr>
