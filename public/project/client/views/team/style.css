@@ -12,3 +12,7 @@
 .pointer {
     cursor: pointer;
 }
+
+.content {white-space: pre; display: inline-block; width: 100%}
+
+.p-break { word-break: normal; white-space: pre-wrap; }

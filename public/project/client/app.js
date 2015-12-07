@@ -1,4 +1,5 @@
 (function(){
   angular
-    .module("SportsNewsApp", ["ngRoute", "ngFileUpload", "ngCookies", "angularUtils.directives.dirPagination"]);
+    .module("SportsNewsApp", ["ngRoute", "ngCookies", "angularUtils.directives.dirPagination",
+      "ui.bootstrap"]);
 })();

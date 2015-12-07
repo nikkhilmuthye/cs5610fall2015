@@ -3,11 +3,19 @@
 
 	angular
 	.module("SportsNewsApp")
-	.controller("StoryController",  ['$scope', '$location', '$rootScope', 'UserService', 'StoryService', 'GlobalService',
-            StoryController]);
+	.controller("StoryController",  ['$scope', '$location', '$rootScope', 'UserService',
+            'StoryService', 'GlobalService', StoryController]);
 
 	function StoryController($scope, $location, $rootScope, UserService, StoryService, GlobalService)
 	{
+        $scope.ratingStates = [
+            {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+            {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+            {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+            {stateOn: 'glyphicon-heart'},
+            {stateOff: 'glyphicon-off'}
+        ];
+
 		$scope.$location = $location;
 		$scope.user = $rootScope.user;
         $scope.reported = false;
@@ -22,6 +30,10 @@
 		$rootScope.$on("story", function(event, story){
 			$scope.story = $rootScope.story = story;
 		});
+
+        $scope.rate = function(){
+            console.log($scope.x);
+        }
 
         $scope.notInFavorite = true;
         $scope.init = function(){

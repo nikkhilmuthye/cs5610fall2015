@@ -9,13 +9,13 @@
 	<br/>
 	<br/>
 	<br/>
-	<div class="shadow div-opaque">
+	<div class="shadow div-opaque container">
 		<pre class="storycontent div-opaque whitefont" ng-if="!story">
 			Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
 		</pre>
-        <pre ng-if="story" class="storycontent div-opaque whitefont">
+        <p ng-if="story" class="storycontent p-break div-opaque whitefont">
             {{story.contents}}
-        </pre>
+        </p>
 	</div>
 
 	<br/>
@@ -23,17 +23,16 @@
 	<table class="table ">
 		<tbody>
 		    <tr>
-                <td>
-                    <a ng-click="selectUser()">{{author.firstName}}</a>
+                <td class="whitefont storycontent"> Author :
+                    <a class="whitefont pointer" ng-click="selectUser()">{{author.firstName}}</a>
                 </td>
 		      	<td width="65%"><h3>Rate the story</h3>
-					<div class="rating">
-						<span class="storycontent">☆</span>
-						<span class="storycontent">☆</span>
-						<span class="storycontent">☆</span>
-						<span class="storycontent">☆</span>
-						<span class="storycontent">☆</span>
-					</div>
+                    <div ng-init="x = 0">
+                        <uib-rating ng-model="x" max="5" state-on="'glyphicon-heart'" onchange="rate()"
+                                    state-off="'glyphicon-ban-circle'" aria-labelledby="custom-icons-1">
+                        </uib-rating>
+                        <b>(<i>Rate:</i> {{x}})</b>
+                    </div>
 				</td>
 		        <td class="">
 		        	<a class="whitefont" href="" data-ng-click="addToFavorites()"

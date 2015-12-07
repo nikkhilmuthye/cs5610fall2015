@@ -15,7 +15,7 @@
         {
             if (globalService.token == null)
             {
-                globalService.token = $cookieStore.get('token');
+                globalService.token = $cookieStore.get('user');
             }
             if (globalService.selecteduser == null)
             {
@@ -68,10 +68,10 @@
             globalService.token = token;
             if (globalService.token == null)
             {
-                $cookieStore.remove('token');
+                $cookieStore.remove('user');
             }
             else
-                $cookieStore.put('', globalService.token);
+                $cookieStore.put('user', globalService.token);
             // $cookieStore.putokent('token', globalService.token);
         };
 
