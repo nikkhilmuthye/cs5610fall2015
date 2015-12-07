@@ -10,6 +10,7 @@
         var globalService = {};
         globalService.selecteduser = null;
         globalService.selectedStory = null;
+        globalService.selectedimg = null;
 
         globalService.isAuth = function ()
         {
@@ -25,7 +26,28 @@
             {
                 globalService.selectedStory = $cookieStore.get('selectedStory');
             }
+            if (globalService.selectedimg == null)
+            {
+                globalService.selectedimg = $cookieStore.get('selectedimg');
+            }
             return (globalService.token != null);
+        };
+
+        globalService.setSelectedImage = function(token)
+        {
+            globalService.selectedimg = token;
+            if (globalService.selectedimg == null)
+            {
+                $cookieStore.remove('selectedimg');
+            }
+            else
+                $cookieStore.put('selectedimg', globalService.selectedimg);
+            // $cookieStore.putokent('token', globalService.token);
+        };
+
+        globalService.getSelectedImage = function()
+        {
+            return globalService.selectedimg;
         };
 
         globalService.setSelectedUser = function(token)

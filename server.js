@@ -60,9 +60,12 @@ var type = upload.single('userPhoto');
 app.post('/api/photos/upload', type, function (req,res) {
     var tmp_path = req.file.path;
     var target_path = 'public/project/uploads/' + req.file.originalname;
+    var backURL=req.header('Referer') || '/';
+    console.log(backURL+"#/createstory");
+    console.log(req);
 
     fs.rename("public/project/uploads/"+req.file.filename, "public/project/uploads/"+req.file.originalname);
-    res.status(200);
+    res.status(200).redirect(backURL+"#/createstory");
 });
 
 app.listen(port, ipaddress, function(){

@@ -27,6 +27,12 @@
 
     <div class="table-responsive">
         <h2>Fixtures</h2>
+        <div class="form-group col-xs-6">
+            <label for="sel1">Select MatchDay:</label>
+            <select class="form-control" ng-options="matchday for matchday in matchdays"
+                    ng-model="matchday" id="sel1"></select>
+        </div>
+
         <table class="table">
             <thead>
             <td>Home</td>

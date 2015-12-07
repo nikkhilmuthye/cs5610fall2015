@@ -32,7 +32,6 @@
             if($scope.searchtext && $scope.searchtext != "") {
                 $rootScope.searchtext = $scope.searchtext;
                 $rootScope.$broadcast('searchtext', $scope.searchtext);
-                $scope.searchtext = "";
                 $location.path("/search");
             }
         }
