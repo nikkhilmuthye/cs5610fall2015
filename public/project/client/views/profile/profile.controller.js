@@ -57,20 +57,6 @@
          $scope.init = function () {
             if($scope.user)
             {
-                StoryService.findAllStoryForUser($scope.user._id)
-                    .then(
-                            function(stories)
-                            {
-
-                                    $scope.userStories = stories;
-                                    console.log(stories);
-                            })
-                    .catch(
-                        function(error){
-                            $scope.error = error;
-                        }
-                );
-
                 $scope.user.role.forEach(function(role){
                     if(role == "admin"){
                         $scope.isAdmin = true;

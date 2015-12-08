@@ -1,4 +1,4 @@
-<div ng-controller="FavoritesController" data-ng-init="init()">
+<div ng-controller="FavoritesController">
     <div ng-if="user">
         <h1 class="page-header">Profile</h1>
         <ul class="nav nav-tabs nav-justified">
@@ -32,10 +32,10 @@
                     <tbody>
                     <tr ng-repeat=" team in favorites">
                         <td class="storycontent td1 width-90">
-                            <a class="whitefont" href="" ng-click="deleteFavorite($index)">{{team}}</a>
+                            <a class="whitefont" href="" ng-click="deleteFavorite($index)">{{team.name}}</a>
                         </td>
                         <td class="col-nowrap td1 width-10">
-                            <a href="" class="btn btn-danger" ng-click="deleteFavorite($index)">
+                            <a href="" class="btn btn-danger" ng-click="deleteFavorite(team)">
                                 <scan class="glyphicon glyphicon-remove"></scan>
                             </a>
                         </td>

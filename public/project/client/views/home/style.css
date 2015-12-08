@@ -1,0 +1,23 @@
+#banner {
+    background-image:url("../../../img/National_Stadium_panorama_Fotor.jpg");
+    width:100%;
+    min-height:189px;
+    background-size: cover;
+}
+.autofit {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.autowidth {
+    display: inline-block;
+}
+.brand-logo img{
+    /* color: #fff;
+    background-color: #ec6952;
+    padding: 15px 30px;
+    border-radius: 5px; */
+    max-width: 40px;
+    margin-top: -30px;
+    padding-top: 20px;
+}

@@ -22,6 +22,7 @@
         $scope.init = function () {
             if($scope.user)
             {
+                $scope.favorites = [];
                 UserService.getAllFavorite($scope.user._id)
                     .then(function (favorites) {
                         console.log(favorites);
@@ -33,7 +34,7 @@
                                 type: 'GET'
                             }).success(function (response) {
                                 console.log(response);
-                                $scope.favorites.push(response.name);
+                                $scope.favorites.push(response);
                             });
                         })
                     })
@@ -51,17 +52,19 @@
         };
         $scope.init();
 
-        $scope.deleteFavorite = function(index){
+        $scope.deleteFavorite = function(team){
             $scope.error = null;
             $scope.success = null;
-            StoryService.deleteStoryById($scope.userStories[index]._id)
+
+            var teamUrl = {"url": team._links.self.href}
+            UserService.removeTeam(teamUrl, $scope.user._id)
                 .then(
                 function(stories)
                 {
                     console.log(stories);
-                    $scope.favorites = stories;
 
-
+                    $scope.user = stories;
+                    $scope.init();
                     $scope.success = "Succesfully updated user profile"
                     console.log("Succesfully updated user profile");
                 })
