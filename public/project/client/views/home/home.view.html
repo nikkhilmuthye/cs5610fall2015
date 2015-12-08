@@ -1,78 +1,50 @@
 <div class="container" data-ng-controller="HomeController">
 	<h1 class="page-header">Welcome to Football Paradise!</h1>
 	<div class="container shadow">
-      <br>
-	  <h3>Quick Links</h3>
-	  <br>
-	  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <br>
+	    <h3>Quick Links</h3>
+	    <br>
+	    <div id="myCarousel" class="carousel slide" data-ride="carousel">
 	    <!-- Indicators -->
-	    <ol class="carousel-indicators">
-	      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-	      <li data-target="#myCarousel" data-slide-to="1"></li>
-	      <li data-target="#myCarousel" data-slide-to="2"></li>
-	      <li data-target="#myCarousel" data-slide-to="3"></li>
-	    </ol>
+	        <ol class="carousel-indicators">
+	      		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	      		<li data-target="#myCarousel" data-slide-to="1"></li>
+	      		<li data-target="#myCarousel" data-slide-to="2"></li>
+	      		<li data-target="#myCarousel" data-slide-to="3"></li>
+	      	</ol>
 
-	    <!-- Wrapper for slides -->
-	    <div class="carousel-inner " role="listbox">
+	      	<div class="carousel-inner " role="listbox">
 
-	      <div class="item" ng-class="{active:!$index}" ng-repeat="story in top4">
-	        <img ng-src="{{story.img}}" alt="Chania" width="460" height="345">
-	        <div class="carousel-caption">
-	          <h3 class="div-opaque">{{story.heading}}</h3>
-	          <p class="div-opaque">The atmosphere in Chania has a touch of Florence and Venice.</p>
-	        </div>
-	      </div>
+	      		<div class="item" ng-class="{active:!$index}" ng-repeat="story in top4">
+	        		<img ng-src="{{story.img}}" alt="Chania" width="460" height="345">
+	        		<div class="carousel-caption">
+	          			<h3 class="div-opaque"><a ng-click="selectStory(story)">{{story.heading}}</a></h3>
+	        		</div>
+	      		</div>
+	  		</div>
+		</div>
+		<hr>
+		<hr>
 
-	      <!--<div class="item">
-	        <img src="views/img/r4f.jpg" alt="Flower" width="460" height="345">
-	        <div class="carousel-caption">
-	          <h3 class="div-opaque">Story 2</h3>
-	          <p class="div-opaque">Beatiful flowers in Kolymbari, Crete.</p>
-	        </div>
-	      </div>	
+		<div class = "container">
+			<br/>
+			<h3>Recent Stories</h3>
+			<br/>
+			<table class="table ">
+				<tbody>
+				<tr dir-paginate="story in stories | orderBy: '-date' |itemsPerPage:5">
+					<td width="15%"><img src="../img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
+					<td class="storycontent-med"><a class="whitefont" href="" ng-click="selectStory(story)">{{story.heading}}</a></td>
+				</tr>
+				</tbody>
+			</table>
 
-	      <div class="item">
-	        <img src="views/img/175061-bigthumbnail.jpg" alt="Chania" width="460" height="345">
-	        <div class="carousel-caption">
-	          <h3 class="div-opaque">Story 3</h3>
-	          <p class="div-opaque">The atmosphere in Chania has a touch of Florence and Venice.</p>
-	        </div>
-	      </div>
-
-	      <div class="item">
-	        <img src="views/img/football_PNG1085.png" alt="Flower" width="460" height="345">
-	        <div class="carousel-caption">
-	          <h3 class="div-opaque">Story 4</h3>
-	          <p class="div-opaque">Beatiful flowers in Kolymbari, Crete.</p>
-	        </div>
-	      </div>
-	  
-	    </div>-->
-	  </div>
+			<dir-pagination-controls
+					max-size="5"
+					direction-links="true"
+					boundary-links="true" >
+			</dir-pagination-controls>
+		</div>
 	</div>
-	<hr>
-	<hr>
-
-	<div class = "container">
-		<br/>
-		<h3>Recent Stories</h3>
-		<br/>
-		<table class="table ">
-			<tbody>
-			<tr dir-paginate="story in stories | orderBy: '-date' |itemsPerPage:5">
-				<td width="15%"><img src="../img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
-				<td class="storycontent-med"><a class="whitefont" href="" ng-click="selectStory($index)">{{story.heading}}</a></td>
-			</tr>
-			</tbody>
-		</table>
-
-		<dir-pagination-controls
-				max-size="5"
-				direction-links="true"
-				boundary-links="true" >
-		</dir-pagination-controls>
-	</div>
-
 </div>
 

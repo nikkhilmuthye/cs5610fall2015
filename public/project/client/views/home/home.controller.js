@@ -83,8 +83,7 @@
         };
         $scope.init();
 
-        $scope.selectStory = function(index){
-            var story = $scope.stories[index];
+        $scope.selectStory = function(story){
             if(story) {
                 $rootScope.story = story;
                 $rootScope.$broadcast('story', story);

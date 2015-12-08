@@ -71,7 +71,6 @@ module.exports = function(app, model) {
 
     function FindAll(req, res)
     {
-        console.log("here in FindAll");
         model
             .FindAll()
             .then(
@@ -86,7 +85,6 @@ module.exports = function(app, model) {
     function ApproveById(req, res)
     {
         var storyId = req.params.id;
-        console.log(storyId);
 
         model
             .ApproveById(storyId)

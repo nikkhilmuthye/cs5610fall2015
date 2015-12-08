@@ -80,6 +80,7 @@
 
         $scope.uploadClick = function (file){
             console.log("file : " , file);
+            GlobalService.setSelectedImage(null);
             GlobalService.setSelectedImage(file);
         }
 
@@ -141,19 +142,6 @@
                 }
             }
         };
-
-        $scope.addPhoto = function(){
-            console.log($scope.imageFile);
-        }
-
-        $scope.onUploadSelect = function($files) {
-            console.log($files);
-            //$scope.newResource.newUploadName = $files[0].name;
-        };
-
-        $scope.uploadFile = function (){
-
-        }
     };
 
 

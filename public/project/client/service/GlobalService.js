@@ -61,7 +61,6 @@
             {
                 $cookieStore.put('selectedleague', globalService.selectedleague);
             }
-            // $cookieStore.putokent('token', globalService.token);
         };
 
         globalService.getSelectedLeague = function()
@@ -78,7 +77,6 @@
             }
             else
                 $cookieStore.put('selectedteam', globalService.selectedteam);
-            // $cookieStore.putokent('token', globalService.token);
         };
 
         globalService.getSelectedTeam = function()
@@ -89,18 +87,18 @@
         globalService.setSelectedImage = function(token)
         {
             globalService.selectedimg = token;
+            console.log(token);
             if (globalService.selectedimg == null)
             {
                 $cookieStore.remove('selectedimg');
             }
             else
                 $cookieStore.put('selectedimg', globalService.selectedimg);
-            // $cookieStore.putokent('token', globalService.token);
         };
 
         globalService.getSelectedImage = function()
         {
-            return globalService.selectedimg;
+            return $cookieStore.get('selectedimg');
         };
 
         globalService.setSelectedUser = function(token)
@@ -112,7 +110,6 @@
             }
             else
                 $cookieStore.put('selecteduser', globalService.selecteduser);
-            // $cookieStore.putokent('token', globalService.token);
         };
 
         globalService.getSelectedUser = function()
@@ -130,7 +127,6 @@
             }
             else
                 $cookieStore.put('selectedStory', globalService.selectedStory);
-            // $cookieStore.putokent('token', globalService.token);
         };
 
         globalService.getSelectedStory = function()
@@ -147,7 +143,6 @@
             }
             else
                 $cookieStore.put('user', globalService.token);
-            // $cookieStore.putokent('token', globalService.token);
         };
 
         globalService.getUser = function()

@@ -27,6 +27,7 @@
                     {
                         console.log(stories);
                         if(stories){
+                            console.log(stories);
                             stories.forEach(function(story){
                                 StoryService.findStoryForUserById(story.storyId)
                                     .then(function(story1){

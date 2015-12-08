@@ -259,6 +259,7 @@ module.exports = function(app, mongoose, db){
             storyModel.findById({_id: storyId}, function(err, story) {
                 var userId = story.userId;
                 storyModel.remove({_id: storyId}, function (err, stories) {
+
                     storyModel.find({userId: userId}, function (err, stories) {
                         if (stories)
                             deferred.resolve(stories);
@@ -267,6 +268,7 @@ module.exports = function(app, mongoose, db){
                     });
                 });
             });
+
         }
         return deferred.promise;
     }
