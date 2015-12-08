@@ -33,7 +33,6 @@
                                 dataType: 'json',
                                 type: 'GET'
                             }).success(function (response) {
-                                console.log(response);
                                 $scope.favorites.push(response);
                             });
                         })
