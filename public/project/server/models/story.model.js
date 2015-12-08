@@ -29,7 +29,8 @@ module.exports = function(app, mongoose, db){
         ReportById: ReportById,
         ApproveById: ApproveById,
         FindAllReported: FindAllReported,
-        AddComment: AddComment
+        AddComment: AddComment,
+        AddRating: AddRating
     };
     return api;
 
@@ -229,6 +230,42 @@ module.exports = function(app, mongoose, db){
                     story.comments.push(comment);
                     story.save(function (err) {
                         if(!err) {
+                            deferred.resolve(story);
+                        }
+                    })
+                }
+                else if(err){
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.reject("no user found with id:"+storyId);
+                }
+            });
+        }
+        catch(error)
+        {
+            deferred.reject(error);
+        }
+
+        return deferred.promise;
+    }
+
+    function AddRating(storyId, rating)
+    {
+        var deferred = q.defer();
+
+        try
+        {
+            storyModel.findById({_id: storyId}, function(err, story){
+                if (story){
+                    story.rating.totalRating = parseInt(story.rating.totalRating) + parseInt(rating);
+                    story.rating.totalVotes++;
+                    story.rating.rating = story.rating.totalRating / story.rating.totalVotes;
+                    console.log(story);
+                    //deferred.resolve(story);
+                    story.save(function (err) {
+                        if(!err) {
+                            console.log(story);
                             deferred.resolve(story);
                         }
                     })

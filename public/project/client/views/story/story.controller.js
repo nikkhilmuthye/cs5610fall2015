@@ -33,11 +33,21 @@
 
         $scope.rate = function(){
             console.log($scope.x);
+            StoryService.AddRating($scope.story._id, $scope.x)
+                .then(function(story){
+                    console.log(story);
+                    $scope.x = story.rating.rating;
+                })
+                .catch(function(err){
+                    if(err)
+                        $scope.error = err;
+                })
         }
 
         $scope.notInFavorite = true;
         $scope.init = function(){
             if($scope.story){
+                $scope.x = $scope.story.rating.rating;
                 GlobalService.setSelectedStory($scope.story._id);
                 if($scope.story.img)
                     $scope.img = "../uploads/"+$scope.story.img;

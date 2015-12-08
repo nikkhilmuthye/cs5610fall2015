@@ -27,8 +27,8 @@
                     <a class="whitefont pointer" ng-click="selectUser()">{{author.firstName}}</a>
                 </td>
 		      	<td width="65%"><h3>Rate the story</h3>
-                    <div ng-init="x = 0">
-                        <uib-rating ng-model="x" max="5" state-on="'glyphicon-heart'" onchange="rate()"
+                    <div ng-init="x = story.rating.rating">
+                        <uib-rating ng-model="x" max="5" state-on="'glyphicon-heart'" onchange="rate()" ng-click="rate()"
                                     state-off="'glyphicon-ban-circle'" aria-labelledby="custom-icons-1">
                         </uib-rating>
                         <b>(<i>Rate:</i> {{x}})</b>

@@ -3,10 +3,10 @@
 
     angular
         .module("SportsNewsApp")
-        .controller("LeagueController", ['$scope', '$location', '$rootScope', "$http",
+        .controller("LeagueController", ['$scope', '$location', '$rootScope', "$http", '$timeout',
             'GlobalService','StoryService', LeagueController]);
 
-    function LeagueController($scope, $location, $rootScope, $http, GlobalService, StoryService ){
+    function LeagueController($scope, $location, $rootScope, $http, $timeout, GlobalService, StoryService ){
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -61,12 +61,16 @@
                         console.log(response);
                         $scope.leagueTable = response;
                         $scope.matchday = $scope.leagueTable.matchday;
+                        console.log($scope.matchday);
                     });
 
                 }
                 else {
                     $scope.isChampionsLeague = true;
-                    $scope.matchday = 1;
+                    console.log($scope.matchday);
+                    $timeout(function(){
+                        $scope.matchday = 1;
+                    });
                 }
 
                 $http({

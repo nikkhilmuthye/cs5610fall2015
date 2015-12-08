@@ -9,8 +9,23 @@ module.exports = function(app, model) {
     app.get("/api/project/story/userId/:id", FindByUserId);
     app.put("/api/project/story/:id", Update);
     app.put("/api/project/story/:id/addComment", AddComment);
+    app.put("/api/project/story/:id/addRating/:rating", AddRating);
     app.delete("/api/project/story/:id", Delete);
 
+
+
+    function AddRating(req, res){
+        var storyId = req.params.id;
+        var rating = req.params.rating;
+
+        model.AddRating(storyId, rating)
+            .then(function(newUser){
+                res.json(newUser);
+            })
+            .catch(function(error){
+                res.status(400).send(JSON.stringify(error));
+            });
+    }
 
     function AddComment(req, res){
         var storyId = req.params.id;

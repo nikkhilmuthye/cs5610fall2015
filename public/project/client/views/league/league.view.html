@@ -5,12 +5,12 @@
         <h2>League Table</h2>
         <table class="table" ng-if="!isChampionsLeague">
             <thead>
-                <td>Position</td>
-                <td>Team</td>
-                <td>Points</td>
-                <td>Goal Difference</td>
-                <td>Goals For</td>
-                <td>Goals Against</td>
+                <td class="storycontent">Position</td>
+                <td class="storycontent">Team</td>
+                <td class="storycontent">Points</td>
+                <td class="storycontent">Goal Difference</td>
+                <td class="storycontent">Goals For</td>
+                <td class="storycontent">Goals Against</td>
             </thead>
             <tbody>
                 <tr ng-repeat="team in leagueTable.standing">
@@ -38,10 +38,10 @@
 
         <table class="table">
             <thead>
-            <td>Home</td>
-            <td></td>
-            <td>Away</td>
-            <td>Result</td>
+            <td class="storycontent">Home</td>
+            <td class="storycontent"></td>
+            <td class="storycontent">Away</td>
+            <td class="storycontent">Result</td>
             </thead>
             <tbody>
             <tr ng-repeat="fixture in fixtures.fixtures" ng-if="fixture.matchday == matchday">

@@ -10,6 +10,9 @@
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
+        $scope.sortName = true;
+        $scope.sortJersery = true;
+        $scope.sortPosition = true;
 
         $rootScope.$on("loggedin", function(event, user){
             $scope.user = $rootScope.user = user;
@@ -36,6 +39,14 @@
 
         $scope.$watch('teams', function() {
             //$scope.init();
+        });
+
+        $scope.$watch('reverseSort', function (value) {
+            if (value) {
+                $scope.arrowSrc = 'http://upload.wikimedia.org/wikipedia/commons/3/30/Gtk-go-down.svg';
+            } else {
+                $scope.arrowSrc = 'http://upload.wikimedia.org/wikipedia/commons/8/88/Gtk-go-up.svg';
+            }
         });
 
         $scope.notInFavorite = true;
@@ -154,6 +165,12 @@
             });
         }
         $scope.order = function(predicate) {
+            if(predicate == 'name')
+                $scope.sortName = !$scope.sortName;
+            else if(predicate == 'jerseyNumber')
+                $scope.sortJersery = !$scope.sortJersery;
+            else if(predicate == 'position')
+                $scope.sortPosition = !$scope.sortPosition;
             $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
             $scope.predicate = predicate;
         };

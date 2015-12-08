@@ -31,9 +31,32 @@
             approveStoryById: approveStoryById,
             reportStoryById: reportStoryById,
             findAllReportedStories: findAllReportedStories,
-            AddComment: AddComment
+            AddComment: AddComment,
+            AddRating: AddRating
 		};
 		return storyService;
+
+        function AddRating(storyId, rating){
+            var deferred = $q.defer();
+
+            try
+            {
+                $http.put("/api/project/story/"+storyId+"/addRating/" + rating)
+                    .success(function(newstory){
+                        deferred.resolve(newstory);
+                    })
+                    .error(function(error){
+                        if (error){
+                            deferred.reject(error);
+                        }
+                    });
+            }
+            catch(error)
+            {
+                deferred.reject(error);
+            }
+            return deferred.promise;
+        }
 
         function AddComment(storyId, comment){
             var deferred = $q.defer();

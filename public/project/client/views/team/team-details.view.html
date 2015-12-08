@@ -32,15 +32,24 @@
                 <thead>
                     <tr>
                         <th>
-                            <a href="" ng-click="order('name')" class="whitefont">Name</a>
+                            <a href="" ng-click="order('name')" class="whitefont storycontent">Name
+                                <scan class="glyphicon glyphicon-triangle-bottom" ng-if="sortName"></scan>
+                                <scan class="glyphicon glyphicon-triangle-top" ng-if="!sortName"></scan>
+                            </a>
                             <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
                         </th>
                         <th>
-                            <a href="" ng-click="order('jerseyNumber')" class="whitefont">Jersey Number</a>
+                            <a href="" ng-click="order('jerseyNumber')" class="whitefont storycontent">Jersey Number
+                                <scan class="glyphicon glyphicon-triangle-bottom" ng-if="sortJersery"></scan>
+                                <scan class="glyphicon glyphicon-triangle-top" ng-if="!sortJersery"></scan>
+                            </a>
                             <span class="sortorder" ng-show="predicate === 'phone'" ng-class="{reverse:reverse}"></span>
                         </th>
                         <th>
-                            <a href="" ng-click="order('position')" class="whitefont">Position</a>
+                            <a href="" ng-click="order('position')" class="whitefont storycontent">Position
+                                <scan class="glyphicon glyphicon-triangle-bottom" ng-if="sortPosition"></scan>
+                                <scan class="glyphicon glyphicon-triangle-top" ng-if="!sortPosition"></scan>
+                            </a>
                             <span class="sortorder" ng-show="predicate === 'age'" ng-class="{reverse:reverse}"></span>
                         </th>
                     </tr>
