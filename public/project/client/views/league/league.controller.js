@@ -66,6 +66,7 @@
                 }
                 else {
                     $scope.isChampionsLeague = true;
+                    $scope.matchday = 1;
                 }
 
                 $http({

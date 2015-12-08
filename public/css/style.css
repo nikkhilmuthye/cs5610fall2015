@@ -181,7 +181,7 @@ background-color: #FFBABA;
 }
 
 .background {
-    background:url(../project/client/views/img/background.jpg);
+    background-color: #00529B;
     background-repeat:no-repeat;
     background-size:cover;
     color: white;

@@ -47,6 +47,15 @@
 
                     $scope.stories = stories;
 
+                    $scope.stories.forEach(function(story){
+                        if(!story.img){
+                            story.img = "../img/championsleague.png"
+                        }
+                        else{
+                            story.img = "../uploads/"+story.img;
+                        }
+                    });
+
                     var top = [];
                     if(stories.length > 4) {
                         while (top.length != 4) {
@@ -64,15 +73,6 @@
                         top = stories;
                     }
                     $scope.top4 = top;
-
-                    $scope.top4.forEach(function(story){
-                        if(!story.img){
-                            story.img = "../img/championsleague.png"
-                        }
-                        else{
-                            story.img = "../uploads/"+story.img;
-                        }
-                    });
 
                 })
                 .catch(

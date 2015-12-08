@@ -33,7 +33,7 @@
 			<table class="table ">
 				<tbody>
 				<tr dir-paginate="story in stories | orderBy: '-date' |itemsPerPage:5">
-					<td width="15%"><img src="../img/175061-bigthumbnail.jpg" alt="Chania" width="40" height="40"></td>
+					<td width="15%"><img ng-src="{{story.img}}" alt="Chania" width="40" height="40"></td>
 					<td class="storycontent-med"><a class="whitefont" href="" ng-click="selectStory(story)">{{story.heading}}</a></td>
 				</tr>
 				</tbody>
