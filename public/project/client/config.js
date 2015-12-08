@@ -25,7 +25,7 @@
                     templateUrl : "/project/client/views/createstory/create-story.view.html"
                 })
                 .when("/createtransfer", {
-                    templateUrl : "/project/client/views/createtransfer/createtransfer.view.html"
+                    templateUrl : "/project/client/views/createTransfer/createtransfer.view.html"
                 })
                 .when("/league", {
                     templateUrl : "/project/client/views/league/league.view.html"
