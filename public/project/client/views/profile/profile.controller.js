@@ -71,6 +71,15 @@
                 else{
                     $scope.user.img = img;
                 }
+
+                if(GlobalService.isAuth()) {
+                    $scope.filename = GlobalService.getSelectedImage();
+                    console.log($scope.filename);
+                    if($scope.filename){
+                        $scope.selectedImage = true;
+                        console.log($scope.selectedImage);
+                    }
+                }
             }
         };
         $scope.init();
@@ -87,15 +96,6 @@
             $scope.error = null;
             $scope.success = null;
 
-            if(GlobalService.isAuth()) {
-                $scope.filename = GlobalService.getSelectedImage();
-                console.log($scope.filename);
-                if($scope.filename){
-                    $scope.selectedImage = true;
-                    console.log($scope.selectedImage);
-                }
-            }
-
             console.log($scope.user);
             console.log($scope.user.password);
             console.log($scope.user.verifypassword);
@@ -111,6 +111,15 @@
                         $scope.success = "Succesfully updated user profile"
                         console.log("Succesfully updated user profile");
                         $scope.updateSelected = false;
+
+                        var img = "../uploads/Mancahester-United-Logo-art.jpg"
+                        if($scope.user.img){
+                            console.log("here")
+                            $scope.user.img = "../uploads/"+$scope.user.img;
+                        }
+                        else{
+                            $scope.user.img = img;
+                        }
                     })
                     .catch(function (error) {
                         $scope.error = error;

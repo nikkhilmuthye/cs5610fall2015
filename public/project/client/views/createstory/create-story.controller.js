@@ -130,6 +130,7 @@
                             $scope.Header = null;
                             $scope.story = null;
                             $scope.user = updatedUser;
+                            $scope.selectedstory = null;
                             $scope.success = "Succesfully added new story"
                             console.log("Succesfully updated user profile");
                             $location.path("/profile");
