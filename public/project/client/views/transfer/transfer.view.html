@@ -11,10 +11,10 @@
                 <div><p>{{transfer.contents}}</p></div>
             </td>
 	        <td width="5%">
-	        	<a href="" class="btn btn-success" ng-click="addlike($index)">{{transfer.likes}}
+	        	<a href="" class="btn btn-success" ng-click="addlike(transfer)">{{transfer.likes}}
                     <scan class="glyphicon glyphicon-thumbs-up"></scan>
                 </a>
-                <a href="" class="btn btn-danger" ng-click="addDislike($index)">{{transfer.dislikes}}
+                <a href="" class="btn btn-danger" ng-click="addDislike(transfer)">{{transfer.dislikes}}
                     <scan class="glyphicon glyphicon-thumbs-down"></scan>
                 </a>
             </td>

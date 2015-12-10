@@ -3,9 +3,10 @@
 
     angular
         .module("SportsNewsApp")
-        .controller("TransferController", ['$scope', '$location', '$rootScope', 'UserService', 'TransferService', TransferController]);
+        .controller("TransferController", ['$scope', '$location', '$rootScope', '$timeout',
+            'UserService', 'TransferService', TransferController]);
 
-    function TransferController($scope, $location, $rootScope, UserService, TransferService ){
+    function TransferController($scope, $location, $rootScope, $timeout, UserService, TransferService ){
 
         $scope.$location = $location;
         $scope.user = $rootScope.user;
@@ -36,15 +37,29 @@
         };
         $scope.init();
 
-        $scope.addDislike = function(index){
+        $scope.addDislike = function(transfer){
             $scope.error = null;
             $scope.success = null;
 
-            TransferService.addDislikes($scope.transfers[index]._id)
+            TransferService.addDislikes(transfer._id)
                 .then(
-                function(transfer)
+                function(transfernew)
                 {
-                    $scope.transfers[index] = transfer;
+                    var index1;
+                    $scope.transfers.forEach(function(trans, index){
+                        if(trans._id == transfernew._id)
+                            index1 = index;
+                    })
+                    console.log(transfernew);
+                    console.log(transfernew);
+                    setTimeout(function(){
+                        console.log('First name being reset');
+                        $scope.$apply(function(){
+                                $scope.transfers[index1] = transfernew;
+                            }
+                        )
+                    }, 10);
+
                     console.log("Succesfully added like");
                 })
                 .catch(
@@ -54,16 +69,28 @@
             );
         };
 
-        $scope.addlike = function(index){
+        $scope.addlike = function(transfer){
             $scope.error = null;
             $scope.success = null;
 
-            TransferService.addlikes($scope.transfers[index]._id)
+            TransferService.addlikes(transfer._id)
                 .then(
-                function(transfer)
+                function(transfernew)
                 {
-                    $scope.transfers[index] = transfer;
-                    console.log("Succesfully added dislike");
+                    var index1;
+                    $scope.transfers.forEach(function(trans, index){
+                        if(trans._id == transfernew._id)
+                            index1 = index;
+                    })
+                    console.log(transfernew);
+                    console.log(transfernew);
+                    setTimeout(function(){
+                        console.log('First name being reset');
+                        $scope.$apply(function(){
+                                $scope.transfers[index1] = transfernew;
+                            }
+                        )
+                    }, 10);
                 })
                 .catch(
                 function(error){
