@@ -30,6 +30,7 @@
 		$scope.change = function(){
 
             if($scope.searchtext && $scope.searchtext != "") {
+                GlobalService.setSearchtext($scope.searchtext);
                 $rootScope.searchtext = $scope.searchtext;
                 $rootScope.$broadcast('searchtext', $scope.searchtext);
                 $location.path("/search");

@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98452eec-899f-4b85-9f5c-ae18e8cf653c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/views/createstory/create-story.view.html" afterPath="$PROJECT_DIR$/public/project/client/views/createstory/create-story.view.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/service/GlobalService.js" afterPath="$PROJECT_DIR$/public/project/client/service/GlobalService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.controller.js" afterPath="$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/views/profile/profile.controller.js" afterPath="$PROJECT_DIR$/public/project/client/views/profile/profile.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/views/profile/profile.view.html" afterPath="$PROJECT_DIR$/public/project/client/views/profile/profile.view.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/views/search/search.controller.js" afterPath="$PROJECT_DIR$/public/project/client/views/search/search.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/views/home/style.css" afterPath="$PROJECT_DIR$/public/project/client/views/home/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/project/client/views/transfer/transfer.view.html" afterPath="$PROJECT_DIR$/public/project/client/views/transfer/transfer.view.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="nodejs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,31 +27,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="profile.view.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/project/client/views/profile/profile.view.html">
+      <file leaf-file-name="search.controller.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/project/client/views/search/search.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.75">
-              <caret line="20" column="93" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="93" />
+            <state vertical-scroll-proportion="0.91584855">
+              <caret line="83" column="62" selection-start-line="83" selection-start-column="62" selection-end-line="83" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.controller.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/project/client/views/profile/profile.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48542273">
-              <caret line="104" column="68" selection-start-line="104" selection-start-column="68" selection-end-line="104" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/project/client/views/home/style.css">
+      <file leaf-file-name="GlobalService.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/project/client/service/GlobalService.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="12" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="12" />
+              <caret line="65" column="35" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="primary-header.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -87,7 +86,6 @@
         <option value="$PROJECT_DIR$/public/project/client/views/createTransfer/createtransfer.view.html" />
         <option value="$PROJECT_DIR$/public/project/client/app.js" />
         <option value="$PROJECT_DIR$/public/project/createstory/create-story.controller.js" />
-        <option value="$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.controller.js" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/public/project/server/models/transfer.schema.js" />
         <option value="$PROJECT_DIR$/public/project/server/models/user.schema.js" />
@@ -104,7 +102,6 @@
         <option value="$PROJECT_DIR$/public/project/client/config.js" />
         <option value="$PROJECT_DIR$/public/project/client/index.html" />
         <option value="$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.view.html" />
-        <option value="$PROJECT_DIR$/public/project/client/service/GlobalService.js" />
         <option value="$PROJECT_DIR$/public/project/server/models/story.schema.js" />
         <option value="$PROJECT_DIR$/public/project/client/views/team/style.css" />
         <option value="$PROJECT_DIR$/public/css/style.css" />
@@ -119,11 +116,13 @@
         <option value="$PROJECT_DIR$/public/project/client/views/story/story.controller.js" />
         <option value="$PROJECT_DIR$/public/project/client/views/story/story.view.html" />
         <option value="$PROJECT_DIR$/public/project/client/views/transfer/transfer.view.html" />
-        <option value="$PROJECT_DIR$/public/project/client/views/search/search.controller.js" />
         <option value="$PROJECT_DIR$/public/project/client/views/createstory/create-story.view.html" />
         <option value="$PROJECT_DIR$/public/project/client/views/home/style.css" />
         <option value="$PROJECT_DIR$/public/project/client/views/profile/profile.view.html" />
         <option value="$PROJECT_DIR$/public/project/client/views/profile/profile.controller.js" />
+        <option value="$PROJECT_DIR$/public/project/client/service/GlobalService.js" />
+        <option value="$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.controller.js" />
+        <option value="$PROJECT_DIR$/public/project/client/views/search/search.controller.js" />
       </list>
     </option>
   </component>
@@ -930,14 +929,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/project/server/models/transfer.schema.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18934081">
@@ -1084,26 +1075,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/project/client/views/home/home.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="58" selection-start-line="66" selection-start-column="58" selection-end-line="66" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/project/server/models/story.schema.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14726508">
           <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/project/client/service/GlobalService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30575034">
-          <caret line="120" column="9" selection-start-line="120" selection-start-column="9" selection-end-line="120" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1152,14 +1127,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="113" column="36" selection-start-line="111" selection-start-column="12" selection-end-line="113" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/project/client/views/personal/personal.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.516129">
-          <caret line="112" column="69" selection-start-line="112" selection-start-column="69" selection-end-line="112" selection-end-column="69" />
           <folding />
         </state>
       </provider>
@@ -1260,14 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/project/client/views/search/search.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27349228">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/project/client/views/search/search.view.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9898403">
@@ -1276,26 +1235,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/project/client/views/home/style.css">
+    <entry file="file://$PROJECT_DIR$/public/project/client/views/profile/profile.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="12" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.54698455">
+          <caret line="89" column="33" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/project/client/views/profile/profile.view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.75">
+        <state vertical-scroll-proportion="0.47393364">
           <caret line="20" column="93" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="93" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/project/client/views/profile/profile.controller.js">
+    <entry file="file://$PROJECT_DIR$/public/project/client/views/home/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48542273">
-          <caret line="104" column="68" selection-start-line="104" selection-start-column="68" selection-end-line="104" selection-end-column="68" />
+        <state vertical-scroll-proportion="0.50490886">
+          <caret line="24" column="12" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/project/client/views/personal/personal.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1472651">
+          <caret line="112" column="69" selection-start-line="112" selection-start-column="69" selection-end-line="112" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/project/client/views/home/home.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3884993">
+          <caret line="66" column="58" selection-start-line="66" selection-start-column="58" selection-end-line="66" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/project/client/service/GlobalService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="65" column="35" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/project/client/views/primary-header/primary-header.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/project/client/views/search/search.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.91584855">
+          <caret line="83" column="62" selection-start-line="83" selection-start-column="62" selection-end-line="83" selection-end-column="62" />
           <folding />
         </state>
       </provider>

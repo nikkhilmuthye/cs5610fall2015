@@ -13,6 +13,7 @@
         globalService.selectedimg = null;
         globalService.selectedleague = null;
         globalService.selectedteam = null;
+        globalService.searchText = null;
 
         globalService.isAuth = function ()
         {
@@ -46,6 +47,25 @@
                 globalService.selectedteam = $cookieStore.get('selectedteam');
             }
             return ((globalService.selectedteam != null) || ((globalService.selectedleague != null)));
+        };
+
+        globalService.setSearchtext = function(token)
+        {
+            globalService.searchText = token;
+
+            if (globalService.searchText == null)
+            {
+                $cookieStore.remove('searchText');
+            }
+            else
+            {
+                $cookieStore.put('searchText', globalService.searchText);
+            }
+        };
+
+        globalService.getSearchText = function()
+        {
+            return $cookieStore.get('searchText');
         };
 
         globalService.setSelectedLeague = function(token)

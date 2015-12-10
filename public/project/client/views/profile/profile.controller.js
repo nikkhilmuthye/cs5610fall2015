@@ -75,9 +75,12 @@
                 if(GlobalService.isAuth()) {
                     $scope.filename = GlobalService.getSelectedImage();
                     console.log($scope.filename);
+
                     if($scope.filename){
                         $scope.selectedImage = true;
                         console.log($scope.selectedImage);
+                        $scope.user.img = "../uploads/"+$scope.filename;
+                        $scope.selectedImage = false;
                     }
                 }
             }

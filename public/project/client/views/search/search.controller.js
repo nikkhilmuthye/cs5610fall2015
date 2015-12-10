@@ -3,10 +3,11 @@
 
     angular
         .module("SportsNewsApp")
-        .controller("SearchController", ['$scope', '$location', '$rootScope', '$http','UserService', 'StoryService', SearchController]);
+        .controller("SearchController", ['$scope', '$location', '$rootScope', '$http','UserService',
+            'StoryService', 'GlobalService', SearchController]);
 
 
-    function SearchController($scope, $location, $rootScope, $http, UserService, StoryService){
+    function SearchController($scope, $location, $rootScope, $http, UserService, StoryService, GlobalService){
 
         $scope.user = $rootScope.user;
         $scope.$location = $location;
@@ -29,7 +30,9 @@
             $scope.searchtext = $rootScope.searchtext = searchtext;
         });
 
+
         $scope.change = function(){
+            GlobalService.setSearchtext($scope.searchtext);
             console.log($scope.searchtext);
         }
 
@@ -77,6 +80,8 @@
             if($scope.leagues) {
                 $scope.getTeams();
             }
+
+            $scope.searchtext = GlobalService.getSearchText();
         };
         $scope.init();
 
