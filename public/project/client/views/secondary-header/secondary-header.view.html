@@ -1,10 +1,10 @@
 <div class="container-fluid" data-ng-controller="SecondaryHeaderController as controller" id="tabs">
 	<ul class="nav nav-tabs nav-justified">
 	    <li ng-class="{'active' : $location.url().indexOf('home') >= 0}">
-	        <a href="#/home" data-target="#home" data-toggle="tab">Home</a>
+	        <a class="onhover-black" href="#/home" data-target="#home" data-toggle="tab">Home</a>
 	    </li>
 	    <li class="dropdown no-display" ng-class="{'active' : $location.url().indexOf('league') >= 0}">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="">Leagues
+		    <a class="onhover-black dropdown-toggle" data-toggle="dropdown" href="">Leagues
 		    <span class="caret"></span></a>
 		    <ul class="dropdown-menu no-display overlay div-opaque">
 				<li class="animate-repeat" ng-repeat="league in leagues">
@@ -13,7 +13,7 @@
 		    </ul>
 		</li>
 		<li class="dropdown no-display" data-toggle="tab" ng-class="{'active' : $location.url().indexOf('team') >= 0}">
-		    <a class="dropdown-toggle" data-toggle="dropdown" href="">Clubs
+		    <a class="dropdown-toggle onhover-black" data-toggle="dropdown" href="">Clubs
 		    <span class="caret"></span></a>
 		    <ul class="dropdown-menu no-display overlay div-opaque">
 		      <li><a data-toggle="tab" href="" ng-click="selectTeam(66)">Manchester United</a></li>
@@ -27,7 +27,7 @@
 		    </ul>
 		</li>
 	    <li ng-class="{'active' : $location.url().indexOf('transfer') >= 0}">
-	        <a href="#/transfer" data-toggle="tab" data-target="#transfer">Transfers </a>
+	        <a class="onhover-black" href="#/transfer" data-toggle="tab" data-target="#transfer">Transfers </a>
 	    </li>
 	</ul>
 </div>

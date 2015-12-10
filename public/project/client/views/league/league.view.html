@@ -1,7 +1,7 @@
 <div class="container" data-ng-controller="LeagueController">
 	<h1 class="page-header">{{league.caption}}</h1>
 
-    <div class="table-responsive">
+    <div class="table-responsive container">
         <h2>League Table</h2>
         <table class="table" ng-if="!isChampionsLeague">
             <thead>
@@ -28,9 +28,9 @@
         </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive container">
         <h2>Fixtures</h2>
-        <div class="form-group col-xs-6" ng-init="matchday = 1">
+        <div class="form-group" ng-init="matchday = 1">
             <label for="sel1">Select MatchDay:</label>
             <select class="form-control" ng-options="matchday for matchday in matchdays"
                     ng-model="matchday" id="sel1"></select>

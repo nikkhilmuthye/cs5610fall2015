@@ -109,16 +109,39 @@
         };
         $scope.init();
         $scope.addComment = function(){
-        	console.log($scope.comment);
+
         	//$scope.comments.push($scope.comment);
             if($scope.user)
                 var comment = {"comment": $scope.user._id+";"+$scope.comment}
             else
                 var comment = {"comment": ";"+$scope.comment}
 
+            console.log(comment);
+
             StoryService.AddComment($scope.story._id, comment)
                 .then(function(story){
-                    $scope.comments = story.comments;
+                    $scope.comments = [];
+                    story.comments.forEach(function(comment){
+                        var temp = comment.split(";");
+                        console.log(temp);
+                        if(temp[0] && temp[0] != "") {
+                            UserService.findUserbyId(temp[0])
+                                .then(function (user) {
+                                    var comment = {"user": user, "comment": temp[1]};
+                                    $scope.comments.push(comment);
+                                })
+                                .catch(function (err) {
+                                    if (err)
+                                        $scope.error = err;
+                                });
+                        }
+                        else{
+                            var comment = {"user": {"firstName": "Anonymous", "lastName": ""}, "comment": temp[1]};
+                            $scope.comments.push(comment);
+                        }
+
+
+                    });
                 })
                 .catch(function(err){
                     if(err)
@@ -127,11 +150,13 @@
         };
 
         $scope.selectUser = function(user){
-            if(user){
-                console.log(user);
-                $rootScope.selectedUser = user;
-                $rootScope.$broadcast('selectedUser', user);
-                $location.path("/publicprofile");
+            if(user.firstName != "Anonymous") {
+                if (user) {
+                    console.log(user);
+                    $rootScope.selectedUser = user;
+                    $rootScope.$broadcast('selectedUser', user);
+                    $location.path("/publicprofile");
+                }
             }
 
         }

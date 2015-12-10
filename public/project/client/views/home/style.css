@@ -2,7 +2,7 @@
     background-image:url("../../../img/National_Stadium_panorama_Fotor.jpg");
     width:100%;
     min-height:189px;
-    background-size: cover;
+    background-size:100% auto;
 }
 .autofit {
     max-width: 100%;
