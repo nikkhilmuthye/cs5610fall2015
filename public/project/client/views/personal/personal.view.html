@@ -31,10 +31,10 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="story in userStories">
-                        <td class="storycontent td1 width-90"><a class="whitefont" href="" ng-click="selectStory($index)">
+                        <td class="storycontent td1 width-90"><a class="whitefont" href="" ng-click="selectStory(story)">
                             {{story.heading}}</a></td>
                         <td class="col-nowrap td1 width-q0">
-                            <a href="" class="btn btn-warning" ng-click="updateStory($index)">
+                            <a href="" class="btn btn-warning" ng-click="updateStory(story)">
                                 <scan class="glyphicon glyphicon-pencil"></scan>
                             </a>
                             <a href="" class="btn btn-danger" ng-click="deleteStory($index)">

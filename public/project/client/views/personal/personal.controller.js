@@ -44,8 +44,7 @@
         };
         $scope.init();
 
-        $scope.selectStory = function(index){
-            var story = $scope.userStories[index];
+        $scope.selectStory = function(story){
             if(story) {
                 $rootScope.story = story;
                 $rootScope.$broadcast('story', story);
@@ -85,26 +84,13 @@
             }
         }
 
-        $scope.updateStory = function(index){
+        $scope.updateStory = function(story){
             $scope.error = null;
             $scope.success = null;
-            StoryService.findStoryForUserById($scope.userStories[index]._id)
-                .then(
-                function(story)
-                {
-                    if(story)
-                    {
-                        console.log(story);
-                        $rootScope.story = story;
-                        $rootScope.$broadcast('selectedstory', story);
-                        $location.path( "/createstory" );
-                    }
-                })
-                .catch(
-                function(error){
-                    $scope.error = error;
-                }
-            );
+            console.log(story);
+            $rootScope.selectedstory = story;
+            $rootScope.$broadcast('selectedstory', story);
+            $location.path( "/createstory" );
         };
 
         $scope.deleteStory = function(index){
