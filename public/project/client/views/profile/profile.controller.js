@@ -111,6 +111,7 @@
                         $scope.success = "Succesfully updated user profile"
                         console.log("Succesfully updated user profile");
                         $scope.updateSelected = false;
+                        $scope.selectedImage = false;
 
                         var img = "../uploads/Mancahester-United-Logo-art.jpg"
                         if($scope.user.img){

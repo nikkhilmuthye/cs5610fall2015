@@ -50,7 +50,7 @@
         }
 
         $scope.init = function () {
-            console.log($scope.searchtext);
+
             StoryService.findAll()
                 .then(
                 function(stories)
