@@ -119,7 +119,6 @@
 
         globalService.setSelectedStory = function(token)
         {
-            console.log(token);
             globalService.selectedStory = token;
             if (globalService.selectedStory == null)
             {

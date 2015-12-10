@@ -98,11 +98,17 @@
                 else if ($scope.filename){
                     image = $scope.filename;
                 }
+                var newRating ={
+                    "totalRating" : 0,
+                    "totalVotes" : 0,
+                    "rating" : 0
+                }
                 var newStory = {
                     heading: Header,
                     contents: story,
                     img: image,
-                    date : new Date()
+                    date : new Date(),
+                    rating : newRating
                 }
                 if(!$scope.selectedstory) {
                     console.log(newStory);
@@ -112,10 +118,11 @@
                             console.log(updatedUser);
                             $scope.Header = null;
                             $scope.story = null;
-                            $scope.user = updatedUser;
                             $scope.success = "Succesfully added new story"
                             console.log("Succesfully updated user profile");
-                            $location.path("/profile");
+                            $rootScope.story = updatedUser;
+                            $rootScope.$broadcast('story', updatedUser);
+                            $location.path("/story");
                         })
                         .catch(function (err) {
                             if (error) {
@@ -129,11 +136,12 @@
                             console.log(updatedUser);
                             $scope.Header = null;
                             $scope.story = null;
-                            $scope.user = updatedUser;
                             $scope.selectedstory = null;
                             $scope.success = "Succesfully added new story"
                             console.log("Succesfully updated user profile");
-                            $location.path("/profile");
+                            $rootScope.story = updatedUser;
+                            $rootScope.$broadcast('story', updatedUser);
+                            $location.path("/story");
                         })
                         .catch(function (err) {
                             if (error) {

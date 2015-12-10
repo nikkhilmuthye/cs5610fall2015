@@ -46,12 +46,35 @@
 
         $scope.notInFavorite = true;
         $scope.init = function(){
+            $scope.comments = [];
+
             if($scope.story){
-                $scope.x = $scope.story.rating.rating;
+                if($scope.story.rating)
+                    $scope.x = $scope.story.rating.rating;
                 GlobalService.setSelectedStory($scope.story._id);
                 if($scope.story.img)
                     $scope.img = "../uploads/"+$scope.story.img;
-                $scope.comments = $scope.story.comments;
+                $scope.story.comments.forEach(function(comment){
+                    var temp = comment.split(";");
+                    console.log(temp);
+                    if(temp[0] && temp[0] != "") {
+                        UserService.findUserbyId(temp[0])
+                            .then(function (user) {
+                                var comment = {"user": user, "comment": temp[1]};
+                                $scope.comments.push(comment);
+                            })
+                            .catch(function (err) {
+                                if (err)
+                                    $scope.error = err;
+                            });
+                    }
+                    else{
+                        var comment = {"user": {"firstName": "Anonymous", "lastName": ""}, "comment": temp[1]};
+                        $scope.comments.push(comment);
+                    }
+
+
+                });
                 UserService.findUserbyId($scope.story.userId)
                     .then(function(user){
                         $scope.author = user;
@@ -67,7 +90,6 @@
                     StoryService.findStoryForUserById(storyId)
                         .then(function(story){
                             $scope.story = story;
-                            $scope.comments = story.comments;
                             $scope.init();
                         })
                         .catch(function(err){
@@ -77,12 +99,23 @@
                         })
                 }
             }
+
+            if($scope.user && $scope.story){
+                $scope.user.favoritestories.forEach(function(storyId){
+                    if(storyId == $scope.story._id)
+                        $scope.notInFavorite = false;
+                })
+            }
         };
         $scope.init();
         $scope.addComment = function(){
         	console.log($scope.comment);
         	//$scope.comments.push($scope.comment);
-            var comment = {"comment": $scope.comment}
+            if($scope.user)
+                var comment = {"comment": $scope.user._id+";"+$scope.comment}
+            else
+                var comment = {"comment": ";"+$scope.comment}
+
             StoryService.AddComment($scope.story._id, comment)
                 .then(function(story){
                     $scope.comments = story.comments;
@@ -93,8 +126,7 @@
                 })
         };
 
-        $scope.selectUser = function(){
-            var user = $scope.author;
+        $scope.selectUser = function(user){
             if(user){
                 console.log(user);
                 $rootScope.selectedUser = user;
