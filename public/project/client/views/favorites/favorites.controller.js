@@ -18,10 +18,14 @@
 
         $scope.favorites = [];
         $scope.updateSelected = false;
+        $scope.favoritesStories = [];
+        $scope.favoritesUsers = [];
 
         $scope.init = function () {
             if($scope.user)
             {
+                $scope.favoritesStories = [];
+                $scope.favoritesUsers = [];
                 $scope.favorites = [];
                 UserService.getAllFavorite($scope.user._id)
                     .then(function (favorites) {
@@ -35,6 +39,36 @@
                             }).success(function (response) {
                                 $scope.favorites.push(response);
                             });
+                        })
+                    })
+                    .catch(function(err){
+                        if(err)
+                            $scope.err = err;
+                    });
+
+                UserService.GetAllFollowingUsers($scope.user._id)
+                    .then(function (favorites) {
+                        console.log(favorites);
+                        favorites.forEach(function(fav, index){
+                            UserService.findUserbyId(fav)
+                                .then(function(user){
+                                    $scope.favoritesUsers.push(user);
+                                })
+                        })
+                    })
+                    .catch(function(err){
+                        if(err)
+                            $scope.err = err;
+                    });
+
+                UserService.getAllFavoriteStories($scope.user._id)
+                    .then(function (favorites) {
+                        console.log(favorites);
+                        favorites.forEach(function(fav, index){
+                            StoryService.findStoryForUserById(fav)
+                                .then(function(story){
+                                    $scope.favoritesStories.push(story);
+                                })
                         })
                     })
                     .catch(function(err){
@@ -73,6 +107,55 @@
                 }
             );
         };
+
+        $scope.removeFromFavorites = function(story){
+            if($scope.user && story){
+                UserService.removeStoryFromFavorites($scope.user._id, story._id)
+                    .then(function(response){
+                        $scope.init();
+                    })
+                    .catch(function(err){
+                        $scope.error = err;
+                    });
+            }
+        }
+
+        $scope.unfollowUser = function(user) {
+            if ($scope.user && user) {
+                UserService.removeStoryFromFavorites(user._id, $scope.user._id)
+                    .then(function (response) {
+                        $scope.init();
+                    })
+                    .catch(function (err) {
+                        $scope.error = err;
+                    });
+            }
+        }
+
+        $scope.selectTeam = function(team){
+            if(team){
+                $rootScope.team = team;
+                $rootScope.$broadcast('team', team);
+                $location.path("/team");
+            }
+
+        }
+
+        $scope.selectStory = function(story){
+            if(story){
+                $rootScope.story = story;
+                $rootScope.$broadcast('story', story);
+                $location.path("/story");
+            }
+        }
+
+        $scope.selectUser = function(user){
+            if(user){
+                $rootScope.selectedUser = user;
+                $rootScope.$broadcast('selectedUser', user);
+                $location.path("/publicprofile");
+            }
+        }
     };
 
 })();

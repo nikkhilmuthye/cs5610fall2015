@@ -55,9 +55,9 @@
 
         $scope.init = function() {
             $scope.update = false;
-            if($scope.story){
-                $scope.Header = $scope.story.heading;
-                $scope.story = $scope.story.contents;
+            if($scope.selectedstory){
+                $scope.Header = $scope.selectedstory.heading;
+                $scope.story = $scope.selectedstory.contents;
                 $scope.update = true;
             }
             console.log($scope.user);

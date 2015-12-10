@@ -65,7 +65,7 @@
                             })
                             .catch(function (err) {
                                 if (err)
-                                    $scope.error = err;
+                                    console.log(err);
                             });
                     }
                     else{
@@ -131,8 +131,7 @@
                                     $scope.comments.push(comment);
                                 })
                                 .catch(function (err) {
-                                    if (err)
-                                        $scope.error = err;
+                                    console.log(err);
                                 });
                         }
                         else{
@@ -184,6 +183,18 @@
                 .catch(function(err){
                     $scope.error = err;
                 });
+            }
+        }
+
+        $scope.removeFromFavorites = function(){
+            if($scope.user && $scope.story){
+                UserService.removeStoryFromFavorites($scope.user._id, $scope.story._id)
+                    .then(function(response){
+                        $scope.notInFavorite = true;
+                    })
+                    .catch(function(err){
+                        $scope.error = err;
+                    });
             }
         }
     };

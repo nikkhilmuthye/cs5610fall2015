@@ -8,8 +8,8 @@
         </div>
     </div>
     <hr>
-    <div class = "container col-sm-8 child-1 table-responsive">
-        <h2>Search Results:</h2>
+    <div class = "container col-sm-8 table-responsive">
+        <h2>Search Results: Leagues</h2>
         <table class="table pointer">
             <thead>
 
@@ -18,12 +18,45 @@
             <tr ng-if="searchtext" ng-repeat="league in leagues | filter: searchtext">
                 <td><a ng-click="selectLeague(league)" class="whitefont">{{league.caption}}</a></td>
             </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class = "container col-sm-8 table-responsive">
+        <h2>Search Results: Teams</h2>
+        <table class="table pointer">
+            <thead>
+
+            </thead>
+            <tbody>
             <tr ng-if="searchtext" ng-repeat="team in teams | filter: searchtext">
                 <td><a ng-click="selectTeam(team)" class="whitefont">{{team.name}}</a></td>
             </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class = "container col-sm-8 table-responsive">
+        <h2>Search Results: Stories</h2>
+        <table class="table pointer">
+            <thead>
+
+            </thead>
+            <tbody>
             <tr ng-if="searchtext" ng-repeat="story in stories | filter: searchtext">
                 <td><a ng-click="selectStory(story)" class="whitefont">{{story.heading}}</a></td>
             </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class = "container col-sm-8 table-responsive">
+        <h2>Search Results: Users</h2>
+        <table class="table pointer">
+            <thead>
+
+            </thead>
+            <tbody>
             <tr ng-if="searchtext" ng-repeat="user in users | filter: searchtext">
                 <td><a ng-click="selectProfile(user)" class="whitefont">{{user.firstName}}</a></td>
             </tr>

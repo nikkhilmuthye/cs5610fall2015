@@ -277,3 +277,7 @@ max-height:100%;
 .onhover-black:hover{
     color: black
 }
+
+.text-align-center{
+    text-align: center;
+}

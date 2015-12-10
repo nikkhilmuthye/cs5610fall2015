@@ -163,7 +163,7 @@
             return deferred.promise;
         }
 
-        function removeStoryFromFavorites(storyId, userId){
+        function removeStoryFromFavorites(userId, storyId){
             var deferred = $q.defer();
 
             $http.put("/api/project/user/"+userId+"/removeStory/"+storyId)

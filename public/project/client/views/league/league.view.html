@@ -7,19 +7,19 @@
             <thead>
                 <td class="storycontent">Position</td>
                 <td class="storycontent">Team</td>
-                <td class="storycontent">Points</td>
-                <td class="storycontent">Goal Difference</td>
-                <td class="storycontent">Goals For</td>
-                <td class="storycontent">Goals Against</td>
+                <td class="storycontent text-align-center">Points</td>
+                <td class="storycontent text-align-center">Goal Difference</td>
+                <td class="storycontent text-align-center">Goals For</td>
+                <td class="storycontent text-align-center">Goals Against</td>
             </thead>
             <tbody>
                 <tr ng-repeat="team in leagueTable.standing">
                     <td>{{team.position}}</td>
                     <td><a ng-click="selectTeam($index)" class="whitefont pointer">{{team.teamName}}</a></td>
-                    <td>{{team.points}}</td>
-                    <td>{{team.goalDifference}}</td>
-                    <td>{{team.goals}}</td>
-                    <td>{{team.goalsAgainst}}</td>
+                    <td class="text-align-center">{{team.points}}</td>
+                    <td class="text-align-center">{{team.goalDifference}}</td>
+                    <td class="text-align-center">{{team.goals}}</td>
+                    <td class="text-align-center">{{team.goalsAgainst}}</td>
                 </tr>
             </tbody>
         </table>
@@ -38,17 +38,17 @@
 
         <table class="table">
             <thead>
-            <td class="storycontent">Home</td>
+            <td class="storycontent text-align-center">Home</td>
             <td class="storycontent"></td>
-            <td class="storycontent">Away</td>
-            <td class="storycontent">Result</td>
+            <td class="storycontent text-align-center">Away</td>
+            <td class="storycontent text-align-center">Result</td>
             </thead>
             <tbody>
             <tr ng-repeat="fixture in fixtures.fixtures" ng-if="fixture.matchday == matchday">
-                <td>{{fixture.homeTeamName}}</td>
-                <td>vs</td>
-                <td>{{fixture.awayTeamName}}</td>
-                <td>{{fixture.result.goalsHomeTeam}} - {{fixture.result.goalsAwayTeam}}</td>
+                <td class="text-align-center">{{fixture.homeTeamName}}</td>
+                <td class="text-align-center">vs</td>
+                <td class="text-align-center">{{fixture.awayTeamName}}</td>
+                <td class="text-align-center">{{fixture.result.goalsHomeTeam}} - {{fixture.result.goalsAwayTeam}}</td>
             </tr>
             </tbody>
         </table>
