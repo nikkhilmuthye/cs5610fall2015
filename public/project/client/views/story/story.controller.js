@@ -57,7 +57,7 @@
                 $scope.story.comments.forEach(function(comment){
                     var temp = comment.split(";");
                     console.log(temp);
-                    if(temp[0] && temp[0] != "") {
+                    if(temp.length == 2 && temp[0] && temp[0] != "") {
                         UserService.findUserbyId(temp[0])
                             .then(function (user) {
                                 var comment = {"user": user, "comment": temp[1]};
@@ -69,7 +69,10 @@
                             });
                     }
                     else{
-                        var comment = {"user": {"firstName": "Anonymous", "lastName": ""}, "comment": temp[1]};
+                        if(temp.length == 2)
+                            var comment = {"user": {"firstName": "Anonymous", "lastName": ""}, "comment": temp[1]};
+                        else
+                            var comment = {"user": {"firstName": "Anonymous", "lastName": ""}, "comment": temp[0]};
                         $scope.comments.push(comment);
                     }
 
